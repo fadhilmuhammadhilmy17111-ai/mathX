@@ -1,0 +1,889 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Bab 7 Persamaan & Pertidaksamaan</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    line-height:1.6;
+    padding-bottom:30px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    padding:
+        calc(12px + env(safe-area-inset-top))
+        16px
+        14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.header-content{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.18);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    font-size:19px;
+}
+
+.header-title p{
+    font-size:12px;
+    opacity:.85;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:18px 14px 40px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    border-radius:24px;
+    padding:26px 20px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(37,99,235,.22);
+}
+
+.hero .number{
+    font-size:13px;
+    font-weight:bold;
+    opacity:.85;
+    margin-bottom:5px;
+}
+
+.hero h2{
+    font-size:27px;
+    margin-bottom:7px;
+}
+
+.hero p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.card h3{
+    color:#2563eb;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.card h4{
+    color:#334155;
+    margin-top:15px;
+    margin-bottom:7px;
+}
+
+.card p{
+    margin-bottom:10px;
+}
+
+.card ul{
+    padding-left:22px;
+    margin-bottom:10px;
+}
+
+.card li{
+    margin-bottom:5px;
+}
+
+.formula{
+    background:#eff6ff;
+    border-left:5px solid #2563eb;
+    padding:13px;
+    border-radius:10px;
+    margin:12px 0;
+    font-weight:bold;
+    overflow-x:auto;
+}
+
+.example{
+    background:#f8fafc;
+    border:1px solid #dbeafe;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.example strong{
+    color:#2563eb;
+}
+
+.note{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+    border:2px solid #bfdbfe;
+}
+
+.quiz-question{
+    font-size:17px;
+    font-weight:bold;
+    margin:10px 0 15px;
+}
+
+.option{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:2px solid #dbeafe;
+    border-radius:12px;
+    background:white;
+    text-align:left;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.option.correct{
+    background:#dcfce7;
+    border-color:#22c55e;
+}
+
+.option.wrong{
+    background:#fee2e2;
+    border-color:#ef4444;
+}
+
+.result{
+    margin-top:12px;
+    font-weight:bold;
+    display:none;
+}
+
+.summary{
+    background:linear-gradient(135deg,#f0fdf4,#ecfeff);
+    border:1px solid #bbf7d0;
+}
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    padding:10px;
+}
+
+@media (orientation:landscape) and (max-height:600px){
+    .container{
+        max-width:900px;
+    }
+
+    .hero{
+        padding:20px;
+    }
+
+    .card{
+        padding:17px;
+    }
+}
+
+@media (min-width:800px){
+    .container{
+        padding-top:25px;
+    }
+}
+
+@media (prefers-color-scheme:dark){
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .card{
+        background:#1e293b;
+        box-shadow:0 4px 15px rgba(0,0,0,.25);
+    }
+
+    .card h3{
+        color:#60a5fa;
+    }
+
+    .card h4{
+        color:#cbd5e1;
+    }
+
+    .formula{
+        background:#172554;
+        border-color:#60a5fa;
+    }
+
+    .example{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .note{
+        background:#2a2115;
+    }
+
+    .quiz{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .option{
+        background:#1e293b;
+        color:#e5e7eb;
+        border-color:#334155;
+    }
+
+    .summary{
+        background:#13251d;
+        border-color:#166534;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-content">
+
+        <button class="back-btn" onclick="goBack()">
+            ←
+        </button>
+
+        <div class="header-title">
+            <h1>📐 MathX</h1>
+            <p>Matematika Kelas 10</p>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <section class="hero">
+        <div class="number">BAB 7</div>
+        <h2>Persamaan & Pertidaksamaan</h2>
+        <p>
+            Mempelajari persamaan, pertidaksamaan,
+            nilai mutlak, dan cara menentukan himpunan penyelesaian.
+        </p>
+    </section>
+
+
+    <!-- 1 -->
+    <section class="card">
+        <h3>1. Pengertian Persamaan</h3>
+
+        <p>
+            Persamaan adalah kalimat matematika yang menyatakan
+            bahwa dua bentuk memiliki nilai yang sama.
+        </p>
+
+        <div class="formula">
+            2x + 4 = 10
+        </div>
+
+        <p>
+            Huruf x disebut variabel. Nilai x yang membuat persamaan
+            menjadi benar disebut penyelesaian.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            2x + 4 = 10
+            <br><br>
+
+            2x = 10 - 4
+            <br>
+            2x = 6
+            <br>
+            <b>x = 3</b>
+        </div>
+    </section>
+
+
+    <!-- 2 -->
+    <section class="card">
+        <h3>2. Persamaan Linear Satu Variabel</h3>
+
+        <p>
+            Persamaan linear satu variabel atau PLSV adalah persamaan
+            yang hanya mempunyai satu variabel dengan pangkat tertinggi 1.
+        </p>
+
+        <div class="formula">
+            ax + b = 0
+        </div>
+
+        <p>dengan a ≠ 0.</p>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            5x - 15 = 0
+            <br><br>
+
+            5x = 15
+            <br>
+            <b>x = 3</b>
+        </div>
+    </section>
+
+
+    <!-- 3 -->
+    <section class="card">
+        <h3>3. Persamaan Linear Dua Variabel</h3>
+
+        <p>
+            Persamaan linear dua variabel memiliki dua variabel,
+            biasanya x dan y.
+        </p>
+
+        <div class="formula">
+            ax + by = c
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            2x + y = 8
+            <br><br>
+
+            Persamaan tersebut mempunyai banyak pasangan
+            (x,y) yang memenuhi.
+        </div>
+    </section>
+
+
+    <!-- 4 -->
+    <section class="card">
+        <h3>4. Persamaan Kuadrat</h3>
+
+        <p>
+            Persamaan kuadrat memiliki bentuk umum:
+        </p>
+
+        <div class="formula">
+            ax² + bx + c = 0
+        </div>
+
+        <p>
+            dengan a ≠ 0.
+        </p>
+
+        <h4>Rumus Kuadrat</h4>
+
+        <div class="formula">
+            x = (-b ± √(b² - 4ac)) / 2a
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            x² - 5x + 6 = 0
+            <br><br>
+
+            Faktorkan:
+            <br>
+            (x - 2)(x - 3) = 0
+            <br><br>
+
+            Maka:
+            <br>
+            <b>x = 2 atau x = 3</b>
+        </div>
+    </section>
+
+
+    <!-- 5 -->
+    <section class="card">
+        <h3>5. Pemfaktoran Persamaan Kuadrat</h3>
+
+        <p>
+            Salah satu cara menyelesaikan persamaan kuadrat adalah
+            dengan faktorisasi.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            x² + 7x + 12 = 0
+            <br><br>
+
+            Cari dua bilangan yang jumlahnya 7 dan hasil kalinya 12.
+            <br><br>
+
+            3 dan 4
+            <br><br>
+
+            Jadi:
+            <br>
+            (x + 3)(x + 4) = 0
+            <br><br>
+
+            <b>x = -3 atau x = -4</b>
+        </div>
+    </section>
+
+
+    <!-- 6 -->
+    <section class="card">
+        <h3>6. Diskriminan</h3>
+
+        <p>
+            Diskriminan digunakan untuk menentukan jenis akar
+            persamaan kuadrat.
+        </p>
+
+        <div class="formula">
+            D = b² - 4ac
+        </div>
+
+        <ul>
+            <li>D > 0 → dua akar real berbeda.</li>
+            <li>D = 0 → satu akar real kembar.</li>
+            <li>D < 0 → tidak memiliki akar real.</li>
+        </ul>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            x² - 4x + 4 = 0
+            <br><br>
+
+            D = (-4)² - 4(1)(4)
+            <br>
+            = 16 - 16
+            <br>
+            <b>D = 0</b>
+            <br><br>
+
+            Jadi persamaan memiliki akar kembar.
+        </div>
+    </section>
+
+
+    <!-- 7 -->
+    <section class="card">
+        <h3>7. Pengertian Pertidaksamaan</h3>
+
+        <p>
+            Pertidaksamaan adalah kalimat matematika yang menggunakan
+            tanda perbandingan.
+        </p>
+
+        <div class="formula">
+            &lt; &nbsp;&nbsp; &gt; &nbsp;&nbsp; ≤ &nbsp;&nbsp; ≥
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            x + 3 &gt; 7
+            <br><br>
+
+            x &gt; 7 - 3
+            <br>
+            <b>x &gt; 4</b>
+        </div>
+    </section>
+
+
+    <!-- 8 -->
+    <section class="card">
+        <h3>8. Pertidaksamaan Linear Satu Variabel</h3>
+
+        <p>
+            Pertidaksamaan linear satu variabel memiliki variabel
+            dengan pangkat tertinggi 1.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            3x - 6 ≤ 9
+            <br><br>
+
+            3x ≤ 15
+            <br>
+            <b>x ≤ 5</b>
+        </div>
+
+        <div class="note">
+            <b>Penting:</b> Jika kedua ruas dikalikan atau dibagi
+            dengan bilangan negatif, tanda pertidaksamaan harus
+            dibalik.
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            -2x &gt; 6
+            <br><br>
+
+            x &lt; -3
+        </div>
+    </section>
+
+
+    <!-- 9 -->
+    <section class="card">
+        <h3>9. Pertidaksamaan Kuadrat</h3>
+
+        <p>
+            Pertidaksamaan kuadrat memiliki bentuk seperti:
+        </p>
+
+        <div class="formula">
+            ax² + bx + c &gt; 0
+        </div>
+
+        <p>
+            atau menggunakan tanda &lt;, ≤, dan ≥.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            x² - 5x + 6 &gt; 0
+            <br><br>
+
+            Faktorkan:
+            <br>
+            (x - 2)(x - 3) &gt; 0
+            <br><br>
+
+            Titik pembatas:
+            <br>
+            x = 2 dan x = 3
+            <br><br>
+
+            Hasil penyelesaian:
+            <br>
+            <b>x &lt; 2 atau x &gt; 3</b>
+        </div>
+    </section>
+
+
+    <!-- 10 -->
+    <section class="card">
+        <h3>10. Garis Bilangan</h3>
+
+        <p>
+            Garis bilangan membantu menunjukkan himpunan penyelesaian
+            pertidaksamaan.
+        </p>
+
+        <ul>
+            <li>&lt; atau &gt; menggunakan titik kosong.</li>
+            <li>≤ atau ≥ menggunakan titik penuh.</li>
+        </ul>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            x ≥ 3
+            <br><br>
+
+            Artinya semua bilangan yang lebih besar atau sama dengan 3
+            merupakan penyelesaian.
+        </div>
+    </section>
+
+
+    <!-- 11 -->
+    <section class="card">
+        <h3>11. Nilai Mutlak</h3>
+
+        <p>
+            Nilai mutlak suatu bilangan merupakan jarak bilangan
+            tersebut dari nol pada garis bilangan.
+        </p>
+
+        <div class="formula">
+            |x| ≥ 0
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            |5| = 5
+            <br>
+            |-5| = 5
+            <br>
+            |0| = 0
+        </div>
+    </section>
+
+
+    <!-- 12 -->
+    <section class="card">
+        <h3>12. Persamaan Nilai Mutlak</h3>
+
+        <p>
+            Untuk persamaan:
+        </p>
+
+        <div class="formula">
+            |x| = a
+        </div>
+
+        <p>
+            jika a ≥ 0, maka:
+        </p>
+
+        <div class="formula">
+            x = a atau x = -a
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            |x - 2| = 5
+            <br><br>
+
+            x - 2 = 5
+            <br>
+            x = 7
+            <br><br>
+
+            atau
+            <br><br>
+
+            x - 2 = -5
+            <br>
+            x = -3
+            <br><br>
+
+            Jadi:
+            <br>
+            <b>x = 7 atau x = -3</b>
+        </div>
+    </section>
+
+
+    <!-- 13 -->
+    <section class="card">
+        <h3>13. Pertidaksamaan Nilai Mutlak</h3>
+
+        <p>Untuk a &gt; 0:</p>
+
+        <div class="formula">
+            |x| &lt; a
+            → -a &lt; x &lt; a
+        </div>
+
+        <div class="formula">
+            |x| &gt; a
+            → x &lt; -a atau x &gt; a
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            |x| &lt; 4
+            <br><br>
+
+            Maka:
+            <br>
+            <b>-4 &lt; x &lt; 4</b>
+        </div>
+    </section>
+
+
+    <!-- 14 -->
+    <section class="card">
+        <h3>14. Contoh Soal Campuran</h3>
+
+        <div class="example">
+            <strong>Soal:</strong><br><br>
+
+            Tentukan penyelesaian:
+            <br>
+            2x + 5 ≥ 13
+            <br><br>
+
+            2x ≥ 8
+            <br>
+            <b>x ≥ 4</b>
+        </div>
+
+        <div class="example">
+            <strong>Soal:</strong><br><br>
+
+            Tentukan akar:
+            <br>
+            x² - 9 = 0
+            <br><br>
+
+            (x - 3)(x + 3) = 0
+            <br><br>
+
+            <b>x = 3 atau x = -3</b>
+        </div>
+    </section>
+
+
+    <!-- QUIZ -->
+    <section class="card quiz">
+
+        <h3>🧠 Latihan Cepat</h3>
+
+        <p class="quiz-question">
+            Tentukan nilai x dari persamaan:
+            <br>
+            3x + 6 = 18
+        </p>
+
+        <button class="option" onclick="answer(this,false)">
+            A. 2
+        </button>
+
+        <button class="option" onclick="answer(this,false)">
+            B. 3
+        </button>
+
+        <button class="option" onclick="answer(this,true)">
+            C. 4
+        </button>
+
+        <button class="option" onclick="answer(this,false)">
+            D. 6
+        </button>
+
+        <div id="result" class="result"></div>
+
+    </section>
+
+
+    <!-- RINGKASAN -->
+    <section class="card summary">
+
+        <h3>📚 Ringkasan Bab 7</h3>
+
+        <ul>
+            <li>Persamaan menyatakan dua bentuk matematika memiliki nilai yang sama.</li>
+            <li>PLSV memiliki satu variabel berpangkat satu.</li>
+            <li>Persamaan kuadrat berbentuk ax² + bx + c = 0.</li>
+            <li>Persamaan kuadrat dapat diselesaikan dengan faktorisasi atau rumus kuadrat.</li>
+            <li>Diskriminan: D = b² - 4ac.</li>
+            <li>Pertidaksamaan menggunakan tanda &lt;, &gt;, ≤, atau ≥.</li>
+            <li>Jika dikali atau dibagi bilangan negatif, tanda pertidaksamaan dibalik.</li>
+            <li>Nilai mutlak menyatakan jarak suatu bilangan dari nol.</li>
+            <li>|x| &lt; a berarti -a &lt; x &lt; a.</li>
+            <li>|x| &gt; a berarti x &lt; -a atau x &gt; a.</li>
+        </ul>
+
+    </section>
+
+
+    <div class="footer">
+        MathX — Matematika Kelas 10<br>
+        Bab 7 • Persamaan & Pertidaksamaan
+    </div>
+
+</main>
+
+
+<script>
+
+function goBack(){
+    window.location.href = "index.html";
+}
+
+function answer(button, correct){
+
+    const buttons = document.querySelectorAll(".option");
+    const result = document.getElementById("result");
+
+    buttons.forEach(function(btn){
+        btn.disabled = true;
+    });
+
+    if(correct){
+
+        button.classList.add("correct");
+
+        result.style.display = "block";
+        result.style.color = "#16a34a";
+
+        result.textContent =
+            "✅ Benar! 3x + 6 = 18 → 3x = 12 → x = 4.";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        result.style.display = "block";
+        result.style.color = "#dc2626";
+
+        result.textContent =
+            "❌ Belum tepat. Jawaban yang benar adalah C. x = 4.";
+
+        buttons.forEach(function(btn){
+
+            if(btn.textContent.includes("4")){
+                btn.classList.add("correct");
+            }
+
+        });
+    }
+}
+
+</script>
+
+</body>
+</html>

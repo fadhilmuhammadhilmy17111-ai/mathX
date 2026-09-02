@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,
+maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Bab 10 Peluang</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    line-height:1.6;
+    padding-bottom:30px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    padding:
+    calc(12px + env(safe-area-inset-top))
+    16px 14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.header-content{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.18);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    font-size:19px;
+}
+
+.header-title p{
+    font-size:12px;
+    opacity:.85;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:18px 14px 40px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    border-radius:24px;
+    padding:26px 20px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(37,99,235,.22);
+}
+
+.hero .number{
+    font-size:13px;
+    font-weight:bold;
+    opacity:.85;
+}
+
+.hero h2{
+    font-size:30px;
+    margin:5px 0;
+}
+
+.hero p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.card h3{
+    color:#2563eb;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.card h4{
+    color:#334155;
+    margin-top:15px;
+    margin-bottom:7px;
+}
+
+.card p{
+    margin-bottom:10px;
+}
+
+.card ul{
+    padding-left:22px;
+    margin-bottom:10px;
+}
+
+.card li{
+    margin-bottom:5px;
+}
+
+.formula{
+    background:#eff6ff;
+    border-left:5px solid #2563eb;
+    padding:13px;
+    border-radius:10px;
+    margin:12px 0;
+    font-weight:bold;
+    overflow-x:auto;
+}
+
+.example{
+    background:#f8fafc;
+    border:1px solid #dbeafe;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.example strong{
+    color:#2563eb;
+}
+
+.note{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+    margin:12px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:350px;
+}
+
+th,td{
+    border:1px solid #dbeafe;
+    padding:9px;
+    text-align:center;
+}
+
+th{
+    background:#eff6ff;
+    color:#1d4ed8;
+}
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+    border:2px solid #bfdbfe;
+}
+
+.quiz-question{
+    font-size:17px;
+    font-weight:bold;
+    margin:10px 0 15px;
+}
+
+.option{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:2px solid #dbeafe;
+    border-radius:12px;
+    background:white;
+    text-align:left;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.option.correct{
+    background:#dcfce7;
+    border-color:#22c55e;
+}
+
+.option.wrong{
+    background:#fee2e2;
+    border-color:#ef4444;
+}
+
+.result{
+    margin-top:12px;
+    font-weight:bold;
+    display:none;
+}
+
+.summary{
+    background:linear-gradient(135deg,#f0fdf4,#ecfeff);
+    border:1px solid #bbf7d0;
+}
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    padding:10px;
+}
+
+@media (orientation:landscape) and (max-height:600px){
+
+    .container{
+        max-width:900px;
+    }
+
+    .hero{
+        padding:20px;
+    }
+
+    .card{
+        padding:17px;
+    }
+}
+
+@media (min-width:800px){
+
+    .container{
+        padding-top:25px;
+    }
+}
+
+@media (prefers-color-scheme:dark){
+
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .card{
+        background:#1e293b;
+        box-shadow:0 4px 15px rgba(0,0,0,.25);
+    }
+
+    .card h3{
+        color:#60a5fa;
+    }
+
+    .card h4{
+        color:#cbd5e1;
+    }
+
+    .formula{
+        background:#172554;
+        border-color:#60a5fa;
+    }
+
+    .example{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .note{
+        background:#2a2115;
+    }
+
+    .quiz{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .option{
+        background:#1e293b;
+        color:#e5e7eb;
+        border-color:#334155;
+    }
+
+    th{
+        background:#172554;
+        color:#93c5fd;
+    }
+
+    th,td{
+        border-color:#334155;
+    }
+
+    .summary{
+        background:#13251d;
+        border-color:#166534;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-content">
+
+        <button class="back-btn" onclick="goBack()">
+            ←
+        </button>
+
+        <div class="header-title">
+            <h1>📐 MathX</h1>
+            <p>Matematika Kelas 10</p>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="number">
+        BAB 10
+    </div>
+
+    <h2>Peluang</h2>
+
+    <p>
+        Mempelajari ruang sampel, kejadian,
+        peluang suatu kejadian, peluang komplemen,
+        peluang gabungan, dan penerapannya.
+    </p>
+
+</section>
+
+
+<!-- 1 -->
+
+<section class="card">
+
+    <h3>1. Pengertian Peluang</h3>
+
+    <p>
+        Peluang adalah ukuran kemungkinan terjadinya
+        suatu kejadian.
+    </p>
+
+    <p>
+        Nilai peluang berada antara 0 dan 1.
+    </p>
+
+    <div class="formula">
+        0 ≤ P(A) ≤ 1
+    </div>
+
+    <p>
+        Semakin besar nilai peluang, semakin besar
+        kemungkinan kejadian tersebut terjadi.
+    </p>
+
+</section>
+
+
+<!-- 2 -->
+
+<section class="card">
+
+    <h3>2. Percobaan Acak</h3>
+
+    <p>
+        Percobaan acak adalah percobaan yang hasilnya
+        belum dapat diketahui secara pasti sebelum dilakukan.
+    </p>
+
+    <div class="example">
+
+        <strong>Contoh:</strong>
+
+        <br><br>
+
+        Melempar sebuah koin.
+
+        <br><br>
+
+        Hasil yang mungkin adalah:
+        <br>
+
+        Angka atau gambar.
+
+    </div>
+
+</section>
+
+
+<!-- 3 -->
+
+<section class="card">
+
+    <h3>3. Ruang Sampel</h3>
+
+    <p>
+        Ruang sampel adalah himpunan semua hasil yang
+        mungkin terjadi dalam suatu percobaan.
+    </p>
+
+    <div class="example">
+
+        <strong>Contoh pelemparan sebuah dadu:</strong>
+
+        <br><br>
+
+        S = {1, 2, 3, 4, 5, 6}
+
+        <br><br>
+
+        Banyak anggota ruang sampel:
+
+        <br>
+
+        <b>n(S) = 6</b>
+
+    </div>
+
+</section>
+
+
+<!-- 4 -->
+
+<section class="card">
+
+    <h3>4. Titik Sampel</h3>
+
+    <p>
+        Titik sampel adalah setiap hasil yang mungkin
+        dari suatu percobaan.
+    </p>
+
+    <div class="example">
+
+        Pada pelemparan dadu:
+
+        <br><br>
+
+        1, 2, 3, 4, 5, dan 6
+
+        <br><br>
+
+        Masing-masing merupakan titik sampel.
+
+    </div>
+
+</section>
+
+
+<!-- 5 -->
+
+<section class="card">
+
+    <h3>5. Kejadian</h3>
+
+    <p>
+        Kejadian adalah himpunan bagian dari ruang sampel
+        yang memenuhi kondisi tertentu.
+    </p>
+
+    <div class="example">
+
+        Pada pelemparan dadu:
+
+        <br><br>
+
+        Kejadian muncul bilangan genap:
+
+        <br>
+
+        A = {2, 4, 6}
+
+        <br><br>
+
+        Jadi:
+
+        <br>
+
+        n(A) = 3
+
+    </div>
+
+</section>
+
+
+<!-- 6 -->
+
+<section class="card">
+
+    <h3>6. Peluang Suatu Kejadian</h3>
+
+    <p>
+        Jika setiap titik sampel memiliki kesempatan
+        yang sama untuk terjadi, maka peluang kejadian A
+        dapat dihitung dengan:
+    </p>
+
+    <div class="formula">
+        P(A) = n(A) / n(S)
+    </div>
+
+    <div class="example">
+
+        Sebuah dadu dilempar sekali.
+
+        <br><br>
+
+        Peluang muncul angka 4:
+
+        <br>
+
+        n(A) = 1
+
+        <br>
+
+        n(S) = 6
+
+        <br><br>
+
+        P(A) = 1/6
+
+    </div>
+
+</section>
+
+
+<!-- 7 -->
+
+<section class="card">
+
+    <h3>7. Peluang pada Koin</h3>
+
+    <p>
+        Sebuah koin memiliki dua kemungkinan hasil:
+        angka dan gambar.
+    </p>
+
+    <div class="example">
+
+        Ruang sampel:
+
+        <br><br>
+
+        S = {Angka, Gambar}
+
+        <br><br>
+
+        Peluang muncul angka:
+
+        <br>
+
+        <b>P(Angka) = 1/2</b>
+
+    </div>
+
+</section>
+
+
+<!-- 8 -->
+
+<section class="card">
+
+    <h3>8. Peluang Komplemen</h3>
+
+    <p>
+        Komplemen suatu kejadian A adalah kejadian
+        bahwa A tidak terjadi.
+    </p>
+
+    <div class="formula">
+        P(Aᶜ) = 1 − P(A)
+    </div>
+
+    <div class="example">
+
+        Jika:
+
+        <br>
+
+        P(A) = 0,3
+
+        <br><br>
+
+        Maka:
+
+        <br>
+
+        P(Aᶜ) = 1 − 0,3
+
+        <br>
+
+        <b>= 0,7</b>
+
+    </div>
+
+</section>
+
+
+<!-- 9 -->
+
+<section class="card">
+
+    <h3>9. Kejadian Saling Lepas</h3>
+
+    <p>
+        Dua kejadian disebut saling lepas jika keduanya
+        tidak dapat terjadi secara bersamaan.
+    </p>
+
+    <div class="formula">
+        P(A ∩ B) = 0
+    </div>
+
+    <p>
+        Untuk kejadian saling lepas:
+    </p>
+
+    <div class="formula">
+        P(A ∪ B) = P(A) + P(B)
+    </div>
+
+    <div class="example">
+
+        Pada satu kali pelemparan dadu:
+
+        <br><br>
+
+        A = muncul angka 2
+
+        <br>
+
+        B = muncul angka 5
+
+        <br><br>
+
+        Keduanya tidak dapat terjadi bersamaan.
+
+    </div>
+
+</section>
+
+
+<!-- 10 -->
+
+<section class="card">
+
+    <h3>10. Peluang Gabungan</h3>
+
+    <p>
+        Untuk dua kejadian secara umum:
+    </p>
+
+    <div class="formula">
+        P(A ∪ B)
+        = P(A) + P(B) − P(A ∩ B)
+    </div>
+
+    <p>
+        Simbol ∪ berarti "atau", sedangkan ∩ berarti
+        "dan".
+    </p>
+
+</section>
+
+
+<!-- 11 -->
+
+<section class="card">
+
+    <h3>11. Kejadian Saling Bebas</h3>
+
+    <p>
+        Dua kejadian disebut saling bebas jika terjadinya
+        satu kejadian tidak memengaruhi kejadian lainnya.
+    </p>
+
+    <div class="formula">
+        P(A ∩ B) = P(A) × P(B)
+    </div>
+
+    <div class="example">
+
+        Contoh:
+
+        <br><br>
+
+        Melempar koin dan dadu secara bersamaan.
+
+        <br><br>
+
+        Hasil koin tidak memengaruhi hasil dadu.
+
+    </div>
+
+</section>
+
+
+<!-- 12 -->
+
+<section class="card">
+
+    <h3>12. Peluang Bersyarat</h3>
+
+    <p>
+        Peluang bersyarat adalah peluang suatu kejadian
+        ketika diketahui bahwa kejadian lain telah terjadi.
+    </p>
+
+    <div class="formula">
+        P(A|B) = P(A ∩ B) / P(B)
+    </div>
+
+    <p>
+        dengan syarat P(B) ≠ 0.
+    </p>
+
+</section>
+
+
+<!-- 13 -->
+
+<section class="card">
+
+    <h3>13. Frekuensi Harapan</h3>
+
+    <p>
+        Frekuensi harapan adalah perkiraan banyaknya
+        suatu kejadian terjadi dalam sejumlah percobaan.
+    </p>
+
+    <div class="formula">
+        Fh = P(A) × banyak percobaan
+    </div>
+
+    <div class="example">
+
+        Sebuah dadu dilempar 60 kali.
+
+        <br><br>
+
+        Peluang muncul angka 6:
+
+        <br>
+
+        P(6) = 1/6
+
+        <br><br>
+
+        Frekuensi harapan:
+
+        <br>
+
+        Fh = 1/6 × 60
+
+        <br>
+
+        <b>= 10 kali</b>
+
+    </div>
+
+</section>
+
+
+<!-- 14 -->
+
+<section class="card">
+
+    <h3>14. Kaidah Pencacahan</h3>
+
+    <p>
+        Kaidah pencacahan digunakan untuk menentukan
+        banyaknya kemungkinan hasil atau susunan.
+    </p>
+
+    <h4>Aturan Perkalian</h4>
+
+    <p>
+        Jika suatu kegiatan dapat dilakukan dengan
+        m cara dan kegiatan berikutnya dengan n cara,
+        maka seluruh cara:
+    </p>
+
+    <div class="formula">
+        m × n
+    </div>
+
+    <div class="example">
+
+        Jika tersedia:
+
+        <br>
+
+        3 jenis baju
+
+        <br>
+
+        2 jenis celana
+
+        <br><br>
+
+        Banyak kombinasi:
+
+        <br>
+
+        3 × 2
+
+        <br>
+
+        <b>= 6 kombinasi</b>
+
+    </div>
+
+</section>
+
+
+<!-- 15 -->
+
+<section class="card">
+
+    <h3>15. Permutasi</h3>
+
+    <p>
+        Permutasi adalah penyusunan objek dengan
+        memperhatikan urutan.
+    </p>
+
+    <div class="formula">
+        n! = n × (n−1) × ... × 2 × 1
+    </div>
+
+    <div class="formula">
+        P(n,r) = n! / (n−r)!
+    </div>
+
+    <div class="example">
+
+        Banyak susunan 3 orang dari 5 orang:
+
+        <br><br>
+
+        P(5,3)
+
+        <br>
+
+        = 5! / 2!
+
+        <br>
+
+        = 5 × 4 × 3
+
+        <br>
+
+        <b>= 60</b>
+
+    </div>
+
+</section>
+
+
+<!-- 16 -->
+
+<section class="card">
+
+    <h3>16. Kombinasi</h3>
+
+    <p>
+        Kombinasi adalah pemilihan objek tanpa
+        memperhatikan urutan.
+    </p>
+
+    <div class="formula">
+        C(n,r) = n! / [r!(n−r)!]
+    </div>
+
+    <div class="example">
+
+        Memilih 2 siswa dari 5 siswa:
+
+        <br><br>
+
+        C(5,2)
+
+        <br>
+
+        = 5! / (2!3!)
+
+        <br>
+
+        = 10
+
+        <br><br>
+
+        Jadi ada <b>10 cara</b>.
+
+    </div>
+
+</section>
+
+
+<!-- 17 -->
+
+<section class="card">
+
+    <h3>17. Contoh Soal Peluang</h3>
+
+    <div class="example">
+
+        <strong>Soal:</strong>
+
+        <br><br>
+
+        Sebuah dadu dilempar sekali.
+        Berapakah peluang muncul bilangan lebih dari 4?
+
+        <br><br>
+
+        Ruang sampel:
+
+        <br>
+
+        S = {1,2,3,4,5,6}
+
+        <br><br>
+
+        Kejadian:
+
+        <br>
+
+        A = {5,6}
+
+        <br><br>
+
+        n(A) = 2
+
+        <br>
+
+        n(S) = 6
+
+        <br><br>
+
+        P(A) = 2/6
+
+        <br>
+
+        <b>= 1/3</b>
+
+    </div>
+
+</section>
+
+
+<!-- 18 -->
+
+<section class="card">
+
+    <h3>18. Strategi Mengerjakan Soal Peluang</h3>
+
+    <ul>
+
+        <li>
+            Tentukan percobaan yang dilakukan.
+        </li>
+
+        <li>
+            Tentukan ruang sampel.
+        </li>
+
+        <li>
+            Tentukan kejadian yang ditanyakan.
+        </li>
+
+        <li>
+            Hitung banyak titik sampel.
+        </li>
+
+        <li>
+            Gunakan rumus peluang yang sesuai.
+        </li>
+
+        <li>
+            Sederhanakan hasil akhirnya.
+        </li>
+
+    </ul>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section class="card quiz">
+
+    <h3>🧠 Latihan Cepat</h3>
+
+    <p class="quiz-question">
+
+        Sebuah dadu dilempar satu kali.
+        Berapakah peluang muncul angka genap?
+
+        <br><br>
+
+        A = {2, 4, 6}
+
+    </p>
+
+
+    <button class="option"
+    onclick="answer(this,false)">
+        A. 1/6
+    </button>
+
+    <button class="option"
+    onclick="answer(this,true)">
+        B. 1/2
+    </button>
+
+    <button class="option"
+    onclick="answer(this,false)">
+        C. 2/3
+    </button>
+
+    <button class="option"
+    onclick="answer(this,false)">
+        D. 1
+    </button>
+
+
+    <div id="result" class="result"></div>
+
+</section>
+
+
+<!-- SUMMARY -->
+
+<section class="card summary">
+
+    <h3>📚 Ringkasan Bab 10</h3>
+
+    <ul>
+
+        <li>
+            Peluang mengukur kemungkinan terjadinya suatu kejadian.
+        </li>
+
+        <li>
+            Nilai peluang berada antara 0 dan 1.
+        </li>
+
+        <li>
+            Ruang sampel adalah semua hasil yang mungkin.
+        </li>
+
+        <li>
+            Peluang kejadian:
+            P(A) = n(A) / n(S).
+        </li>
+
+        <li>
+            Peluang komplemen:
+            P(Aᶜ) = 1 − P(A).
+        </li>
+
+        <li>
+            Peluang gabungan:
+            P(A ∪ B) = P(A) + P(B) − P(A ∩ B).
+        </li>
+
+        <li>
+            Kejadian saling bebas dapat menggunakan
+            P(A ∩ B) = P(A) × P(B).
+        </li>
+
+        <li>
+            Frekuensi harapan:
+            Fh = P(A) × banyak percobaan.
+        </li>
+
+        <li>
+            Permutasi memperhatikan urutan.
+        </li>
+
+        <li>
+            Kombinasi tidak memperhatikan urutan.
+        </li>
+
+    </ul>
+
+</section>
+
+
+<div class="footer">
+
+    MathX — Matematika Kelas 10
+    <br>
+    Bab 10 • Peluang
+
+</div>
+
+</main>
+
+
+<script>
+
+function goBack(){
+
+    window.location.href="index.html";
+
+}
+
+
+function answer(button,correct){
+
+    const buttons =
+    document.querySelectorAll(".option");
+
+    const result =
+    document.getElementById("result");
+
+    buttons.forEach(function(btn){
+
+        btn.disabled = true;
+
+    });
+
+
+    if(correct){
+
+        button.classList.add("correct");
+
+        result.style.display="block";
+        result.style.color="#16a34a";
+
+        result.textContent =
+        "✅ Benar! Ada 3 angka genap dari 6 kemungkinan, jadi P(A) = 3/6 = 1/2.";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        result.style.display="block";
+        result.style.color="#dc2626";
+
+        result.textContent =
+        "❌ Belum tepat. Jawaban yang benar adalah B. 1/2.";
+
+        buttons.forEach(function(btn){
+
+            if(btn.textContent.includes("1/2")){
+
+                btn.classList.add("correct");
+
+            }
+
+        });
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

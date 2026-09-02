@@ -1,0 +1,927 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Bab 6 Fungsi</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    line-height:1.6;
+    padding-bottom:30px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    padding:
+        calc(12px + env(safe-area-inset-top))
+        16px
+        14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.header-content{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.18);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    font-size:19px;
+}
+
+.header-title p{
+    font-size:12px;
+    opacity:.85;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:18px 14px 40px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    border-radius:24px;
+    padding:26px 20px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(37,99,235,.22);
+}
+
+.hero .number{
+    font-size:13px;
+    font-weight:bold;
+    opacity:.85;
+    margin-bottom:5px;
+}
+
+.hero h2{
+    font-size:28px;
+    margin-bottom:7px;
+}
+
+.hero p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.card h3{
+    color:#2563eb;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.card h4{
+    margin-top:15px;
+    margin-bottom:7px;
+    color:#334155;
+}
+
+.card p{
+    margin-bottom:10px;
+}
+
+.card ul{
+    padding-left:22px;
+    margin-bottom:10px;
+}
+
+.card li{
+    margin-bottom:5px;
+}
+
+.formula{
+    background:#eff6ff;
+    border-left:5px solid #2563eb;
+    padding:13px;
+    border-radius:10px;
+    margin:12px 0;
+    font-weight:bold;
+    overflow-x:auto;
+}
+
+.example{
+    background:#f8fafc;
+    border:1px solid #dbeafe;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.example strong{
+    color:#2563eb;
+}
+
+.note{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+    margin:12px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:420px;
+}
+
+th,td{
+    border:1px solid #dbeafe;
+    padding:9px;
+    text-align:center;
+}
+
+th{
+    background:#eff6ff;
+    color:#1d4ed8;
+}
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+    border:2px solid #bfdbfe;
+}
+
+.quiz-question{
+    font-size:17px;
+    font-weight:bold;
+    margin:10px 0 15px;
+}
+
+.option{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:2px solid #dbeafe;
+    border-radius:12px;
+    background:white;
+    text-align:left;
+    font-size:15px;
+    cursor:pointer;
+    transition:.2s;
+}
+
+.option:hover{
+    background:#eff6ff;
+}
+
+.option.correct{
+    background:#dcfce7;
+    border-color:#22c55e;
+}
+
+.option.wrong{
+    background:#fee2e2;
+    border-color:#ef4444;
+}
+
+.result{
+    margin-top:12px;
+    font-weight:bold;
+    display:none;
+}
+
+.summary{
+    background:linear-gradient(135deg,#f0fdf4,#ecfeff);
+    border:1px solid #bbf7d0;
+}
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    padding:10px;
+}
+
+/* MODE LANDSCAPE */
+@media (orientation:landscape) and (max-height:600px){
+    .container{
+        max-width:900px;
+    }
+
+    .hero{
+        padding:20px;
+    }
+
+    .card{
+        padding:17px;
+    }
+}
+
+/* LAYAR BESAR */
+@media (min-width:800px){
+    .container{
+        padding-top:25px;
+    }
+}
+
+/* DARK MODE */
+@media (prefers-color-scheme:dark){
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .card{
+        background:#1e293b;
+        box-shadow:0 4px 15px rgba(0,0,0,.25);
+    }
+
+    .card h3{
+        color:#60a5fa;
+    }
+
+    .card h4{
+        color:#cbd5e1;
+    }
+
+    .formula{
+        background:#172554;
+        border-color:#60a5fa;
+    }
+
+    .example{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .note{
+        background:#2a2115;
+    }
+
+    .quiz{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .option{
+        background:#1e293b;
+        color:#e5e7eb;
+        border-color:#334155;
+    }
+
+    .option:hover{
+        background:#334155;
+    }
+
+    th{
+        background:#172554;
+        color:#93c5fd;
+    }
+
+    th,td{
+        border-color:#334155;
+    }
+
+    .summary{
+        background:#13251d;
+        border-color:#166534;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <div class="header-content">
+
+        <button class="back-btn" onclick="goBack()">
+            ←
+        </button>
+
+        <div class="header-title">
+            <h1>📐 MathX</h1>
+            <p>Matematika Kelas 10</p>
+        </div>
+
+    </div>
+</header>
+
+
+<main class="container">
+
+    <!-- HERO -->
+    <section class="hero">
+        <div class="number">BAB 6</div>
+        <h2>Fungsi</h2>
+        <p>
+            Memahami relasi, fungsi, domain, kodomain, range,
+            grafik, serta berbagai bentuk fungsi.
+        </p>
+    </section>
+
+
+    <!-- 1 -->
+    <section class="card">
+        <h3>1. Pengertian Fungsi</h3>
+
+        <p>
+            Fungsi adalah suatu aturan yang memasangkan setiap anggota
+            suatu himpunan dengan tepat satu anggota himpunan lainnya.
+        </p>
+
+        <p>
+            Jika himpunan pertama disebut <b>A</b> dan himpunan kedua
+            disebut <b>B</b>, maka fungsi dari A ke B ditulis:
+        </p>
+
+        <div class="formula">
+            f : A → B
+        </div>
+
+        <p>
+            Artinya setiap anggota A memiliki tepat satu pasangan
+            di B.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            A = {1, 2, 3}<br>
+            B = {2, 4, 6}<br><br>
+
+            f(x) = 2x
+        </div>
+    </section>
+
+
+    <!-- 2 -->
+    <section class="card">
+        <h3>2. Relasi dan Fungsi</h3>
+
+        <p>
+            <b>Relasi</b> adalah hubungan antara anggota suatu himpunan
+            dengan anggota himpunan lainnya.
+        </p>
+
+        <p>
+            <b>Fungsi</b> adalah relasi khusus yang setiap anggota
+            domainnya mempunyai tepat satu pasangan.
+        </p>
+
+        <div class="note">
+            <b>Ingat:</b> Satu input tidak boleh mempunyai dua output
+            berbeda jika hubungan tersebut merupakan fungsi.
+        </div>
+
+        <div class="example">
+            <strong>Contoh fungsi:</strong><br>
+            1 → 2<br>
+            2 → 4<br>
+            3 → 6
+        </div>
+
+        <div class="example">
+            <strong>Bukan fungsi:</strong><br>
+            1 → 2 dan 1 → 5
+        </div>
+    </section>
+
+
+    <!-- 3 -->
+    <section class="card">
+        <h3>3. Domain, Kodomain, dan Range</h3>
+
+        <p>
+            Dalam suatu fungsi terdapat tiga istilah penting:
+        </p>
+
+        <ul>
+            <li><b>Domain</b> = daerah asal.</li>
+            <li><b>Kodomain</b> = daerah kawan.</li>
+            <li><b>Range</b> = hasil atau daerah hasil.</li>
+        </ul>
+
+        <div class="example">
+            Misalkan:
+            <br><br>
+
+            A = {1, 2, 3}<br>
+            B = {2, 4, 6, 8}
+            <br><br>
+
+            f(x) = 2x
+            <br><br>
+
+            Domain = {1, 2, 3}<br>
+            Kodomain = {2, 4, 6, 8}<br>
+            Range = {2, 4, 6}
+        </div>
+    </section>
+
+
+    <!-- 4 -->
+    <section class="card">
+        <h3>4. Notasi Fungsi</h3>
+
+        <p>
+            Fungsi biasanya ditulis menggunakan notasi:
+        </p>
+
+        <div class="formula">
+            f(x)
+        </div>
+
+        <p>
+            Jika:
+        </p>
+
+        <div class="formula">
+            f(x) = 3x + 2
+        </div>
+
+        <p>
+            maka f(x) merupakan nilai fungsi yang bergantung pada x.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            f(x) = 3x + 2
+            <br><br>
+
+            Untuk x = 4:
+            <br>
+            f(4) = 3(4) + 2
+            <br>
+            f(4) = 12 + 2
+            <br>
+            <b>f(4) = 14</b>
+        </div>
+    </section>
+
+
+    <!-- 5 -->
+    <section class="card">
+        <h3>5. Menentukan Nilai Fungsi</h3>
+
+        <p>
+            Untuk menentukan nilai fungsi, kita mengganti x dengan
+            nilai yang diberikan.
+        </p>
+
+        <div class="formula">
+            f(x) = 2x² - 3x + 1
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong>
+            Tentukan f(2).
+            <br><br>
+
+            f(2) = 2(2²) - 3(2) + 1
+            <br>
+            = 2(4) - 6 + 1
+            <br>
+            = 8 - 6 + 1
+            <br>
+            <b>= 3</b>
+        </div>
+    </section>
+
+
+    <!-- 6 -->
+    <section class="card">
+        <h3>6. Menentukan Rumus Fungsi</h3>
+
+        <p>
+            Jika bentuk fungsi diketahui, kita dapat menentukan rumus
+            fungsi berdasarkan informasi yang diberikan.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            Diketahui fungsi linear:
+            <br>
+            f(x) = ax + b
+            <br><br>
+
+            Jika f(1) = 5 dan f(2) = 8:
+            <br><br>
+
+            a + b = 5
+            <br>
+            2a + b = 8
+            <br><br>
+
+            Kurangkan:
+            <br>
+            a = 3
+            <br><br>
+
+            b = 2
+            <br><br>
+
+            Jadi:
+            <br>
+            <b>f(x) = 3x + 2</b>
+        </div>
+    </section>
+
+
+    <!-- 7 -->
+    <section class="card">
+        <h3>7. Grafik Fungsi</h3>
+
+        <p>
+            Fungsi dapat digambarkan pada bidang koordinat.
+            Nilai input biasanya diletakkan pada sumbu x dan
+            nilai output pada sumbu y.
+        </p>
+
+        <div class="formula">
+            y = f(x)
+        </div>
+
+        <p>
+            Setiap pasangan (x, f(x)) dapat menjadi titik pada grafik.
+        </p>
+
+        <div class="example">
+            Untuk:
+            <br>
+            f(x) = x + 1
+            <br><br>
+
+            x = 0 → y = 1<br>
+            x = 1 → y = 2<br>
+            x = 2 → y = 3
+        </div>
+    </section>
+
+
+    <!-- 8 -->
+    <section class="card">
+        <h3>8. Fungsi Linear</h3>
+
+        <p>
+            Fungsi linear adalah fungsi yang memiliki bentuk umum:
+        </p>
+
+        <div class="formula">
+            f(x) = ax + b
+        </div>
+
+        <p>
+            dengan a dan b merupakan konstanta.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong>
+            <br><br>
+
+            f(x) = 2x + 3
+            <br><br>
+
+            Gradien = 2<br>
+            Konstanta = 3
+        </div>
+
+        <p>
+            Grafik fungsi linear berbentuk garis lurus.
+        </p>
+    </section>
+
+
+    <!-- 9 -->
+    <section class="card">
+        <h3>9. Fungsi Kuadrat</h3>
+
+        <p>
+            Fungsi kuadrat mempunyai bentuk umum:
+        </p>
+
+        <div class="formula">
+            f(x) = ax² + bx + c
+        </div>
+
+        <p>
+            dengan a ≠ 0.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong>
+            <br><br>
+
+            f(x) = x² - 4x + 3
+            <br><br>
+
+            a = 1<br>
+            b = -4<br>
+            c = 3
+        </div>
+
+        <p>
+            Grafik fungsi kuadrat berbentuk parabola.
+        </p>
+    </section>
+
+
+    <!-- 10 -->
+    <section class="card">
+        <h3>10. Komposisi Fungsi</h3>
+
+        <p>
+            Komposisi fungsi adalah penggabungan dua fungsi atau lebih.
+        </p>
+
+        <div class="formula">
+            (f ∘ g)(x) = f(g(x))
+        </div>
+
+        <p>
+            Artinya kita menghitung g(x) terlebih dahulu,
+            kemudian hasilnya dimasukkan ke fungsi f.
+        </p>
+
+        <div class="example">
+            <strong>Contoh:</strong>
+            <br><br>
+
+            f(x) = x + 2
+            <br>
+            g(x) = 3x
+            <br><br>
+
+            (f ∘ g)(x)
+            <br>
+            = f(g(x))
+            <br>
+            = f(3x)
+            <br>
+            = 3x + 2
+        </div>
+    </section>
+
+
+    <!-- 11 -->
+    <section class="card">
+        <h3>11. Fungsi Invers</h3>
+
+        <p>
+            Fungsi invers merupakan fungsi yang membalik hubungan
+            dari suatu fungsi.
+        </p>
+
+        <div class="formula">
+            f⁻¹(x)
+        </div>
+
+        <p>
+            Jika:
+        </p>
+
+        <div class="formula">
+            f(x) = 2x + 4
+        </div>
+
+        <p>
+            Misalkan y = 2x + 4.
+            Tukarkan x dan y:
+        </p>
+
+        <div class="formula">
+            x = 2y + 4
+        </div>
+
+        <p>
+            Kemudian selesaikan untuk y:
+        </p>
+
+        <div class="formula">
+            y = (x - 4) / 2
+        </div>
+
+        <p>
+            Jadi:
+        </p>
+
+        <div class="formula">
+            f⁻¹(x) = (x - 4) / 2
+        </div>
+    </section>
+
+
+    <!-- 12 -->
+    <section class="card">
+        <h3>12. Syarat Fungsi Invers</h3>
+
+        <p>
+            Tidak semua fungsi mempunyai invers yang juga merupakan
+            fungsi.
+        </p>
+
+        <p>
+            Salah satu konsep penting adalah fungsi harus bersifat
+            <b>satu-satu (injektif)</b> agar inversnya dapat menjadi
+            fungsi.
+        </p>
+
+        <div class="note">
+            <b>Tips:</b> Untuk fungsi sederhana, cara mencari invers
+            adalah menukar x dan y lalu menyelesaikan kembali terhadap y.
+        </div>
+    </section>
+
+
+    <!-- CONTOH -->
+    <section class="card">
+        <h3>13. Contoh Soal</h3>
+
+        <div class="example">
+            <strong>Soal:</strong><br><br>
+
+            Diketahui:
+            <br>
+            f(x) = 4x - 7
+            <br><br>
+
+            Tentukan f(5).
+            <br><br>
+
+            <b>Penyelesaian:</b>
+            <br>
+            f(5) = 4(5) - 7
+            <br>
+            = 20 - 7
+            <br>
+            <b>= 13</b>
+        </div>
+
+        <div class="example">
+            <strong>Soal:</strong><br><br>
+
+            Diketahui:
+            <br>
+            f(x) = x² + 2x
+            <br><br>
+
+            Tentukan f(3).
+            <br><br>
+
+            f(3) = 3² + 2(3)
+            <br>
+            = 9 + 6
+            <br>
+            <b>= 15</b>
+        </div>
+    </section>
+
+
+    <!-- LATIHAN -->
+    <section class="card quiz">
+        <h3>🧠 Latihan Cepat</h3>
+
+        <p class="quiz-question">
+            Jika f(x) = 3x + 5, berapakah f(4)?
+        </p>
+
+        <button class="option" onclick="answer(this,false)">
+            A. 12
+        </button>
+
+        <button class="option" onclick="answer(this,true)">
+            B. 17
+        </button>
+
+        <button class="option" onclick="answer(this,false)">
+            C. 19
+        </button>
+
+        <button class="option" onclick="answer(this,false)">
+            D. 20
+        </button>
+
+        <div id="result" class="result"></div>
+    </section>
+
+
+    <!-- RINGKASAN -->
+    <section class="card summary">
+        <h3>📚 Ringkasan Bab 6</h3>
+
+        <ul>
+            <li>Fungsi memasangkan setiap anggota domain dengan tepat satu anggota kodomain.</li>
+            <li>Domain adalah daerah asal.</li>
+            <li>Kodomain adalah daerah kawan.</li>
+            <li>Range adalah daerah hasil.</li>
+            <li>Notasi fungsi dapat ditulis f(x).</li>
+            <li>Fungsi linear berbentuk f(x) = ax + b.</li>
+            <li>Fungsi kuadrat berbentuk f(x) = ax² + bx + c.</li>
+            <li>Komposisi fungsi: (f ∘ g)(x) = f(g(x)).</li>
+            <li>Fungsi invers ditulis f⁻¹(x).</li>
+        </ul>
+    </section>
+
+
+    <div class="footer">
+        MathX — Matematika Kelas 10<br>
+        Bab 6 • Fungsi
+    </div>
+
+</main>
+
+
+<script>
+
+function goBack(){
+    window.location.href = "index.html";
+}
+
+function answer(button, correct){
+
+    const buttons = document.querySelectorAll(".option");
+    const result = document.getElementById("result");
+
+    buttons.forEach(function(btn){
+        btn.disabled = true;
+    });
+
+    if(correct){
+
+        button.classList.add("correct");
+
+        result.style.display = "block";
+        result.style.color = "#16a34a";
+        result.textContent =
+            "✅ Benar! f(4) = 3(4) + 5 = 17.";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        result.style.display = "block";
+        result.style.color = "#dc2626";
+        result.textContent =
+            "❌ Belum tepat. Jawaban yang benar adalah B. 17.";
+
+        buttons.forEach(function(btn){
+
+            if(btn.textContent.includes("17")){
+                btn.classList.add("correct");
+            }
+
+        });
+    }
+}
+
+</script>
+
+</body>
+</html>

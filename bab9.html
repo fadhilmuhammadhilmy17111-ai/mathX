@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width,initial-scale=1.0,
+maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Bab 9 Statistika</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    line-height:1.6;
+    padding-bottom:30px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    padding:
+    calc(12px + env(safe-area-inset-top))
+    16px 14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.header-content{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.18);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    font-size:19px;
+}
+
+.header-title p{
+    font-size:12px;
+    opacity:.85;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:18px 14px 40px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    border-radius:24px;
+    padding:26px 20px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(37,99,235,.22);
+}
+
+.hero .number{
+    font-size:13px;
+    font-weight:bold;
+    opacity:.85;
+}
+
+.hero h2{
+    font-size:30px;
+    margin:5px 0;
+}
+
+.hero p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.card h3{
+    color:#2563eb;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.card h4{
+    color:#334155;
+    margin-top:15px;
+    margin-bottom:7px;
+}
+
+.card p{
+    margin-bottom:10px;
+}
+
+.card ul{
+    padding-left:22px;
+    margin-bottom:10px;
+}
+
+.card li{
+    margin-bottom:5px;
+}
+
+.formula{
+    background:#eff6ff;
+    border-left:5px solid #2563eb;
+    padding:13px;
+    border-radius:10px;
+    margin:12px 0;
+    font-weight:bold;
+    overflow-x:auto;
+}
+
+.example{
+    background:#f8fafc;
+    border:1px solid #dbeafe;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.example strong{
+    color:#2563eb;
+}
+
+.table-wrap{
+    overflow-x:auto;
+    margin:12px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:350px;
+}
+
+th,td{
+    border:1px solid #dbeafe;
+    padding:9px;
+    text-align:center;
+}
+
+th{
+    background:#eff6ff;
+    color:#1d4ed8;
+}
+
+.note{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+    border:2px solid #bfdbfe;
+}
+
+.quiz-question{
+    font-size:17px;
+    font-weight:bold;
+    margin:10px 0 15px;
+}
+
+.option{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:2px solid #dbeafe;
+    border-radius:12px;
+    background:white;
+    text-align:left;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.option.correct{
+    background:#dcfce7;
+    border-color:#22c55e;
+}
+
+.option.wrong{
+    background:#fee2e2;
+    border-color:#ef4444;
+}
+
+.result{
+    margin-top:12px;
+    font-weight:bold;
+    display:none;
+}
+
+.summary{
+    background:linear-gradient(135deg,#f0fdf4,#ecfeff);
+    border:1px solid #bbf7d0;
+}
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    padding:10px;
+}
+
+@media (orientation:landscape) and (max-height:600px){
+    .container{
+        max-width:900px;
+    }
+
+    .hero{
+        padding:20px;
+    }
+
+    .card{
+        padding:17px;
+    }
+}
+
+@media (min-width:800px){
+    .container{
+        padding-top:25px;
+    }
+}
+
+@media (prefers-color-scheme:dark){
+
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .card{
+        background:#1e293b;
+        box-shadow:0 4px 15px rgba(0,0,0,.25);
+    }
+
+    .card h3{
+        color:#60a5fa;
+    }
+
+    .card h4{
+        color:#cbd5e1;
+    }
+
+    .formula{
+        background:#172554;
+        border-color:#60a5fa;
+    }
+
+    .example{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .note{
+        background:#2a2115;
+    }
+
+    .quiz{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .option{
+        background:#1e293b;
+        color:#e5e7eb;
+        border-color:#334155;
+    }
+
+    th{
+        background:#172554;
+        color:#93c5fd;
+    }
+
+    th,td{
+        border-color:#334155;
+    }
+
+    .summary{
+        background:#13251d;
+        border-color:#166534;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-content">
+
+        <button class="back-btn" onclick="goBack()">
+            ←
+        </button>
+
+        <div class="header-title">
+            <h1>📐 MathX</h1>
+            <p>Matematika Kelas 10</p>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+
+<!-- HERO -->
+
+<section class="hero">
+
+    <div class="number">
+        BAB 9
+    </div>
+
+    <h2>Statistika</h2>
+
+    <p>
+        Mempelajari data, tabel dan diagram,
+        mean, median, modus, kuartil,
+        serta penyajian dan analisis data.
+    </p>
+
+</section>
+
+
+<!-- 1 -->
+
+<section class="card">
+
+    <h3>1. Pengertian Statistika</h3>
+
+    <p>
+        Statistika adalah ilmu yang mempelajari cara
+        mengumpulkan, mengolah, menyajikan, menganalisis,
+        dan menarik kesimpulan dari data.
+    </p>
+
+    <h4>Data</h4>
+
+    <p>
+        Data adalah kumpulan informasi atau nilai yang
+        diperoleh dari suatu pengamatan.
+    </p>
+
+    <div class="example">
+
+        <strong>Contoh data nilai siswa:</strong>
+
+        <br><br>
+
+        70, 75, 80, 80, 85, 90
+
+    </div>
+
+</section>
+
+
+<!-- 2 -->
+
+<section class="card">
+
+    <h3>2. Jenis-Jenis Data</h3>
+
+    <h4>Data Kuantitatif</h4>
+
+    <p>
+        Data yang berbentuk angka dan dapat dihitung.
+    </p>
+
+    <div class="example">
+        Contoh: tinggi badan, nilai ujian,
+        jumlah siswa.
+    </div>
+
+    <h4>Data Kualitatif</h4>
+
+    <p>
+        Data yang menggambarkan sifat atau kategori.
+    </p>
+
+    <div class="example">
+        Contoh: warna, jenis kelamin,
+        jenis kendaraan.
+    </div>
+
+</section>
+
+
+<!-- 3 -->
+
+<section class="card">
+
+    <h3>3. Penyajian Data</h3>
+
+    <p>
+        Data dapat disajikan dalam beberapa bentuk,
+        antara lain:
+    </p>
+
+    <ul>
+        <li>Tabel</li>
+        <li>Diagram batang</li>
+        <li>Diagram garis</li>
+        <li>Diagram lingkaran</li>
+        <li>Histogram</li>
+    </ul>
+
+</section>
+
+
+<!-- 4 -->
+
+<section class="card">
+
+    <h3>4. Tabel Distribusi Frekuensi</h3>
+
+    <p>
+        Tabel distribusi frekuensi menunjukkan banyaknya
+        kemunculan suatu nilai atau kelompok nilai.
+    </p>
+
+    <div class="table-wrap">
+
+        <table>
+
+            <tr>
+                <th>Nilai</th>
+                <th>Frekuensi</th>
+            </tr>
+
+            <tr>
+                <td>60</td>
+                <td>2</td>
+            </tr>
+
+            <tr>
+                <td>70</td>
+                <td>4</td>
+            </tr>
+
+            <tr>
+                <td>80</td>
+                <td>5</td>
+            </tr>
+
+            <tr>
+                <td>90</td>
+                <td>3</td>
+            </tr>
+
+        </table>
+
+    </div>
+
+</section>
+
+
+<!-- 5 -->
+
+<section class="card">
+
+    <h3>5. Mean (Rata-Rata)</h3>
+
+    <p>
+        Mean adalah nilai rata-rata dari sekumpulan data.
+    </p>
+
+    <div class="formula">
+        Mean = jumlah seluruh data ÷ banyak data
+    </div>
+
+    <div class="formula">
+        x̄ = Σx / n
+    </div>
+
+    <div class="example">
+
+        <strong>Contoh:</strong>
+
+        <br><br>
+
+        Data: 6, 8, 10
+
+        <br><br>
+
+        x̄ = (6 + 8 + 10) / 3
+
+        <br>
+
+        x̄ = 24 / 3
+
+        <br>
+
+        <b>x̄ = 8</b>
+
+    </div>
+
+</section>
+
+
+<!-- 6 -->
+
+<section class="card">
+
+    <h3>6. Mean dengan Frekuensi</h3>
+
+    <p>
+        Jika data memiliki frekuensi, mean dapat dihitung
+        menggunakan jumlah hasil kali nilai dengan frekuensi.
+    </p>
+
+    <div class="formula">
+        x̄ = Σ(f × x) / Σf
+    </div>
+
+    <div class="example">
+
+        Data:
+
+        <br><br>
+
+        Nilai 5 muncul 2 kali.
+
+        <br>
+
+        Nilai 7 muncul 3 kali.
+
+        <br>
+
+        Nilai 9 muncul 1 kali.
+
+        <br><br>
+
+        x̄ = (5×2 + 7×3 + 9×1) / 6
+
+        <br>
+
+        = (10 + 21 + 9) / 6
+
+        <br>
+
+        = 40 / 6
+
+        <br>
+
+        <b>≈ 6,67</b>
+
+    </div>
+
+</section>
+
+
+<!-- 7 -->
+
+<section class="card">
+
+    <h3>7. Median</h3>
+
+    <p>
+        Median adalah nilai tengah setelah data diurutkan
+        dari yang terkecil hingga terbesar.
+    </p>
+
+    <h4>Jumlah Data Ganjil</h4>
+
+    <div class="formula">
+        Median = data ke-(n+1)/2
+    </div>
+
+    <div class="example">
+
+        Data:
+
+        <br>
+
+        3, 5, 7, 8, 10
+
+        <br><br>
+
+        Nilai tengah adalah:
+
+        <br>
+
+        <b>7</b>
+
+    </div>
+
+    <h4>Jumlah Data Genap</h4>
+
+    <p>
+        Median adalah rata-rata dua data yang berada
+        di tengah.
+    </p>
+
+    <div class="example">
+
+        Data:
+
+        <br>
+
+        2, 4, 6, 8
+
+        <br><br>
+
+        Median = (4 + 6) / 2
+
+        <br>
+
+        <b>= 5</b>
+
+    </div>
+
+</section>
+
+
+<!-- 8 -->
+
+<section class="card">
+
+    <h3>8. Modus</h3>
+
+    <p>
+        Modus adalah nilai yang paling sering muncul
+        dalam suatu kumpulan data.
+    </p>
+
+    <div class="example">
+
+        Data:
+
+        <br><br>
+
+        2, 3, 3, 4, 5, 3, 6
+
+        <br><br>
+
+        Angka 3 muncul paling banyak.
+
+        <br>
+
+        <b>Modus = 3</b>
+
+    </div>
+
+    <div class="note">
+        Suatu data dapat memiliki lebih dari satu modus.
+    </div>
+
+</section>
+
+
+<!-- 9 -->
+
+<section class="card">
+
+    <h3>9. Jangkauan (Range)</h3>
+
+    <p>
+        Jangkauan adalah selisih antara nilai terbesar
+        dan nilai terkecil.
+    </p>
+
+    <div class="formula">
+        Range = data terbesar − data terkecil
+    </div>
+
+    <div class="example">
+
+        Data:
+
+        <br>
+
+        4, 7, 9, 12, 15
+
+        <br><br>
+
+        Range = 15 − 4
+
+        <br>
+
+        <b>= 11</b>
+
+    </div>
+
+</section>
+
+
+<!-- 10 -->
+
+<section class="card">
+
+    <h3>10. Kuartil</h3>
+
+    <p>
+        Kuartil membagi data yang telah diurutkan
+        menjadi empat bagian.
+    </p>
+
+    <ul>
+        <li>Q₁ = kuartil bawah</li>
+        <li>Q₂ = kuartil tengah/median</li>
+        <li>Q₃ = kuartil atas</li>
+    </ul>
+
+    <div class="formula">
+        Q₂ = Median
+    </div>
+
+    <div class="example">
+
+        Data:
+
+        <br>
+
+        2, 4, 5, 7, 8, 10, 12
+
+        <br><br>
+
+        Median atau Q₂ adalah:
+
+        <br>
+
+        <b>7</b>
+
+    </div>
+
+</section>
+
+
+<!-- 11 -->
+
+<section class="card">
+
+    <h3>11. Simpangan dan Penyebaran Data</h3>
+
+    <p>
+        Selain mengetahui pusat data, kita juga dapat
+        melihat seberapa menyebar data tersebut.
+    </p>
+
+    <p>
+        Beberapa ukuran penyebaran data antara lain:
+    </p>
+
+    <ul>
+        <li>Jangkauan</li>
+        <li>Jangkauan antarkuartil</li>
+        <li>Simpangan rata-rata</li>
+        <li>Varians</li>
+        <li>Simpangan baku</li>
+    </ul>
+
+</section>
+
+
+<!-- 12 -->
+
+<section class="card">
+
+    <h3>12. Jangkauan Antarkuartil</h3>
+
+    <p>
+        Jangkauan antarkuartil menunjukkan penyebaran
+        50% data bagian tengah.
+    </p>
+
+    <div class="formula">
+        IQR = Q₃ − Q₁
+    </div>
+
+    <div class="example">
+
+        Jika:
+
+        <br>
+
+        Q₁ = 6
+
+        <br>
+
+        Q₃ = 14
+
+        <br><br>
+
+        Maka:
+
+        <br>
+
+        IQR = 14 − 6
+
+        <br>
+
+        <b>IQR = 8</b>
+
+    </div>
+
+</section>
+
+
+<!-- 13 -->
+
+<section class="card">
+
+    <h3>13. Diagram Batang</h3>
+
+    <p>
+        Diagram batang digunakan untuk membandingkan
+        beberapa kategori atau nilai.
+    </p>
+
+    <div class="example">
+
+        Contoh data jumlah siswa:
+
+        <br><br>
+
+        Kelas A = 30 siswa
+
+        <br>
+
+        Kelas B = 25 siswa
+
+        <br>
+
+        Kelas C = 35 siswa
+
+    </div>
+
+</section>
+
+
+<!-- 14 -->
+
+<section class="card">
+
+    <h3>14. Diagram Lingkaran</h3>
+
+    <p>
+        Diagram lingkaran digunakan untuk menunjukkan
+        bagian dari keseluruhan data.
+    </p>
+
+    <div class="formula">
+        Sudut sektor =
+        (frekuensi / total frekuensi) × 360°
+    </div>
+
+    <div class="example">
+
+        Jika suatu kategori memiliki 20 dari
+        100 data:
+
+        <br><br>
+
+        Sudut = (20/100) × 360°
+
+        <br>
+
+        <b>= 72°</b>
+
+    </div>
+
+</section>
+
+
+<!-- 15 -->
+
+<section class="card">
+
+    <h3>15. Histogram</h3>
+
+    <p>
+        Histogram digunakan untuk menyajikan distribusi
+        frekuensi data dalam interval kelas.
+    </p>
+
+    <p>
+        Berbeda dengan diagram batang biasa,
+        batang histogram saling berdempetan karena
+        data berupa interval yang berkelanjutan.
+    </p>
+
+</section>
+
+
+<!-- 16 -->
+
+<section class="card">
+
+    <h3>16. Contoh Soal Statistika</h3>
+
+    <div class="example">
+
+        <strong>Soal:</strong>
+
+        <br><br>
+
+        Tentukan mean, median, dan modus dari data:
+
+        <br><br>
+
+        4, 5, 5, 6, 7, 8, 5
+
+        <br><br>
+
+        <strong>Mean:</strong>
+
+        <br>
+
+        (4+5+5+6+7+8+5) / 7
+
+        <br>
+
+        = 40 / 7
+
+        <br>
+
+        ≈ 5,71
+
+        <br><br>
+
+        <strong>Median:</strong>
+
+        <br>
+
+        Data tengah = 6
+
+        <br><br>
+
+        <strong>Modus:</strong>
+
+        <br>
+
+        Nilai yang paling sering muncul = 5
+
+    </div>
+
+</section>
+
+
+<!-- 17 -->
+
+<section class="card">
+
+    <h3>17. Tips Mengolah Data</h3>
+
+    <ul>
+
+        <li>
+            Urutkan data terlebih dahulu ketika mencari median.
+        </li>
+
+        <li>
+            Perhatikan frekuensi setiap nilai ketika mencari modus.
+        </li>
+
+        <li>
+            Gunakan jumlah seluruh data dengan benar ketika
+            menghitung mean.
+        </li>
+
+        <li>
+            Pastikan satuan data tetap konsisten.
+        </li>
+
+        <li>
+            Periksa kembali hasil perhitungan.
+        </li>
+
+    </ul>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section class="card quiz">
+
+    <h3>🧠 Latihan Cepat</h3>
+
+    <p class="quiz-question">
+
+        Berapakah mean dari data berikut?
+
+        <br><br>
+
+        4, 6, 8, 10, 12
+
+    </p>
+
+
+    <button class="option"
+    onclick="answer(this,false)">
+        A. 6
+    </button>
+
+    <button class="option"
+    onclick="answer(this,true)">
+        B. 8
+    </button>
+
+    <button class="option"
+    onclick="answer(this,false)">
+        C. 9
+    </button>
+
+    <button class="option"
+    onclick="answer(this,false)">
+        D. 10
+    </button>
+
+
+    <div id="result" class="result"></div>
+
+</section>
+
+
+<!-- SUMMARY -->
+
+<section class="card summary">
+
+    <h3>📚 Ringkasan Bab 9</h3>
+
+    <ul>
+
+        <li>
+            Statistika mempelajari pengumpulan,
+            pengolahan, penyajian, dan analisis data.
+        </li>
+
+        <li>
+            Mean adalah nilai rata-rata.
+        </li>
+
+        <li>
+            Median adalah nilai tengah data yang telah diurutkan.
+        </li>
+
+        <li>
+            Modus adalah nilai yang paling sering muncul.
+        </li>
+
+        <li>
+            Range = nilai terbesar − nilai terkecil.
+        </li>
+
+        <li>
+            Kuartil membagi data menjadi empat bagian.
+        </li>
+
+        <li>
+            Q₂ merupakan median.
+        </li>
+
+        <li>
+            IQR = Q₃ − Q₁.
+        </li>
+
+        <li>
+            Data dapat disajikan menggunakan tabel,
+            diagram batang, diagram garis, diagram lingkaran,
+            dan histogram.
+        </li>
+
+    </ul>
+
+</section>
+
+
+<div class="footer">
+
+    MathX — Matematika Kelas 10
+    <br>
+    Bab 9 • Statistika
+
+</div>
+
+</main>
+
+
+<script>
+
+function goBack(){
+
+    window.location.href="index.html";
+
+}
+
+
+function answer(button,correct){
+
+    const buttons=
+    document.querySelectorAll(".option");
+
+    const result=
+    document.getElementById("result");
+
+    buttons.forEach(function(btn){
+
+        btn.disabled=true;
+
+    });
+
+
+    if(correct){
+
+        button.classList.add("correct");
+
+        result.style.display="block";
+        result.style.color="#16a34a";
+
+        result.textContent=
+        "✅ Benar! Mean = (4+6+8+10+12) ÷ 5 = 40 ÷ 5 = 8.";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        result.style.display="block";
+        result.style.color="#dc2626";
+
+        result.textContent=
+        "❌ Belum tepat. Jawaban yang benar adalah B. 8.";
+
+        buttons.forEach(function(btn){
+
+            if(btn.textContent.includes("8")){
+
+                btn.classList.add("correct");
+
+            }
+
+        });
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

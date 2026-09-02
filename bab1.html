@@ -1,0 +1,923 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0,
+      maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — BAB 1</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial, sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    min-height:100vh;
+    padding-bottom:30px;
+}
+
+.app{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+}
+
+/* HEADER */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(12px);
+    padding:15px;
+    padding-top:max(15px, env(safe-area-inset-top));
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.back{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:13px;
+    background:#e8f0ff;
+    color:#2563eb;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    font-size:18px;
+}
+
+.header-title p{
+    font-size:12px;
+    color:#64748b;
+    margin-top:3px;
+}
+
+/* HERO */
+
+.hero{
+    margin:16px;
+    padding:24px;
+    border-radius:24px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.hero .number{
+    font-size:13px;
+    opacity:.85;
+    margin-bottom:7px;
+}
+
+.hero h2{
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:14px;
+    line-height:1.6;
+    opacity:.92;
+}
+
+/* CONTENT */
+
+.content{
+    padding:0 16px;
+}
+
+.section{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 5px 18px rgba(30,60,100,.07);
+}
+
+.section h2{
+    font-size:20px;
+    margin-bottom:14px;
+    color:#1d4ed8;
+}
+
+.section h3{
+    font-size:16px;
+    margin:18px 0 8px;
+    color:#334155;
+}
+
+.section p{
+    font-size:14px;
+    line-height:1.75;
+    color:#475569;
+    margin-bottom:10px;
+}
+
+.section ul{
+    padding-left:20px;
+    color:#475569;
+}
+
+.section li{
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:6px;
+}
+
+/* FORMULA */
+
+.formula{
+    background:#eff6ff;
+    border-left:5px solid #2563eb;
+    border-radius:12px;
+    padding:15px;
+    margin:12px 0;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    color:#1e40af;
+    overflow-x:auto;
+}
+
+.note{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    border-radius:12px;
+    padding:14px;
+    margin:12px 0;
+    font-size:13px;
+    line-height:1.6;
+    color:#7c2d12;
+}
+
+/* EXAMPLE */
+
+.example{
+    background:#f8fafc;
+    border-radius:15px;
+    padding:15px;
+    margin-top:12px;
+}
+
+.example-title{
+    font-weight:bold;
+    color:#2563eb;
+    margin-bottom:8px;
+}
+
+.answer{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid #e2e8f0;
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* QUIZ */
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+}
+
+.question{
+    font-weight:bold;
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:14px;
+}
+
+.option{
+    width:100%;
+    border:2px solid #dbeafe;
+    background:white;
+    padding:13px;
+    margin:8px 0;
+    border-radius:12px;
+    text-align:left;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.option:hover{
+    border-color:#2563eb;
+}
+
+.option.correct{
+    border-color:#16a34a;
+    background:#dcfce7;
+}
+
+.option.wrong{
+    border-color:#dc2626;
+    background:#fee2e2;
+}
+
+.result{
+    margin-top:12px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+/* BUTTON */
+
+.btn{
+    display:block;
+    width:100%;
+    border:0;
+    border-radius:14px;
+    padding:14px;
+    background:#2563eb;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:12px;
+}
+
+.btn:active{
+    transform:scale(.98);
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    padding:20px;
+}
+
+/* DARK MODE */
+
+@media(prefers-color-scheme:dark){
+
+    body{
+        background:#0f172a;
+        color:#e2e8f0;
+    }
+
+    .header{
+        background:rgba(15,23,42,.96);
+    }
+
+    .header-title h1{
+        color:#f8fafc;
+    }
+
+    .header-title p{
+        color:#94a3b8;
+    }
+
+    .back{
+        background:#1e293b;
+        color:#60a5fa;
+    }
+
+    .section{
+        background:#1e293b;
+        box-shadow:none;
+    }
+
+    .section h2{
+        color:#60a5fa;
+    }
+
+    .section h3{
+        color:#e2e8f0;
+    }
+
+    .section p,
+    .section li{
+        color:#cbd5e1;
+    }
+
+    .formula{
+        background:#172554;
+        color:#93c5fd;
+    }
+
+    .example{
+        background:#0f172a;
+    }
+
+    .answer{
+        border-color:#334155;
+    }
+
+    .quiz{
+        background:#172554;
+    }
+
+    .option{
+        background:#1e293b;
+        border-color:#334155;
+        color:#e2e8f0;
+    }
+
+    .option.correct{
+        background:#14532d;
+    }
+
+    .option.wrong{
+        background:#7f1d1d;
+    }
+}
+
+/* LANDSCAPE */
+
+@media (orientation:landscape) and (max-height:600px){
+
+    .hero{
+        margin-top:10px;
+        padding:18px;
+    }
+
+    .hero h2{
+        font-size:22px;
+    }
+
+    .section{
+        padding:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+    <button class="back" onclick="goBack()">←</button>
+
+    <div class="header-title">
+        <h1>📐 MathX</h1>
+        <p>Matematika Kelas 10</p>
+    </div>
+
+</header>
+
+
+<section class="hero">
+
+    <div class="number">BAB 1</div>
+
+    <h2>Eksponen & Logaritma</h2>
+
+    <p>
+        Pelajari konsep bilangan berpangkat,
+        sifat-sifat eksponen, bentuk akar,
+        serta konsep dan sifat logaritma.
+    </p>
+
+</section>
+
+
+<main class="content">
+
+
+<!-- PENGANTAR -->
+
+<section class="section">
+
+<h2>📖 1. Pengertian Eksponen</h2>
+
+<p>
+Eksponen atau bilangan berpangkat adalah bentuk perkalian
+berulang dari suatu bilangan yang sama.
+</p>
+
+<div class="formula">
+aⁿ = a × a × a × ... × a
+</div>
+
+<p>
+Bilangan <b>a</b> disebut basis atau bilangan pokok,
+sedangkan <b>n</b> disebut pangkat atau eksponen.
+</p>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+2⁴ = 2 × 2 × 2 × 2
+</p>
+
+<div class="answer">
+2⁴ = 16
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SIFAT EKSPONEN -->
+
+<section class="section">
+
+<h2>📌 2. Sifat-Sifat Eksponen</h2>
+
+<h3>Perkalian dengan basis sama</h3>
+
+<div class="formula">
+aᵐ × aⁿ = aᵐ⁺ⁿ
+</div>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+2³ × 2⁴
+</p>
+
+<div class="answer">
+= 2³⁺⁴<br>
+= 2⁷<br>
+= 128
+</div>
+
+</div>
+
+
+<h3>Pembagian dengan basis sama</h3>
+
+<div class="formula">
+aᵐ ÷ aⁿ = aᵐ⁻ⁿ
+</div>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+5⁶ ÷ 5²
+</p>
+
+<div class="answer">
+= 5⁶⁻²<br>
+= 5⁴<br>
+= 625
+</div>
+
+</div>
+
+
+<h3>Pangkat dipangkatkan</h3>
+
+<div class="formula">
+(aᵐ)ⁿ = aᵐⁿ
+</div>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+(2³)²
+</p>
+
+<div class="answer">
+= 2³×²<br>
+= 2⁶<br>
+= 64
+</div>
+
+</div>
+
+
+<h3>Pangkat nol</h3>
+
+<div class="formula">
+a⁰ = 1
+</div>
+
+<p>
+Untuk a ≠ 0.
+</p>
+
+
+<h3>Pangkat negatif</h3>
+
+<div class="formula">
+a⁻ⁿ = 1 / aⁿ
+</div>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+2⁻³
+</p>
+
+<div class="answer">
+= 1 / 2³<br>
+= 1 / 8
+</div>
+
+</div>
+
+</section>
+
+
+<!-- BENTUK AKAR -->
+
+<section class="section">
+
+<h2>√ 3. Bentuk Akar</h2>
+
+<p>
+Bentuk akar berkaitan erat dengan eksponen pecahan.
+</p>
+
+<div class="formula">
+√a = a¹ᐟ²
+</div>
+
+<div class="formula">
+ⁿ√a = a¹⁄ⁿ
+</div>
+
+<h3>Contoh</h3>
+
+<div class="example">
+
+<p>
+√25 = 25¹ᐟ²
+</p>
+
+<div class="answer">
+√25 = 5
+</div>
+
+</div>
+
+<h3>Sifat bentuk akar</h3>
+
+<div class="formula">
+√a × √b = √ab
+</div>
+
+<div class="formula">
+√a / √b = √(a/b)
+</div>
+
+</section>
+
+
+<!-- RASIONALISASI -->
+
+<section class="section">
+
+<h2>🔢 4. Merasionalkan Penyebut</h2>
+
+<p>
+Penyebut yang berbentuk akar biasanya dapat dirasionalkan
+agar tidak lagi mengandung bentuk akar.
+</p>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+1 / √2
+</p>
+
+<div class="answer">
+Kalikan pembilang dan penyebut dengan √2:
+<br><br>
+= √2 / 2
+</div>
+
+</div>
+
+<div class="note">
+💡 Ingat: pembilang dan penyebut harus dikalikan
+dengan bentuk yang sama agar nilai pecahan tetap.
+</div>
+
+</section>
+
+
+<!-- LOGARITMA -->
+
+<section class="section">
+
+<h2>📚 5. Pengertian Logaritma</h2>
+
+<p>
+Logaritma merupakan kebalikan dari perpangkatan.
+</p>
+
+<div class="formula">
+aᵇ = c ⇔ logₐ c = b
+</div>
+
+<p>
+Dengan syarat:
+</p>
+
+<ul>
+<li>a &gt; 0</li>
+<li>a ≠ 1</li>
+<li>c &gt; 0</li>
+</ul>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+2³ = 8
+</p>
+
+<div class="answer">
+Maka:
+<br>
+log₂ 8 = 3
+</div>
+
+</div>
+
+</section>
+
+
+<!-- SIFAT LOGARITMA -->
+
+<section class="section">
+
+<h2>📌 6. Sifat-Sifat Logaritma</h2>
+
+<h3>Perkalian</h3>
+
+<div class="formula">
+logₐ(xy) = logₐx + logₐy
+</div>
+
+<h3>Pembagian</h3>
+
+<div class="formula">
+logₐ(x/y) = logₐx − logₐy
+</div>
+
+<h3>Pangkat</h3>
+
+<div class="formula">
+logₐ(xⁿ) = n logₐx
+</div>
+
+<h3>Logaritma dari basis</h3>
+
+<div class="formula">
+logₐ a = 1
+</div>
+
+<h3>Logaritma dari 1</h3>
+
+<div class="formula">
+logₐ 1 = 0
+</div>
+
+<h3>Perubahan basis</h3>
+
+<div class="formula">
+logₐ b = logᶜb / logᶜa
+</div>
+
+</section>
+
+
+<!-- CONTOH LOGARITMA -->
+
+<section class="section">
+
+<h2>✏️ 7. Contoh Soal Logaritma</h2>
+
+<div class="example">
+
+<div class="example-title">
+Soal 1
+</div>
+
+<p>
+Tentukan nilai log₂ 32.
+</p>
+
+<div class="answer">
+2⁵ = 32
+<br><br>
+Jadi:
+<br>
+<b>log₂ 32 = 5</b>
+</div>
+
+</div>
+
+
+<div class="example">
+
+<div class="example-title">
+Soal 2
+</div>
+
+<p>
+Tentukan nilai log₃ 81.
+</p>
+
+<div class="answer">
+3⁴ = 81
+<br><br>
+Jadi:
+<br>
+<b>log₃ 81 = 4</b>
+</div>
+
+</div>
+
+
+<div class="example">
+
+<div class="example-title">
+Soal 3
+</div>
+
+<p>
+Tentukan nilai:
+<br>
+log₂ 8 + log₂ 4
+</p>
+
+<div class="answer">
+= 3 + 2
+<br>
+= <b>5</b>
+</div>
+
+</div>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section class="section quiz">
+
+<h2>🧠 8. Latihan Cepat</h2>
+
+<div id="quizArea">
+
+<div class="question">
+Berapakah nilai dari 2⁵?
+</div>
+
+<button class="option" onclick="answer(this,false)">
+A. 10
+</button>
+
+<button class="option" onclick="answer(this,false)">
+B. 16
+</button>
+
+<button class="option" onclick="answer(this,true)">
+C. 32
+</button>
+
+<button class="option" onclick="answer(this,false)">
+D. 64
+</button>
+
+<div id="result" class="result"></div>
+
+</div>
+
+</section>
+
+
+<!-- RINGKASAN -->
+
+<section class="section">
+
+<h2>📝 9. Ringkasan</h2>
+
+<ul>
+
+<li>Eksponen adalah bentuk perpangkatan.</li>
+
+<li>Perkalian basis sama → pangkat dijumlahkan.</li>
+
+<li>Pembagian basis sama → pangkat dikurangkan.</li>
+
+<li>Pangkat dari pangkat → pangkat dikalikan.</li>
+
+<li>Pangkat nol menghasilkan 1.</li>
+
+<li>Pangkat negatif menghasilkan bentuk kebalikan.</li>
+
+<li>Logaritma merupakan kebalikan dari perpangkatan.</li>
+
+<li>Gunakan sifat logaritma untuk menyederhanakan perhitungan.</li>
+
+</ul>
+
+</section>
+
+
+<button class="btn" onclick="goBack()">
+← Kembali ke Semua Bab
+</button>
+
+
+</main>
+
+
+<div class="footer">
+📐 MathX — Matematika Kelas 10
+<br>
+Belajar sedikit demi sedikit, jadi lebih jago.
+</div>
+
+</div>
+
+
+<script>
+
+function goBack(){
+    window.location.href = "index.html";
+}
+
+
+function answer(button, correct){
+
+    const options =
+        document.querySelectorAll(".option");
+
+    options.forEach(function(option){
+        option.disabled = true;
+    });
+
+    const result =
+        document.getElementById("result");
+
+    if(correct){
+
+        button.classList.add("correct");
+
+        result.textContent =
+            "✅ Benar! 2⁵ = 32";
+
+        result.style.color = "#16a34a";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        result.textContent =
+            "❌ Belum tepat. Jawaban yang benar adalah 32.";
+
+        result.style.color = "#dc2626";
+
+        options.forEach(function(option){
+
+            if(option.textContent.includes("32")){
+                option.classList.add("correct");
+            }
+
+        });
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>

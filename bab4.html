@@ -1,0 +1,682 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Bab 4 Trigonometri</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    line-height:1.6;
+    padding-bottom:30px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.back{
+    border:none;
+    background:#e8f0ff;
+    color:#2563eb;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.header-title{
+    font-weight:bold;
+    font-size:17px;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    padding:16px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    border-radius:24px;
+    padding:25px 20px;
+    margin-bottom:18px;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.hero .label{
+    font-size:13px;
+    font-weight:bold;
+    opacity:.85;
+    margin-bottom:5px;
+}
+
+.hero h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 5px 18px rgba(30,64,175,.08);
+}
+
+.card h2{
+    color:#2563eb;
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.card h3{
+    margin-top:15px;
+    margin-bottom:7px;
+    color:#334155;
+}
+
+.card p{
+    margin-bottom:10px;
+}
+
+.formula{
+    background:#eef4ff;
+    border-left:5px solid #2563eb;
+    padding:14px;
+    border-radius:10px;
+    margin:12px 0;
+    font-size:17px;
+    font-weight:bold;
+    overflow-x:auto;
+}
+
+.example{
+    background:#f8fafc;
+    border:1px solid #dbe5f5;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.example strong{
+    color:#2563eb;
+}
+
+.tip{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.list{
+    padding-left:22px;
+}
+
+.list li{
+    margin-bottom:7px;
+}
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+}
+
+.question{
+    font-weight:bold;
+    margin-bottom:14px;
+}
+
+.option{
+    width:100%;
+    text-align:left;
+    padding:13px;
+    margin:7px 0;
+    border:2px solid #dbe5f5;
+    background:white;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.2s;
+}
+
+.option:hover{
+    border-color:#2563eb;
+    background:#f5f8ff;
+}
+
+#quizResult{
+    margin-top:12px;
+    font-weight:bold;
+}
+
+.summary{
+    background:#172033;
+    color:white;
+}
+
+.summary h2{
+    color:white;
+}
+
+.summary li{
+    margin-bottom:8px;
+}
+
+@media (orientation:landscape){
+    .container{
+        max-width:850px;
+    }
+
+    .hero h1{
+        font-size:25px;
+    }
+
+    .card{
+        padding:18px;
+    }
+}
+
+@media (prefers-color-scheme:dark){
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .header{
+        background:rgba(15,23,42,.96);
+    }
+
+    .header-title{
+        color:white;
+    }
+
+    .back{
+        background:#1e293b;
+        color:#60a5fa;
+    }
+
+    .card{
+        background:#172033;
+        box-shadow:none;
+    }
+
+    .card h2{
+        color:#60a5fa;
+    }
+
+    .card h3{
+        color:#e2e8f0;
+    }
+
+    .formula{
+        background:#1e293b;
+        border-color:#60a5fa;
+    }
+
+    .example{
+        background:#1e293b;
+        border-color:#334155;
+    }
+
+    .option{
+        background:#1e293b;
+        color:white;
+        border-color:#334155;
+    }
+
+    .quiz{
+        background:#172033;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <button class="back" onclick="goBack()">←</button>
+    <div class="header-title">📐 MathX — Bab 4</div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+    <div class="label">BAB 4</div>
+    <h1>Trigonometri</h1>
+    <p>Pelajari perbandingan trigonometri, sudut istimewa, identitas, dan aturan sinus-kosinus.</p>
+</section>
+
+<section class="card">
+    <h2>1. Pengertian Trigonometri</h2>
+
+    <p>
+        Trigonometri adalah cabang matematika yang mempelajari hubungan
+        antara <b>sudut</b> dan <b>sisi-sisi segitiga</b>.
+    </p>
+
+    <p>
+        Trigonometri banyak digunakan dalam matematika, fisika,
+        teknik, astronomi, dan berbagai bidang lainnya.
+    </p>
+
+    <h3>Perbandingan Dasar</h3>
+
+    <p>
+        Pada segitiga siku-siku terdapat tiga perbandingan utama:
+        sinus, cosinus, dan tangen.
+    </p>
+</section>
+
+<section class="card">
+    <h2>2. Sinus, Cosinus, dan Tangen</h2>
+
+    <p>Untuk sebuah sudut θ pada segitiga siku-siku:</p>
+
+    <div class="formula">
+        sin θ = sisi depan / sisi miring
+    </div>
+
+    <div class="formula">
+        cos θ = sisi samping / sisi miring
+    </div>
+
+    <div class="formula">
+        tan θ = sisi depan / sisi samping
+    </div>
+
+    <div class="tip">
+        💡 Cara mudah mengingat: <b>sin = depan/miring</b>,
+        <b>cos = samping/miring</b>,
+        <b>tan = depan/samping</b>.
+    </div>
+</section>
+
+<section class="card">
+    <h2>3. Kebalikan Perbandingan</h2>
+
+    <p>Selain tiga fungsi utama, terdapat fungsi kebalikannya:</p>
+
+    <div class="formula">
+        cosec θ = 1 / sin θ
+    </div>
+
+    <div class="formula">
+        sec θ = 1 / cos θ
+    </div>
+
+    <div class="formula">
+        cot θ = 1 / tan θ
+    </div>
+
+    <p>atau:</p>
+
+    <div class="formula">
+        cosec θ = sisi miring / sisi depan
+        <br><br>
+        sec θ = sisi miring / sisi samping
+        <br><br>
+        cot θ = sisi samping / sisi depan
+    </div>
+</section>
+
+<section class="card">
+    <h2>4. Teorema Pythagoras</h2>
+
+    <p>
+        Dalam segitiga siku-siku, hubungan ketiga sisi dapat dicari
+        menggunakan teorema Pythagoras.
+    </p>
+
+    <div class="formula">
+        c² = a² + b²
+    </div>
+
+    <p>
+        Dengan c sebagai sisi miring.
+    </p>
+
+    <div class="example">
+        <strong>Contoh:</strong><br><br>
+
+        Sebuah segitiga siku-siku mempunyai sisi 6 cm dan 8 cm.
+        Tentukan sisi miringnya.
+        <br><br>
+
+        c² = 6² + 8²
+        <br>
+        c² = 36 + 64
+        <br>
+        c² = 100
+        <br>
+        <b>c = 10 cm</b>
+    </div>
+</section>
+
+<section class="card">
+    <h2>5. Sudut Istimewa</h2>
+
+    <p>
+        Beberapa sudut mempunyai nilai trigonometri yang sering
+        digunakan dalam soal.
+    </p>
+
+    <div class="formula">
+        Sudut: 0° | 30° | 45° | 60° | 90°
+        <br><br>
+        sin: 0 | 1/2 | √2/2 | √3/2 | 1
+        <br><br>
+        cos: 1 | √3/2 | √2/2 | 1/2 | 0
+        <br><br>
+        tan: 0 | √3/3 | 1 | √3 | tidak terdefinisi
+    </div>
+
+    <div class="tip">
+        💡 Hafalkan nilai sudut 30°, 45°, dan 60° karena sering
+        muncul dalam soal trigonometri.
+    </div>
+</section>
+
+<section class="card">
+    <h2>6. Kuadran dan Tanda Trigonometri</h2>
+
+    <p>
+        Pada lingkaran satuan, tanda sin, cos, dan tan bergantung
+        pada kuadrannya.
+    </p>
+
+    <h3>Kuadran I</h3>
+    <p>sin, cos, dan tan bernilai positif.</p>
+
+    <h3>Kuadran II</h3>
+    <p>sin positif, sedangkan cos dan tan negatif.</p>
+
+    <h3>Kuadran III</h3>
+    <p>tan positif, sedangkan sin dan cos negatif.</p>
+
+    <h3>Kuadran IV</h3>
+    <p>cos positif, sedangkan sin dan tan negatif.</p>
+
+    <div class="formula">
+        I : semua +
+        <br>
+        II : sin +
+        <br>
+        III : tan +
+        <br>
+        IV : cos +
+    </div>
+</section>
+
+<section class="card">
+    <h2>7. Identitas Trigonometri</h2>
+
+    <p>
+        Identitas trigonometri adalah persamaan trigonometri yang
+        selalu benar untuk nilai yang memenuhi syarat.
+    </p>
+
+    <div class="formula">
+        sin² θ + cos² θ = 1
+    </div>
+
+    <div class="formula">
+        tan θ = sin θ / cos θ
+    </div>
+
+    <div class="formula">
+        cot θ = cos θ / sin θ
+    </div>
+
+    <div class="formula">
+        1 + tan² θ = sec² θ
+    </div>
+
+    <div class="formula">
+        1 + cot² θ = cosec² θ
+    </div>
+</section>
+
+<section class="card">
+    <h2>8. Relasi Sudut</h2>
+
+    <p>
+        Beberapa hubungan sudut dapat digunakan untuk menentukan
+        nilai trigonometri tanpa menghitung dari awal.
+    </p>
+
+    <div class="formula">
+        sin(90° − θ) = cos θ
+        <br><br>
+        cos(90° − θ) = sin θ
+        <br><br>
+        tan(90° − θ) = cot θ
+    </div>
+
+    <p>
+        Hubungan ini sering digunakan dalam penyederhanaan
+        bentuk trigonometri.
+    </p>
+</section>
+
+<section class="card">
+    <h2>9. Aturan Sinus</h2>
+
+    <p>
+        Aturan sinus dapat digunakan pada segitiga sembarang,
+        tidak hanya segitiga siku-siku.
+    </p>
+
+    <div class="formula">
+        a / sin A = b / sin B = c / sin C
+    </div>
+
+    <p>
+        Dengan a, b, c adalah panjang sisi yang berhadapan
+        dengan sudut A, B, C.
+    </p>
+
+    <div class="example">
+        <strong>Catatan:</strong><br><br>
+
+        Sisi <b>a</b> berhadapan dengan sudut <b>A</b>.
+        <br>
+        Sisi <b>b</b> berhadapan dengan sudut <b>B</b>.
+        <br>
+        Sisi <b>c</b> berhadapan dengan sudut <b>C</b>.
+    </div>
+</section>
+
+<section class="card">
+    <h2>10. Aturan Cosinus</h2>
+
+    <p>
+        Aturan cosinus dapat digunakan untuk menentukan sisi atau
+        sudut pada segitiga sembarang.
+    </p>
+
+    <div class="formula">
+        a² = b² + c² − 2bc cos A
+    </div>
+
+    <p>
+        Bentuk lainnya:
+    </p>
+
+    <div class="formula">
+        cos A = (b² + c² − a²) / (2bc)
+    </div>
+
+    <div class="tip">
+        💡 Aturan cosinus merupakan bentuk yang lebih umum dari
+        teorema Pythagoras.
+    </div>
+</section>
+
+<section class="card">
+    <h2>11. Luas Segitiga dengan Trigonometri</h2>
+
+    <p>
+        Jika diketahui dua sisi dan sudut di antara kedua sisi tersebut,
+        luas segitiga dapat dihitung menggunakan:
+    </p>
+
+    <div class="formula">
+        L = 1/2 ab sin C
+    </div>
+
+    <p>
+        Rumus ini sangat berguna ketika tinggi segitiga tidak diketahui
+        secara langsung.
+    </p>
+
+    <div class="example">
+        <strong>Contoh:</strong><br><br>
+
+        Diketahui a = 8 cm, b = 10 cm,
+        dan sudut C = 30°.
+        <br><br>
+
+        L = 1/2 × 8 × 10 × sin 30°
+        <br>
+        = 40 × 1/2
+        <br>
+        <b>= 20 cm²</b>
+    </div>
+</section>
+
+<section class="card">
+    <h2>12. Contoh Soal Trigonometri</h2>
+
+    <div class="example">
+        <strong>Soal:</strong><br><br>
+
+        Jika sebuah segitiga siku-siku mempunyai sisi depan
+        terhadap sudut θ sebesar 6 cm dan sisi miring sebesar
+        10 cm, tentukan sin θ.
+        <br><br>
+
+        <strong>Penyelesaian:</strong>
+        <br><br>
+
+        sin θ = sisi depan / sisi miring
+        <br>
+        = 6 / 10
+        <br>
+        <b>= 3/5</b>
+    </div>
+
+    <div class="example">
+        <strong>Soal 2:</strong><br><br>
+
+        Tentukan nilai tan 45°.
+        <br><br>
+
+        Dari tabel sudut istimewa:
+        <br>
+        <b>tan 45° = 1</b>
+    </div>
+</section>
+
+<section class="card quiz">
+    <h2>🎯 Latihan Cepat</h2>
+
+    <div class="question">
+        Berapakah nilai sin 30°?
+    </div>
+
+    <button class="option" onclick="answer(false)">
+        A. 1
+    </button>
+
+    <button class="option" onclick="answer(true)">
+        B. 1/2
+    </button>
+
+    <button class="option" onclick="answer(false)">
+        C. √2/2
+    </button>
+
+    <button class="option" onclick="answer(false)">
+        D. √3/2
+    </button>
+
+    <div id="quizResult"></div>
+</section>
+
+<section class="card summary">
+    <h2>📚 Ringkasan Bab 4</h2>
+
+    <ul class="list">
+        <li>Trigonometri mempelajari hubungan sudut dan sisi segitiga.</li>
+        <li>sin = sisi depan / sisi miring.</li>
+        <li>cos = sisi samping / sisi miring.</li>
+        <li>tan = sisi depan / sisi samping.</li>
+        <li>Sudut istimewa meliputi 0°, 30°, 45°, 60°, dan 90°.</li>
+        <li>Tanda fungsi trigonometri bergantung pada kuadran.</li>
+        <li>Identitas utama: sin²θ + cos²θ = 1.</li>
+        <li>Aturan sinus digunakan pada segitiga sembarang.</li>
+        <li>Aturan cosinus dapat menentukan sisi atau sudut segitiga.</li>
+        <li>Luas segitiga dapat dihitung dengan 1/2 ab sin C.</li>
+    </ul>
+</section>
+
+</main>
+
+<script>
+
+function goBack(){
+    window.location.href = "index.html";
+}
+
+function answer(correct){
+
+    const result = document.getElementById("quizResult");
+
+    if(correct){
+        result.innerHTML =
+        "✅ Benar! Nilai sin 30° = 1/2.";
+        result.style.color = "#16a34a";
+    }else{
+        result.innerHTML =
+        "❌ Belum tepat. Coba ingat kembali tabel sudut istimewa.";
+        result.style.color = "#dc2626";
+    }
+}
+
+</script>
+
+</body>
+</html>

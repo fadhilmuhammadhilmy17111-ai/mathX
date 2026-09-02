@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Bab 5 Sistem Persamaan Linear</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    line-height:1.6;
+    padding-bottom:30px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.back{
+    border:none;
+    background:#e8f0ff;
+    color:#2563eb;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.header-title{
+    font-weight:bold;
+    font-size:17px;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    padding:16px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    border-radius:24px;
+    padding:25px 20px;
+    margin-bottom:18px;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.hero .label{
+    font-size:13px;
+    font-weight:bold;
+    opacity:.85;
+    margin-bottom:5px;
+}
+
+.hero h1{
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 5px 18px rgba(30,64,175,.08);
+}
+
+.card h2{
+    color:#2563eb;
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.card h3{
+    margin-top:15px;
+    margin-bottom:7px;
+    color:#334155;
+}
+
+.card p{
+    margin-bottom:10px;
+}
+
+.formula{
+    background:#eef4ff;
+    border-left:5px solid #2563eb;
+    padding:14px;
+    border-radius:10px;
+    margin:12px 0;
+    font-size:17px;
+    font-weight:bold;
+    overflow-x:auto;
+}
+
+.example{
+    background:#f8fafc;
+    border:1px solid #dbe5f5;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.example strong{
+    color:#2563eb;
+}
+
+.tip{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.list{
+    padding-left:22px;
+}
+
+.list li{
+    margin-bottom:7px;
+}
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+}
+
+.question{
+    font-weight:bold;
+    margin-bottom:14px;
+}
+
+.option{
+    width:100%;
+    text-align:left;
+    padding:13px;
+    margin:7px 0;
+    border:2px solid #dbe5f5;
+    background:white;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.2s;
+}
+
+.option:hover{
+    border-color:#2563eb;
+    background:#f5f8ff;
+}
+
+#quizResult{
+    margin-top:12px;
+    font-weight:bold;
+}
+
+.summary{
+    background:#172033;
+    color:white;
+}
+
+.summary h2{
+    color:white;
+}
+
+.summary li{
+    margin-bottom:8px;
+}
+
+@media (orientation:landscape){
+    .container{
+        max-width:850px;
+    }
+
+    .hero h1{
+        font-size:25px;
+    }
+
+    .card{
+        padding:18px;
+    }
+}
+
+@media (prefers-color-scheme:dark){
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .header{
+        background:rgba(15,23,42,.96);
+    }
+
+    .header-title{
+        color:white;
+    }
+
+    .back{
+        background:#1e293b;
+        color:#60a5fa;
+    }
+
+    .card{
+        background:#172033;
+        box-shadow:none;
+    }
+
+    .card h2{
+        color:#60a5fa;
+    }
+
+    .card h3{
+        color:#e2e8f0;
+    }
+
+    .formula{
+        background:#1e293b;
+        border-color:#60a5fa;
+    }
+
+    .example{
+        background:#1e293b;
+        border-color:#334155;
+    }
+
+    .option{
+        background:#1e293b;
+        color:white;
+        border-color:#334155;
+    }
+
+    .quiz{
+        background:#172033;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <button class="back" onclick="goBack()">←</button>
+    <div class="header-title">📐 MathX — Bab 5</div>
+</header>
+
+<main class="container">
+
+<section class="hero">
+    <div class="label">BAB 5</div>
+    <h1>Sistem Persamaan Linear</h1>
+    <p>Pelajari persamaan linear, SPLDV, SPLTV, metode penyelesaian, dan penerapannya.</p>
+</section>
+
+<section class="card">
+    <h2>1. Pengertian Persamaan Linear</h2>
+
+    <p>
+        Persamaan linear adalah persamaan yang variabelnya memiliki
+        pangkat tertinggi satu.
+    </p>
+
+    <div class="formula">
+        ax + b = 0
+    </div>
+
+    <p>
+        Contoh:
+    </p>
+
+    <div class="formula">
+        2x + 6 = 0
+    </div>
+
+    <p>
+        Persamaan tersebut memiliki satu variabel, yaitu x.
+    </p>
+</section>
+
+<section class="card">
+    <h2>2. Sistem Persamaan Linear</h2>
+
+    <p>
+        Sistem Persamaan Linear atau SPL adalah kumpulan dua atau lebih
+        persamaan linear yang harus dipenuhi secara bersamaan.
+    </p>
+
+    <p>
+        Salah satu yang paling sering dipelajari adalah
+        <b>SPLDV</b> atau Sistem Persamaan Linear Dua Variabel.
+    </p>
+
+    <div class="formula">
+        ax + by = c
+        <br>
+        px + qy = r
+    </div>
+</section>
+
+<section class="card">
+    <h2>3. SPLDV</h2>
+
+    <p>
+        SPLDV memiliki dua variabel, biasanya menggunakan x dan y.
+    </p>
+
+    <div class="example">
+        <strong>Contoh:</strong><br><br>
+
+        2x + y = 7
+        <br>
+        x + y = 5
+        <br><br>
+
+        Kedua persamaan harus dipenuhi oleh nilai x dan y yang sama.
+    </div>
+</section>
+
+<section class="card">
+    <h2>4. Metode Substitusi</h2>
+
+    <p>
+        Metode substitusi dilakukan dengan menyatakan salah satu
+        variabel dalam bentuk variabel lainnya, kemudian memasukkannya
+        ke persamaan yang lain.
+    </p>
+
+    <div class="example">
+        <strong>Contoh:</strong><br><br>
+
+        x + y = 7
+        <br>
+        x = 7 − y
+        <br><br>
+
+        Jika:
+        <br>
+        2x + y = 11
+        <br><br>
+
+        Substitusikan x = 7 − y:
+        <br><br>
+
+        2(7 − y) + y = 11
+        <br>
+        14 − 2y + y = 11
+        <br>
+        −y = −3
+        <br>
+        <b>y = 3</b>
+        <br><br>
+
+        x = 7 − 3
+        <br>
+        <b>x = 4</b>
+    </div>
+
+    <div class="tip">
+        💡 Substitusi berarti mengganti suatu variabel dengan bentuk
+        yang setara.
+    </div>
+</section>
+
+<section class="card">
+    <h2>5. Metode Eliminasi</h2>
+
+    <p>
+        Metode eliminasi dilakukan dengan menghilangkan salah satu
+        variabel sehingga diperoleh nilai variabel lainnya.
+    </p>
+
+    <div class="example">
+        <strong>Contoh:</strong><br><br>
+
+        x + y = 7
+        <br>
+        x − y = 1
+        <br><br>
+
+        Jumlahkan kedua persamaan:
+        <br><br>
+
+        2x = 8
+        <br>
+        <b>x = 4</b>
+        <br><br>
+
+        Masukkan x = 4:
+        <br>
+        4 + y = 7
+        <br>
+        <b>y = 3</b>
+    </div>
+</section>
+
+<section class="card">
+    <h2>6. Metode Gabungan</h2>
+
+    <p>
+        Metode gabungan menggunakan kombinasi eliminasi dan substitusi.
+    </p>
+
+    <p>
+        Biasanya kita melakukan eliminasi terlebih dahulu untuk
+        mendapatkan salah satu variabel, kemudian menggunakan
+        substitusi untuk mencari variabel lainnya.
+    </p>
+
+    <div class="tip">
+        💡 Pilih metode yang paling mudah berdasarkan bentuk persamaan.
+    </div>
+</section>
+
+<section class="card">
+    <h2>7. Grafik SPLDV</h2>
+
+    <p>
+        SPLDV juga dapat diselesaikan menggunakan grafik.
+        Setiap persamaan linear dapat digambarkan sebagai sebuah garis.
+    </p>
+
+    <p>
+        Titik perpotongan kedua garis merupakan penyelesaian SPLDV.
+    </p>
+
+    <h3>Kemungkinan penyelesaian</h3>
+
+    <ul class="list">
+        <li><b>Satu solusi:</b> kedua garis berpotongan di satu titik.</li>
+        <li><b>Tidak ada solusi:</b> kedua garis sejajar.</li>
+        <li><b>Tak hingga solusi:</b> kedua garis berhimpit.</li>
+    </ul>
+</section>
+
+<section class="card">
+    <h2>8. Jenis-Jenis SPLDV</h2>
+
+    <h3>1. Konsisten dan independen</h3>
+    <p>
+        Mempunyai tepat satu penyelesaian.
+    </p>
+
+    <h3>2. Konsisten dan dependen</h3>
+    <p>
+        Mempunyai tak hingga banyak penyelesaian.
+    </p>
+
+    <h3>3. Tidak konsisten</h3>
+    <p>
+        Tidak mempunyai penyelesaian.
+    </p>
+</section>
+
+<section class="card">
+    <h2>9. Penerapan SPLDV</h2>
+
+    <p>
+        SPLDV dapat digunakan untuk menyelesaikan masalah sehari-hari.
+    </p>
+
+    <div class="example">
+        <strong>Contoh:</strong><br><br>
+
+        Harga 2 buku dan 1 pensil adalah Rp11.000.
+        <br>
+        Harga 1 buku dan 2 pensil adalah Rp10.000.
+        <br><br>
+
+        Misalkan:
+        <br>
+        x = harga buku
+        <br>
+        y = harga pensil
+        <br><br>
+
+        Maka:
+        <br>
+        2x + y = 11000
+        <br>
+        x + 2y = 10000
+        <br><br>
+
+        Persamaan tersebut dapat diselesaikan menggunakan
+        eliminasi atau substitusi.
+    </div>
+</section>
+
+<section class="card">
+    <h2>10. SPL Tiga Variabel</h2>
+
+    <p>
+        Sistem Persamaan Linear Tiga Variabel atau <b>SPLTV</b>
+        memiliki tiga variabel.
+    </p>
+
+    <div class="formula">
+        ax + by + cz = d
+        <br>
+        px + qy + rz = s
+        <br>
+        ux + vy + wz = t
+    </div>
+
+    <p>
+        Biasanya variabel yang digunakan adalah x, y, dan z.
+    </p>
+</section>
+
+<section class="card">
+    <h2>11. Metode Penyelesaian SPLTV</h2>
+
+    <p>
+        Salah satu cara menyelesaikan SPLTV adalah mengubahnya menjadi
+        dua persamaan dengan dua variabel.
+    </p>
+
+    <h3>Langkah umum:</h3>
+
+    <ol class="list">
+        <li>Eliminasi salah satu variabel dari dua pasang persamaan.</li>
+        <li>Dapatkan dua persamaan dengan dua variabel.</li>
+        <li>Selesaikan SPLDV tersebut.</li>
+        <li>Substitusikan hasilnya untuk mendapatkan variabel terakhir.</li>
+    </ol>
+</section>
+
+<section class="card">
+    <h2>12. Contoh SPLTV</h2>
+
+    <div class="example">
+        <strong>Contoh:</strong><br><br>
+
+        x + y + z = 6
+        <br>
+        x + y − z = 2
+        <br>
+        x − y + z = 4
+        <br><br>
+
+        Kurangkan persamaan pertama dengan kedua:
+        <br><br>
+
+        2z = 4
+        <br>
+        <b>z = 2</b>
+        <br><br>
+
+        Selanjutnya gunakan z = 2 pada persamaan lainnya
+        untuk mencari x dan y.
+    </div>
+</section>
+
+<section class="card">
+    <h2>13. Matriks pada Sistem Persamaan</h2>
+
+    <p>
+        Sistem persamaan linear juga dapat ditulis dalam bentuk matriks.
+    </p>
+
+    <div class="formula">
+        AX = B
+    </div>
+
+    <p>
+        Bentuk ini akan menjadi dasar untuk mempelajari matriks
+        lebih lanjut pada bab berikutnya.
+    </p>
+</section>
+
+<section class="card">
+    <h2>14. Contoh Soal</h2>
+
+    <div class="example">
+        <strong>Soal:</strong><br><br>
+
+        Tentukan x dan y:
+        <br><br>
+
+        x + y = 9
+        <br>
+        x − y = 3
+        <br><br>
+
+        <strong>Penyelesaian:</strong>
+        <br><br>
+
+        Jumlahkan kedua persamaan:
+        <br>
+        2x = 12
+        <br>
+        <b>x = 6</b>
+        <br><br>
+
+        Substitusikan ke x + y = 9:
+        <br>
+        6 + y = 9
+        <br>
+        <b>y = 3</b>
+        <br><br>
+
+        Jadi:
+        <br>
+        <b>x = 6 dan y = 3</b>
+    </div>
+</section>
+
+<section class="card quiz">
+    <h2>🎯 Latihan Cepat</h2>
+
+    <div class="question">
+        Jika x + y = 10 dan x − y = 4,
+        berapakah nilai x?
+    </div>
+
+    <button class="option" onclick="answer(false)">
+        A. 5
+    </button>
+
+    <button class="option" onclick="answer(true)">
+        B. 7
+    </button>
+
+    <button class="option" onclick="answer(false)">
+        C. 6
+    </button>
+
+    <button class="option" onclick="answer(false)">
+        D. 8
+    </button>
+
+    <div id="quizResult"></div>
+</section>
+
+<section class="card summary">
+    <h2>📚 Ringkasan Bab 5</h2>
+
+    <ul class="list">
+        <li>Persamaan linear memiliki pangkat variabel tertinggi satu.</li>
+        <li>SPL adalah kumpulan persamaan linear yang harus dipenuhi bersama.</li>
+        <li>SPLDV memiliki dua variabel.</li>
+        <li>SPLDV dapat diselesaikan dengan substitusi.</li>
+        <li>SPLDV dapat diselesaikan dengan eliminasi.</li>
+        <li>Metode gabungan mengombinasikan beberapa metode.</li>
+        <li>Pada grafik, titik perpotongan garis merupakan solusi SPLDV.</li>
+        <li>SPLTV memiliki tiga variabel.</li>
+        <li>SPLTV dapat diubah menjadi SPLDV melalui proses eliminasi.</li>
+        <li>Sistem persamaan linear juga dapat ditulis dalam bentuk matriks.</li>
+    </ul>
+</section>
+
+</main>
+
+<script>
+
+function goBack(){
+    window.location.href = "index.html";
+}
+
+function answer(correct){
+
+    const result = document.getElementById("quizResult");
+
+    if(correct){
+        result.innerHTML =
+        "✅ Benar! Jika kedua persamaan dijumlahkan, 2x = 14 sehingga x = 7.";
+        result.style.color = "#16a34a";
+    }else{
+        result.innerHTML =
+        "❌ Belum tepat. Coba jumlahkan kedua persamaan terlebih dahulu.";
+        result.style.color = "#dc2626";
+    }
+}
+
+</script>
+
+</body>
+</html>

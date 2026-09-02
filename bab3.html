@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Bab 3 Vektor</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    line-height:1.6;
+    padding-bottom:30px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(10px);
+    padding:14px 16px;
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.back{
+    border:none;
+    background:#e8f0ff;
+    color:#2563eb;
+    width:42px;
+    height:42px;
+    border-radius:12px;
+    font-size:21px;
+    cursor:pointer;
+}
+
+.header-title{
+    font-weight:bold;
+    font-size:17px;
+}
+
+.container{
+    max-width:650px;
+    margin:auto;
+    padding:16px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    border-radius:24px;
+    padding:25px 20px;
+    margin-bottom:18px;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.hero .label{
+    font-size:13px;
+    font-weight:bold;
+    opacity:.85;
+    margin-bottom:5px;
+}
+
+.hero h1{
+    font-size:28px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 5px 18px rgba(30,64,175,.08);
+}
+
+.card h2{
+    color:#2563eb;
+    font-size:20px;
+    margin-bottom:12px;
+}
+
+.card h3{
+    margin-top:15px;
+    margin-bottom:7px;
+    color:#334155;
+}
+
+.card p{
+    margin-bottom:10px;
+}
+
+.formula{
+    background:#eef4ff;
+    border-left:5px solid #2563eb;
+    padding:14px;
+    border-radius:10px;
+    margin:12px 0;
+    font-size:17px;
+    font-weight:bold;
+    overflow-x:auto;
+}
+
+.example{
+    background:#f8fafc;
+    border:1px solid #dbe5f5;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.example strong{
+    color:#2563eb;
+}
+
+.tip{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.list{
+    padding-left:22px;
+}
+
+.list li{
+    margin-bottom:7px;
+}
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+}
+
+.question{
+    font-weight:bold;
+    margin-bottom:14px;
+}
+
+.option{
+    width:100%;
+    text-align:left;
+    padding:13px;
+    margin:7px 0;
+    border:2px solid #dbe5f5;
+    background:white;
+    border-radius:12px;
+    cursor:pointer;
+    font-size:15px;
+    transition:.2s;
+}
+
+.option:hover{
+    border-color:#2563eb;
+    background:#f5f8ff;
+}
+
+#quizResult{
+    margin-top:12px;
+    font-weight:bold;
+}
+
+.summary{
+    background:#172033;
+    color:white;
+}
+
+.summary h2{
+    color:white;
+}
+
+.summary li{
+    margin-bottom:8px;
+}
+
+@media (orientation:landscape){
+    .container{
+        max-width:850px;
+    }
+
+    .hero h1{
+        font-size:25px;
+    }
+
+    .card{
+        padding:18px;
+    }
+}
+
+@media (prefers-color-scheme:dark){
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .header{
+        background:rgba(15,23,42,.96);
+    }
+
+    .header-title{
+        color:white;
+    }
+
+    .back{
+        background:#1e293b;
+        color:#60a5fa;
+    }
+
+    .card{
+        background:#172033;
+        box-shadow:none;
+    }
+
+    .card h2{
+        color:#60a5fa;
+    }
+
+    .card h3{
+        color:#e2e8f0;
+    }
+
+    .formula{
+        background:#1e293b;
+        border-color:#60a5fa;
+    }
+
+    .example{
+        background:#1e293b;
+        border-color:#334155;
+    }
+
+    .option{
+        background:#1e293b;
+        color:white;
+        border-color:#334155;
+    }
+
+    .quiz{
+        background:#172033;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+    <button class="back" onclick="goBack()">←</button>
+    <div class="header-title">📐 MathX — Bab 3</div>
+</header>
+
+<main class="container">
+
+    <section class="hero">
+        <div class="label">BAB 3</div>
+        <h1>Vektor</h1>
+        <p>Pelajari konsep vektor, operasi vektor, panjang vektor, dan penerapannya.</p>
+    </section>
+
+    <!-- PENGERTIAN -->
+    <section class="card">
+        <h2>1. Pengertian Vektor</h2>
+
+        <p>
+            Vektor adalah besaran yang mempunyai <b>besar (nilai)</b> dan
+            <b>arah</b>.
+        </p>
+
+        <p>
+            Contoh besaran vektor antara lain perpindahan, kecepatan,
+            percepatan, dan gaya.
+        </p>
+
+        <h3>Notasi Vektor</h3>
+
+        <p>Vektor dapat ditulis menggunakan huruf dengan tanda panah:</p>
+
+        <div class="formula">
+            →AB
+        </div>
+
+        <p>
+            atau dalam bentuk komponen:
+        </p>
+
+        <div class="formula">
+            a = (a₁, a₂)
+        </div>
+
+        <p>
+            Pada bidang koordinat, komponen pertama menunjukkan arah
+            horizontal dan komponen kedua menunjukkan arah vertikal.
+        </p>
+    </section>
+
+    <!-- KOMPONEN -->
+    <section class="card">
+        <h2>2. Komponen Vektor</h2>
+
+        <p>
+            Misalkan sebuah vektor memiliki titik awal
+            A(x₁,y₁) dan titik akhir B(x₂,y₂).
+        </p>
+
+        <p>Komponen vektor AB dapat dihitung dengan:</p>
+
+        <div class="formula">
+            →AB = (x₂ − x₁, y₂ − y₁)
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            A(2,3) dan B(7,6).
+            <br><br>
+
+            →AB = (7 − 2, 6 − 3)
+            <br>
+            →AB = (5,3)
+        </div>
+    </section>
+
+    <!-- VEKTOR SAMA -->
+    <section class="card">
+        <h2>3. Kesamaan Dua Vektor</h2>
+
+        <p>
+            Dua vektor dikatakan sama jika mempunyai besar dan arah
+            yang sama.
+        </p>
+
+        <div class="formula">
+            a = b
+        </div>
+
+        <p>
+            Jika:
+        </p>
+
+        <div class="formula">
+            a = (a₁,a₂)
+            <br>
+            b = (b₁,b₂)
+        </div>
+
+        <p>
+            maka kedua vektor sama jika:
+        </p>
+
+        <div class="formula">
+            a₁ = b₁ dan a₂ = b₂
+        </div>
+    </section>
+
+    <!-- PENJUMLAHAN -->
+    <section class="card">
+        <h2>4. Penjumlahan Vektor</h2>
+
+        <p>
+            Penjumlahan vektor dilakukan dengan menjumlahkan komponen
+            yang bersesuaian.
+        </p>
+
+        <div class="formula">
+            a + b = (a₁+b₁, a₂+b₂)
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            a = (3,2)
+            <br>
+            b = (4,5)
+            <br><br>
+
+            a + b = (3+4, 2+5)
+            <br>
+            <b>a + b = (7,7)</b>
+        </div>
+    </section>
+
+    <!-- PENGURANGAN -->
+    <section class="card">
+        <h2>5. Pengurangan Vektor</h2>
+
+        <p>
+            Pengurangan vektor juga dilakukan berdasarkan komponennya.
+        </p>
+
+        <div class="formula">
+            a − b = (a₁−b₁, a₂−b₂)
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            a = (8,6)
+            <br>
+            b = (3,2)
+            <br><br>
+
+            a − b = (8−3, 6−2)
+            <br>
+            <b>a − b = (5,4)</b>
+        </div>
+    </section>
+
+    <!-- PERKALIAN SKALAR -->
+    <section class="card">
+        <h2>6. Perkalian Vektor dengan Skalar</h2>
+
+        <p>
+            Skalar adalah bilangan yang digunakan untuk mengalikan
+            sebuah vektor.
+        </p>
+
+        <div class="formula">
+            k(a₁,a₂) = (ka₁,ka₂)
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            a = (2,4)
+            <br>
+            k = 3
+            <br><br>
+
+            3a = 3(2,4)
+            <br>
+            <b>3a = (6,12)</b>
+        </div>
+
+        <div class="tip">
+            💡 Jika k positif, arah vektor tetap.
+            Jika k negatif, arah vektor berlawanan.
+        </div>
+    </section>
+
+    <!-- PANJANG -->
+    <section class="card">
+        <h2>7. Panjang / Magnitudo Vektor</h2>
+
+        <p>
+            Panjang sebuah vektor menunjukkan besar atau magnitudonya.
+        </p>
+
+        <p>
+            Untuk vektor:
+        </p>
+
+        <div class="formula">
+            a = (a₁,a₂)
+        </div>
+
+        <p>panjang vektor adalah:</p>
+
+        <div class="formula">
+            |a| = √(a₁² + a₂²)
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            a = (3,4)
+            <br><br>
+
+            |a| = √(3² + 4²)
+            <br>
+            = √(9 + 16)
+            <br>
+            = √25
+            <br>
+            <b>= 5</b>
+        </div>
+    </section>
+
+    <!-- VEKTOR 3D -->
+    <section class="card">
+        <h2>8. Vektor dalam Tiga Dimensi</h2>
+
+        <p>
+            Vektor juga dapat ditulis dalam tiga komponen:
+        </p>
+
+        <div class="formula">
+            a = (a₁,a₂,a₃)
+        </div>
+
+        <p>
+            Panjang vektornya adalah:
+        </p>
+
+        <div class="formula">
+            |a| = √(a₁² + a₂² + a₃²)
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            a = (2,3,6)
+            <br><br>
+
+            |a| = √(2² + 3² + 6²)
+            <br>
+            = √(4 + 9 + 36)
+            <br>
+            = √49
+            <br>
+            <b>= 7</b>
+        </div>
+    </section>
+
+    <!-- VEKTOR SATUAN -->
+    <section class="card">
+        <h2>9. Vektor Satuan</h2>
+
+        <p>
+            Vektor satuan adalah vektor yang memiliki panjang 1.
+        </p>
+
+        <p>
+            Untuk mendapatkan vektor satuan, sebuah vektor dibagi
+            dengan panjangnya.
+        </p>
+
+        <div class="formula">
+            u = a / |a|
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            a = (3,4)
+            <br>
+            |a| = 5
+            <br><br>
+
+            u = (3/5, 4/5)
+        </div>
+    </section>
+
+    <!-- DOT PRODUCT -->
+    <section class="card">
+        <h2>10. Perkalian Titik (Dot Product)</h2>
+
+        <p>
+            Perkalian titik digunakan untuk mengalikan dua vektor
+            dan menghasilkan sebuah skalar.
+        </p>
+
+        <div class="formula">
+            a · b = a₁b₁ + a₂b₂
+        </div>
+
+        <div class="example">
+            <strong>Contoh:</strong><br><br>
+
+            a = (2,3)
+            <br>
+            b = (4,5)
+            <br><br>
+
+            a · b = (2×4) + (3×5)
+            <br>
+            = 8 + 15
+            <br>
+            <b>= 23</b>
+        </div>
+    </section>
+
+    <!-- SUDUT -->
+    <section class="card">
+        <h2>11. Sudut Antara Dua Vektor</h2>
+
+        <p>
+            Sudut antara dua vektor dapat dicari menggunakan dot product.
+        </p>
+
+        <div class="formula">
+            a · b = |a||b| cos θ
+        </div>
+
+        <p>
+            Sehingga:
+        </p>
+
+        <div class="formula">
+            cos θ = (a · b) / (|a||b|)
+        </div>
+
+        <div class="tip">
+            💡 Jika dua vektor tegak lurus, maka hasil dot product-nya
+            adalah 0.
+        </div>
+    </section>
+
+    <!-- CONTOH -->
+    <section class="card">
+        <h2>12. Contoh Soal</h2>
+
+        <div class="example">
+            <strong>Soal:</strong><br><br>
+
+            Diketahui:
+            <br>
+            a = (6,8)
+            <br><br>
+
+            Tentukan panjang vektor a.
+            <br><br>
+
+            <strong>Penyelesaian:</strong>
+            <br><br>
+
+            |a| = √(6² + 8²)
+            <br>
+            = √(36 + 64)
+            <br>
+            = √100
+            <br>
+            <b>= 10</b>
+        </div>
+
+        <div class="example">
+            <strong>Soal 2:</strong><br><br>
+
+            Diketahui:
+            <br>
+            a = (2,5)
+            <br>
+            b = (3,1)
+            <br><br>
+
+            Tentukan a + b.
+            <br><br>
+
+            <strong>Penyelesaian:</strong>
+            <br><br>
+
+            a + b = (2+3, 5+1)
+            <br>
+            <b>= (5,6)</b>
+        </div>
+    </section>
+
+    <!-- LATIHAN -->
+    <section class="card quiz">
+        <h2>🎯 Latihan Cepat</h2>
+
+        <div class="question">
+            Diketahui vektor a = (6,8).
+            Berapakah panjang vektor a?
+        </div>
+
+        <button class="option" onclick="answer(10)">
+            A. 8
+        </button>
+
+        <button class="option" onclick="answer(10)">
+            B. 10
+        </button>
+
+        <button class="option" onclick="answer(10)">
+            C. 12
+        </button>
+
+        <button class="option" onclick="answer(10)">
+            D. 14
+        </button>
+
+        <div id="quizResult"></div>
+    </section>
+
+    <!-- RINGKASAN -->
+    <section class="card summary">
+        <h2>📚 Ringkasan Bab 3</h2>
+
+        <ul class="list">
+            <li>Vektor memiliki besar dan arah.</li>
+            <li>Vektor dapat ditulis dalam bentuk komponen.</li>
+            <li>Penjumlahan dilakukan berdasarkan komponen yang bersesuaian.</li>
+            <li>Pengurangan juga dilakukan berdasarkan komponennya.</li>
+            <li>Perkalian skalar mengalikan setiap komponen vektor.</li>
+            <li>Panjang vektor menggunakan rumus Pythagoras.</li>
+            <li>Vektor satuan memiliki panjang 1.</li>
+            <li>Dot product menghasilkan sebuah skalar.</li>
+            <li>Dot product dapat digunakan untuk menentukan sudut antara dua vektor.</li>
+        </ul>
+    </section>
+
+</main>
+
+<script>
+
+function goBack(){
+    window.location.href = "index.html";
+}
+
+function answer(correct){
+
+    const result = document.getElementById("quizResult");
+
+    if(correct === 10){
+        result.innerHTML = "✅ Benar! Panjang vektor = √(6² + 8²) = √100 = 10.";
+        result.style.color = "#16a34a";
+    }else{
+        result.innerHTML = "❌ Jawaban belum tepat.";
+        result.style.color = "#dc2626";
+    }
+}
+
+</script>
+
+</body>
+</html>

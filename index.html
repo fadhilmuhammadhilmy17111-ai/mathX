@@ -1,0 +1,1123 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width,
+      initial-scale=1.0,
+      maximum-scale=1.0,
+      user-scalable=no,
+      viewport-fit=cover">
+
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Matematika Kelas 10</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+    -webkit-tap-highlight-color:transparent;
+}
+
+html{
+    min-height:100%;
+}
+
+body{
+    min-height:100vh;
+    min-height:100dvh;
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    overflow-x:hidden;
+}
+
+/* =========================
+   SPLASH
+========================= */
+
+#splash{
+    position:fixed;
+    inset:0;
+    z-index:99999;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    text-align:center;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    transition:opacity .4s ease,visibility .4s ease;
+}
+
+#splash.hide{
+    opacity:0;
+    visibility:hidden;
+    pointer-events:none;
+}
+
+.splash-content{
+    width:90%;
+}
+
+.logo{
+    width:90px;
+    height:90px;
+    margin:0 auto 20px;
+    border-radius:25px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:48px;
+    background:rgba(255,255,255,.18);
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
+    animation:bounce 1.3s infinite;
+}
+
+.splash-content h1{
+    font-size:38px;
+    margin-bottom:8px;
+}
+
+.splash-content p{
+    opacity:.9;
+    font-size:15px;
+}
+
+.loader{
+    width:45px;
+    height:5px;
+    margin:25px auto 0;
+    border-radius:10px;
+    background:rgba(255,255,255,.3);
+    overflow:hidden;
+}
+
+.loader::after{
+    content:"";
+    display:block;
+    width:45%;
+    height:100%;
+    background:white;
+    border-radius:10px;
+    animation:loading 1s infinite;
+}
+
+@keyframes bounce{
+    0%,100%{transform:translateY(0)}
+    50%{transform:translateY(-10px)}
+}
+
+@keyframes loading{
+    0%{transform:translateX(-100%)}
+    100%{transform:translateX(230%)}
+}
+
+/* =========================
+   APP
+========================= */
+
+#app{
+    width:100%;
+    max-width:520px;
+    min-height:100vh;
+    min-height:100dvh;
+    margin:auto;
+    padding-bottom:90px;
+}
+
+/* =========================
+   HEADER
+========================= */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    padding:
+        calc(14px + env(safe-area-inset-top))
+        18px
+        14px;
+    background:rgba(255,255,255,.95);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-bottom:1px solid #dbe4f5;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand-icon{
+    width:42px;
+    height:42px;
+    border-radius:13px;
+    background:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:23px;
+    color:white;
+}
+
+.brand h1{
+    font-size:21px;
+}
+
+.brand small{
+    display:block;
+    color:#718096;
+    font-size:11px;
+    margin-top:2px;
+}
+
+.score{
+    background:#eff6ff;
+    color:#2563eb;
+    padding:8px 11px;
+    border-radius:12px;
+    font-weight:bold;
+    font-size:13px;
+}
+
+/* =========================
+   CONTENT
+========================= */
+
+.content{
+    padding:20px 16px;
+}
+
+.hero{
+    padding:22px;
+    border-radius:22px;
+    color:white;
+    background:linear-gradient(135deg,#2563eb,#6366f1);
+    box-shadow:0 12px 30px rgba(37,99,235,.2);
+    margin-bottom:20px;
+}
+
+.hero h2{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:14px;
+    line-height:1.6;
+    opacity:.92;
+}
+
+.section-title{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin:22px 2px 12px;
+}
+
+.section-title h2{
+    font-size:19px;
+}
+
+.section-title span{
+    font-size:12px;
+    color:#64748b;
+}
+
+/* =========================
+   FEATURES
+========================= */
+
+.features{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:12px;
+}
+
+.feature{
+    background:white;
+    border:1px solid #e1e8f5;
+    border-radius:17px;
+    padding:17px;
+    min-height:105px;
+    box-shadow:0 5px 15px rgba(30,60,100,.05);
+}
+
+.feature-icon{
+    font-size:25px;
+    margin-bottom:8px;
+}
+
+.feature h3{
+    font-size:14px;
+    margin-bottom:5px;
+}
+
+.feature p{
+    font-size:11px;
+    color:#718096;
+    line-height:1.4;
+}
+
+/* =========================
+   BAB LIST
+========================= */
+
+.bab-list{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+/* LINK BAB */
+.bab-card{
+    width:100%;
+    border:1px solid #e1e8f5;
+    background:white;
+    border-radius:18px;
+    padding:16px;
+    display:flex;
+    align-items:center;
+    gap:14px;
+    text-align:left;
+    cursor:pointer;
+    box-shadow:0 5px 15px rgba(30,60,100,.05);
+    transition:transform .15s ease,box-shadow .15s ease;
+    text-decoration:none;
+    color:inherit;
+    -webkit-user-select:none;
+    user-select:none;
+}
+
+.bab-card:active{
+    transform:scale(.98);
+}
+
+.bab-number{
+    flex:none;
+    width:48px;
+    height:48px;
+    border-radius:15px;
+    background:#eff6ff;
+    color:#2563eb;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:17px;
+    font-weight:bold;
+}
+
+.bab-info{
+    flex:1;
+    min-width:0;
+}
+
+.bab-info h3{
+    font-size:15px;
+    margin-bottom:5px;
+}
+
+.bab-info p{
+    color:#718096;
+    font-size:11px;
+    line-height:1.4;
+}
+
+.arrow{
+    color:#94a3b8;
+    font-size:20px;
+    flex:none;
+}
+
+/* =========================
+   BOTTOM NAV
+========================= */
+
+.bottom-nav{
+    position:fixed;
+    left:50%;
+    bottom:0;
+    transform:translateX(-50%);
+    width:100%;
+    max-width:520px;
+    padding:
+        9px 12px
+        calc(9px + env(safe-area-inset-bottom));
+    background:rgba(255,255,255,.97);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+    border-top:1px solid #dbe4f5;
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    z-index:500;
+}
+
+.nav-button{
+    border:0;
+    background:transparent;
+    padding:7px 4px;
+    color:#64748b;
+    font-size:11px;
+    cursor:pointer;
+}
+
+.nav-button .nav-icon{
+    display:block;
+    font-size:22px;
+    margin-bottom:3px;
+}
+
+.nav-button.active{
+    color:#2563eb;
+    font-weight:bold;
+}
+
+/* =========================
+   RESPONSIVE
+========================= */
+
+@media (orientation:landscape){
+
+    #app{
+        max-width:900px;
+    }
+
+    .content{
+        padding:18px 25px;
+    }
+
+    .features{
+        grid-template-columns:repeat(4,1fr);
+    }
+
+    .bab-list{
+        display:grid;
+        grid-template-columns:repeat(2,1fr);
+    }
+
+    .bottom-nav{
+        max-width:900px;
+    }
+}
+
+@media (min-width:700px){
+
+    body{
+        background:#e7eefb;
+    }
+
+    #app{
+        background:#eef4ff;
+        box-shadow:0 0 40px rgba(0,0,0,.08);
+    }
+}
+
+/* =========================
+   DARK MODE
+========================= */
+
+@media (prefers-color-scheme:dark){
+
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .header{
+        background:rgba(15,23,42,.95);
+        border-bottom-color:#263247;
+    }
+
+    .brand small{
+        color:#94a3b8;
+    }
+
+    .score{
+        background:#172554;
+        color:#60a5fa;
+    }
+
+    .feature,
+    .bab-card{
+        background:#172033;
+        border-color:#263247;
+    }
+
+    .feature p,
+    .bab-info p{
+        color:#94a3b8;
+    }
+
+    .bab-number{
+        background:#172554;
+        color:#60a5fa;
+    }
+
+    .bottom-nav{
+        background:rgba(15,23,42,.97);
+        border-top-color:#263247;
+    }
+
+    .nav-button{
+        color:#94a3b8;
+    }
+
+    .nav-button.active{
+        color:#60a5fa;
+    }
+
+    @media (min-width:700px){
+        #app{
+            background:#0f172a;
+        }
+    }
+}
+</style>
+</head>
+
+<body>
+
+<!-- =========================
+     SPLASH SCREEN
+========================= -->
+
+<div id="splash">
+
+    <div class="splash-content">
+
+        <div class="logo">📐</div>
+
+        <h1>MathX</h1>
+
+        <p>Matematika Kelas 10</p>
+
+        <div class="loader"></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     APLIKASI
+========================= -->
+
+<div id="app">
+
+    <!-- HEADER -->
+
+    <header class="header">
+
+        <div class="brand">
+
+            <div class="brand-icon">📐</div>
+
+            <div>
+
+                <h1>MathX</h1>
+
+                <small>Matematika Kelas 10</small>
+
+            </div>
+
+        </div>
+
+        <div class="score">
+
+            ⭐ <span id="xp">0</span> XP
+
+        </div>
+
+    </header>
+
+
+    <!-- CONTENT -->
+
+    <main class="content">
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <h2>Halo, MathX! 👋</h2>
+
+            <p>
+                Belajar matematika kelas 10 dengan materi,
+                latihan, dan kuis dalam satu aplikasi.
+            </p>
+
+        </section>
+
+
+        <!-- MENU -->
+
+        <div class="section-title">
+
+            <h2>Menu Belajar</h2>
+
+        </div>
+
+
+        <section class="features">
+
+            <div class="feature">
+
+                <div class="feature-icon">📚</div>
+
+                <h3>Materi</h3>
+
+                <p>
+                    Pelajari materi matematika kelas 10.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">📝</div>
+
+                <h3>Latihan</h3>
+
+                <p>
+                    Latih kemampuan dengan soal.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">🏆</div>
+
+                <h3>XP</h3>
+
+                <p>
+                    Kumpulkan XP dari aktivitas belajar.
+                </p>
+
+            </div>
+
+
+            <div class="feature">
+
+                <div class="feature-icon">📈</div>
+
+                <h3>Progress</h3>
+
+                <p>
+                    Pantau perkembangan belajar.
+                </p>
+
+            </div>
+
+        </section>
+
+
+        <!-- JUDUL BAB -->
+
+        <div class="section-title">
+
+            <h2>Materi Kelas 10</h2>
+
+            <span>10 Bab</span>
+
+        </div>
+
+
+        <!-- =========================
+             SEMUA BAB
+        ========================== -->
+
+        <section class="bab-list">
+
+
+            <!-- BAB 1 -->
+
+            <a href="bab1.html" class="bab-card">
+
+                <div class="bab-number">
+                    01
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Eksponen &amp; Logaritma
+                    </h3>
+
+                    <p>
+                        Bilangan berpangkat dan logaritma
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 2 -->
+
+            <a href="bab2.html" class="bab-card">
+
+                <div class="bab-number">
+                    02
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Barisan &amp; Deret
+                    </h3>
+
+                    <p>
+                        Aritmetika dan geometri
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 3 -->
+
+            <a href="bab3.html" class="bab-card">
+
+                <div class="bab-number">
+                    03
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Vektor
+                    </h3>
+
+                    <p>
+                        Konsep dan operasi vektor
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 4 -->
+
+            <a href="bab4.html" class="bab-card">
+
+                <div class="bab-number">
+                    04
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Trigonometri
+                    </h3>
+
+                    <p>
+                        Perbandingan dan identitas trigonometri
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 5 -->
+
+            <a href="bab5.html" class="bab-card">
+
+                <div class="bab-number">
+                    05
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Sistem Persamaan Linear
+                    </h3>
+
+                    <p>
+                        Sistem persamaan dan penyelesaiannya
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 6 -->
+
+            <a href="bab6.html" class="bab-card">
+
+                <div class="bab-number">
+                    06
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Fungsi
+                    </h3>
+
+                    <p>
+                        Konsep, grafik, dan operasi fungsi
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 7 -->
+
+            <a href="bab7.html" class="bab-card">
+
+                <div class="bab-number">
+                    07
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Persamaan &amp; Pertidaksamaan
+                    </h3>
+
+                    <p>
+                        Persamaan dan pertidaksamaan
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 8 -->
+
+            <a href="bab8.html" class="bab-card">
+
+                <div class="bab-number">
+                    08
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Matriks
+                    </h3>
+
+                    <p>
+                        Operasi dan penerapan matriks
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 9 -->
+
+            <a href="bab9.html" class="bab-card">
+
+                <div class="bab-number">
+                    09
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Statistika
+                    </h3>
+
+                    <p>
+                        Data, ukuran pemusatan, dan penyebaran
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <!-- BAB 10 -->
+
+            <a href="bab10.html" class="bab-card">
+
+                <div class="bab-number">
+                    10
+                </div>
+
+                <div class="bab-info">
+
+                    <h3>
+                        Peluang
+                    </h3>
+
+                    <p>
+                        Konsep peluang dan kejadian
+                    </p>
+
+                </div>
+
+                <div class="arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+        </section>
+
+    </main>
+
+
+    <!-- =========================
+         BOTTOM NAV
+    ========================== -->
+
+    <nav class="bottom-nav">
+
+
+        <button
+            class="nav-button active"
+            type="button"
+            onclick="goHome()">
+
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            Home
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            type="button"
+            onclick="showAllBab()">
+
+            <span class="nav-icon">
+                📚
+            </span>
+
+            Semua Bab
+
+        </button>
+
+
+        <button
+            class="nav-button"
+            type="button"
+            onclick="showQuizMessage()">
+
+            <span class="nav-icon">
+                📝
+            </span>
+
+            Kuis
+
+        </button>
+
+
+    </nav>
+
+</div>
+
+
+<!-- =========================
+     JAVASCRIPT
+========================= -->
+
+<script>
+
+(function(){
+
+    "use strict";
+
+
+    /* =========================
+       SPLASH
+    ========================= */
+
+    function hideSplash(){
+
+        var splash =
+            document.getElementById("splash");
+
+        if(!splash){
+            return;
+        }
+
+        setTimeout(function(){
+
+            splash.classList.add("hide");
+
+        },1000);
+
+    }
+
+
+    /* =========================
+       XP
+    ========================= */
+
+    function loadXP(){
+
+        var xpElement =
+            document.getElementById("xp");
+
+        if(!xpElement){
+            return;
+        }
+
+        try{
+
+            var savedXP =
+                localStorage.getItem("mathxXP");
+
+            if(savedXP !== null){
+
+                xpElement.textContent =
+                    savedXP;
+
+            }
+
+        }catch(error){
+
+            xpElement.textContent = "0";
+
+        }
+
+    }
+
+
+    /* =========================
+       HOME
+    ========================= */
+
+    window.goHome = function(){
+
+        window.scrollTo({
+            top:0,
+            behavior:"smooth"
+        });
+
+    };
+
+
+    /* =========================
+       SEMUA BAB
+    ========================= */
+
+    window.showAllBab = function(){
+
+        var babTitle =
+            document.querySelector(".section-title");
+
+        var babList =
+            document.querySelector(".bab-list");
+
+        if(babTitle && babList){
+
+            babTitle.scrollIntoView({
+                behavior:"smooth",
+                block:"start"
+            });
+
+        }
+
+    };
+
+
+    /* =========================
+       KUIS
+    ========================= */
+
+    window.showQuizMessage = function(){
+
+        alert(
+            "Menu Kuis akan kita aktifkan setelah halaman utama stabil."
+        );
+
+    };
+
+
+    /* =========================
+       START
+    ========================= */
+
+    function start(){
+
+        loadXP();
+
+        hideSplash();
+
+    }
+
+
+    if(
+        document.readyState ===
+        "loading"
+    ){
+
+        document.addEventListener(
+            "DOMContentLoaded",
+            start
+        );
+
+    }else{
+
+        start();
+
+    }
+
+})();
+
+</script>
+
+</body>
+</html>

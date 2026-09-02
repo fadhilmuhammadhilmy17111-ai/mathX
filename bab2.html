@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0,
+maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+
+<meta name="theme-color" content="#2563eb">
+<title>MathX — BAB 2</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    min-height:100vh;
+    padding-bottom:30px;
+}
+
+.app{
+    width:100%;
+    max-width:650px;
+    margin:auto;
+}
+
+/* HEADER */
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:100;
+    background:rgba(255,255,255,.96);
+    backdrop-filter:blur(12px);
+    padding:15px;
+    padding-top:max(15px,env(safe-area-inset-top));
+    display:flex;
+    align-items:center;
+    gap:12px;
+    box-shadow:0 2px 12px rgba(0,0,0,.08);
+}
+
+.back{
+    width:42px;
+    height:42px;
+    border:0;
+    border-radius:13px;
+    background:#e8f0ff;
+    color:#2563eb;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    font-size:18px;
+}
+
+.header-title p{
+    font-size:12px;
+    color:#64748b;
+    margin-top:3px;
+}
+
+/* HERO */
+
+.hero{
+    margin:16px;
+    padding:24px;
+    border-radius:24px;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    box-shadow:0 10px 25px rgba(37,99,235,.25);
+}
+
+.hero .number{
+    font-size:13px;
+    opacity:.85;
+    margin-bottom:7px;
+}
+
+.hero h2{
+    font-size:27px;
+    margin-bottom:8px;
+}
+
+.hero p{
+    font-size:14px;
+    line-height:1.6;
+    opacity:.92;
+}
+
+/* CONTENT */
+
+.content{
+    padding:0 16px;
+}
+
+.section{
+    background:white;
+    border-radius:20px;
+    padding:20px;
+    margin-bottom:15px;
+    box-shadow:0 5px 18px rgba(30,60,100,.07);
+}
+
+.section h2{
+    font-size:20px;
+    margin-bottom:14px;
+    color:#1d4ed8;
+}
+
+.section h3{
+    font-size:16px;
+    margin:18px 0 8px;
+    color:#334155;
+}
+
+.section p{
+    font-size:14px;
+    line-height:1.75;
+    color:#475569;
+    margin-bottom:10px;
+}
+
+.section ul{
+    padding-left:20px;
+    color:#475569;
+}
+
+.section li{
+    font-size:14px;
+    line-height:1.7;
+    margin-bottom:6px;
+}
+
+/* RUMUS */
+
+.formula{
+    background:#eff6ff;
+    border-left:5px solid #2563eb;
+    border-radius:12px;
+    padding:15px;
+    margin:12px 0;
+    text-align:center;
+    font-size:18px;
+    font-weight:bold;
+    color:#1e40af;
+    overflow-x:auto;
+}
+
+.note{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    border-radius:12px;
+    padding:14px;
+    margin:12px 0;
+    font-size:13px;
+    line-height:1.6;
+    color:#7c2d12;
+}
+
+/* CONTOH */
+
+.example{
+    background:#f8fafc;
+    border-radius:15px;
+    padding:15px;
+    margin-top:12px;
+}
+
+.example-title{
+    font-weight:bold;
+    color:#2563eb;
+    margin-bottom:8px;
+}
+
+.answer{
+    margin-top:10px;
+    padding-top:10px;
+    border-top:1px solid #e2e8f0;
+    font-size:14px;
+    line-height:1.7;
+}
+
+/* QUIZ */
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+}
+
+.question{
+    font-weight:bold;
+    font-size:15px;
+    line-height:1.6;
+    margin-bottom:14px;
+}
+
+.option{
+    width:100%;
+    border:2px solid #dbeafe;
+    background:white;
+    padding:13px;
+    margin:8px 0;
+    border-radius:12px;
+    text-align:left;
+    font-size:14px;
+    cursor:pointer;
+}
+
+.option.correct{
+    border-color:#16a34a;
+    background:#dcfce7;
+}
+
+.option.wrong{
+    border-color:#dc2626;
+    background:#fee2e2;
+}
+
+.result{
+    margin-top:12px;
+    font-weight:bold;
+    font-size:14px;
+}
+
+/* BUTTON */
+
+.btn{
+    display:block;
+    width:100%;
+    border:0;
+    border-radius:14px;
+    padding:14px;
+    background:#2563eb;
+    color:white;
+    font-size:15px;
+    font-weight:bold;
+    cursor:pointer;
+    margin-top:12px;
+}
+
+/* FOOTER */
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    padding:20px;
+}
+
+/* DARK MODE */
+
+@media(prefers-color-scheme:dark){
+
+    body{
+        background:#0f172a;
+        color:#e2e8f0;
+    }
+
+    .header{
+        background:rgba(15,23,42,.96);
+    }
+
+    .header-title h1{
+        color:#f8fafc;
+    }
+
+    .header-title p{
+        color:#94a3b8;
+    }
+
+    .back{
+        background:#1e293b;
+        color:#60a5fa;
+    }
+
+    .section{
+        background:#1e293b;
+        box-shadow:none;
+    }
+
+    .section h2{
+        color:#60a5fa;
+    }
+
+    .section h3{
+        color:#e2e8f0;
+    }
+
+    .section p,
+    .section li{
+        color:#cbd5e1;
+    }
+
+    .formula{
+        background:#172554;
+        color:#93c5fd;
+    }
+
+    .example{
+        background:#0f172a;
+    }
+
+    .answer{
+        border-color:#334155;
+    }
+
+    .quiz{
+        background:#172554;
+    }
+
+    .option{
+        background:#1e293b;
+        border-color:#334155;
+        color:#e2e8f0;
+    }
+
+    .option.correct{
+        background:#14532d;
+    }
+
+    .option.wrong{
+        background:#7f1d1d;
+    }
+}
+
+@media(orientation:landscape) and (max-height:600px){
+
+    .hero{
+        padding:18px;
+    }
+
+    .hero h2{
+        font-size:22px;
+    }
+
+    .section{
+        padding:17px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="app">
+
+<header class="header">
+
+<button class="back" onclick="goBack()">←</button>
+
+<div class="header-title">
+<h1>📐 MathX</h1>
+<p>Matematika Kelas 10</p>
+</div>
+
+</header>
+
+
+<section class="hero">
+
+<div class="number">BAB 2</div>
+
+<h2>Barisan & Deret</h2>
+
+<p>
+Pelajari pola bilangan, barisan aritmetika,
+barisan geometri, serta deret aritmetika dan geometri.
+</p>
+
+</section>
+
+
+<main class="content">
+
+
+<!-- PENGERTIAN -->
+
+<section class="section">
+
+<h2>📖 1. Pengertian Barisan</h2>
+
+<p>
+Barisan adalah susunan bilangan yang memiliki pola
+atau aturan tertentu.
+</p>
+
+<p>
+Setiap bilangan dalam barisan disebut <b>suku</b>.
+Suku ke-n biasanya ditulis sebagai <b>Uₙ</b>.
+</p>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+2, 4, 6, 8, 10, ...
+</p>
+
+<div class="answer">
+Barisan tersebut bertambah 2 setiap suku.
+<br><br>
+U₁ = 2<br>
+U₂ = 4<br>
+U₃ = 6
+</div>
+
+</div>
+
+</section>
+
+
+<!-- ARITMETIKA -->
+
+<section class="section">
+
+<h2>➕ 2. Barisan Aritmetika</h2>
+
+<p>
+Barisan aritmetika adalah barisan yang memiliki
+<b>selisih tetap</b> antara dua suku yang berurutan.
+</p>
+
+<div class="formula">
+b = U₂ − U₁
+</div>
+
+<p>
+<b>b</b> disebut beda.
+</p>
+
+<h3>Rumus suku ke-n</h3>
+
+<div class="formula">
+Uₙ = a + (n − 1)b
+</div>
+
+<p>
+Keterangan:
+</p>
+
+<ul>
+<li>a = suku pertama</li>
+<li>b = beda</li>
+<li>n = nomor suku</li>
+<li>Uₙ = suku ke-n</li>
+</ul>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+3, 7, 11, 15, ...
+</p>
+
+<div class="answer">
+
+a = 3<br>
+b = 7 − 3 = 4
+
+<br><br>
+
+Uₙ = a + (n − 1)b
+
+<br><br>
+
+U₁₀ = 3 + (10 − 1)4
+<br>
+= 3 + 36
+<br>
+= <b>39</b>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DERET ARITMETIKA -->
+
+<section class="section">
+
+<h2>Σ 3. Deret Aritmetika</h2>
+
+<p>
+Deret aritmetika adalah penjumlahan suku-suku
+dari suatu barisan aritmetika.
+</p>
+
+<div class="formula">
+Sₙ = n/2 (2a + (n − 1)b)
+</div>
+
+<p>
+Rumus lainnya:
+</p>
+
+<div class="formula">
+Sₙ = n/2 (a + Uₙ)
+</div>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+Hitung jumlah 10 suku pertama dari:
+<br>
+2, 5, 8, 11, ...
+</p>
+
+<div class="answer">
+
+a = 2<br>
+b = 3<br>
+n = 10
+
+<br><br>
+
+S₁₀ = 10/2 [2(2) + (10−1)(3)]
+
+<br><br>
+
+= 5[4 + 27]
+<br>
+= 5 × 31
+<br>
+= <b>155</b>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GEOMETRI -->
+
+<section class="section">
+
+<h2>✖️ 4. Barisan Geometri</h2>
+
+<p>
+Barisan geometri adalah barisan yang memiliki
+<b>rasio tetap</b> antara dua suku yang berurutan.
+</p>
+
+<div class="formula">
+r = U₂ / U₁
+</div>
+
+<h3>Rumus suku ke-n</h3>
+
+<div class="formula">
+Uₙ = a × rⁿ⁻¹
+</div>
+
+<p>
+Keterangan:
+</p>
+
+<ul>
+<li>a = suku pertama</li>
+<li>r = rasio</li>
+<li>n = nomor suku</li>
+<li>Uₙ = suku ke-n</li>
+</ul>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+2, 6, 18, 54, ...
+</p>
+
+<div class="answer">
+
+a = 2<br>
+r = 6 ÷ 2 = 3
+
+<br><br>
+
+U₅ = 2 × 3⁵⁻¹
+<br>
+= 2 × 3⁴
+<br>
+= 2 × 81
+<br>
+= <b>162</b>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- DERET GEOMETRI -->
+
+<section class="section">
+
+<h2>📊 5. Deret Geometri</h2>
+
+<p>
+Deret geometri adalah penjumlahan suku-suku
+dari barisan geometri.
+</p>
+
+<h3>Jumlah n suku pertama</h3>
+
+<div class="formula">
+Sₙ = a(rⁿ − 1)/(r − 1)
+</div>
+
+<p>
+Rumus tersebut digunakan untuk <b>r ≠ 1</b>.
+</p>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+Tentukan jumlah 5 suku pertama:
+<br>
+2 + 6 + 18 + 54 + ...
+</p>
+
+<div class="answer">
+
+a = 2<br>
+r = 3<br>
+n = 5
+
+<br><br>
+
+S₅ = 2(3⁵ − 1)/(3 − 1)
+
+<br><br>
+
+= 2(243 − 1)/2
+<br>
+= 242
+
+<br><br>
+
+Jadi:
+<br>
+<b>S₅ = 242</b>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- GEOMETRI TAK HINGGA -->
+
+<section class="section">
+
+<h2>♾️ 6. Deret Geometri Tak Hingga</h2>
+
+<p>
+Deret geometri tak hingga adalah deret yang memiliki
+jumlah suku tidak terbatas.
+</p>
+
+<p>
+Jika nilai mutlak rasio memenuhi:
+</p>
+
+<div class="formula">
+|r| &lt; 1
+</div>
+
+<p>
+maka deret tersebut mempunyai jumlah hingga.
+</p>
+
+<h3>Rumus</h3>
+
+<div class="formula">
+S∞ = a / (1 − r)
+</div>
+
+<div class="example">
+
+<div class="example-title">Contoh</div>
+
+<p>
+1 + 1/2 + 1/4 + 1/8 + ...
+</p>
+
+<div class="answer">
+
+a = 1<br>
+r = 1/2
+
+<br><br>
+
+S∞ = 1/(1 − 1/2)
+
+<br><br>
+
+= 1/(1/2)
+<br>
+= <b>2</b>
+
+</div>
+
+</div>
+
+<div class="note">
+💡 Deret geometri tak hingga hanya memiliki jumlah
+hingga jika |r| &lt; 1.
+</div>
+
+</section>
+
+
+<!-- PERBEDAAN -->
+
+<section class="section">
+
+<h2>🔍 7. Perbedaan Aritmetika & Geometri</h2>
+
+<h3>Barisan Aritmetika</h3>
+
+<p>
+Pola berubah dengan <b>menambah atau mengurangi bilangan
+yang sama</b>.
+</p>
+
+<div class="formula">
+2, 5, 8, 11, 14, ...
+</div>
+
+<p>
+Bedanya selalu 3.
+</p>
+
+<h3>Barisan Geometri</h3>
+
+<p>
+Pola berubah dengan <b>mengalikan atau membagi dengan
+bilangan yang sama</b>.
+</p>
+
+<div class="formula">
+2, 6, 18, 54, 162, ...
+</div>
+
+<p>
+Rasionya selalu 3.
+</p>
+
+</section>
+
+
+<!-- CONTOH -->
+
+<section class="section">
+
+<h2>✏️ 8. Contoh Soal</h2>
+
+<div class="example">
+
+<div class="example-title">Soal 1</div>
+
+<p>
+Tentukan suku ke-20 dari barisan:
+<br>
+5, 8, 11, 14, ...
+</p>
+
+<div class="answer">
+
+a = 5<br>
+b = 3<br>
+n = 20
+
+<br><br>
+
+U₂₀ = 5 + (20−1)3
+<br>
+= 5 + 57
+<br>
+= <b>62</b>
+
+</div>
+
+</div>
+
+
+<div class="example">
+
+<div class="example-title">Soal 2</div>
+
+<p>
+Tentukan suku ke-6 dari:
+<br>
+3, 6, 12, 24, ...
+</p>
+
+<div class="answer">
+
+a = 3<br>
+r = 2
+
+<br><br>
+
+U₆ = 3 × 2⁵
+<br>
+= 3 × 32
+<br>
+= <b>96</b>
+
+</div>
+
+</div>
+
+
+<div class="example">
+
+<div class="example-title">Soal 3</div>
+
+<p>
+Tentukan jumlah 8 suku pertama:
+<br>
+1 + 3 + 5 + 7 + ...
+</p>
+
+<div class="answer">
+
+a = 1<br>
+b = 2<br>
+n = 8
+
+<br><br>
+
+S₈ = 8/2 [2(1)+(8−1)2]
+
+<br><br>
+
+= 4(2+14)
+<br>
+= 4 × 16
+<br>
+= <b>64</b>
+
+</div>
+
+</div>
+
+</section>
+
+
+<!-- QUIZ -->
+
+<section class="section quiz">
+
+<h2>🧠 9. Latihan Cepat</h2>
+
+<div class="question">
+Suku ke-5 dari barisan
+2, 5, 8, 11, ... adalah?
+</div>
+
+<button class="option" onclick="answer(this,false)">
+A. 11
+</button>
+
+<button class="option" onclick="answer(this,false)">
+B. 12
+</button>
+
+<button class="option" onclick="answer(this,true)">
+C. 14
+</button>
+
+<button class="option" onclick="answer(this,false)">
+D. 15
+</button>
+
+<div id="result" class="result"></div>
+
+</section>
+
+
+<!-- RINGKASAN -->
+
+<section class="section">
+
+<h2>📝 10. Ringkasan</h2>
+
+<ul>
+
+<li>Barisan adalah susunan bilangan berpola.</li>
+
+<li>Barisan aritmetika memiliki beda tetap.</li>
+
+<li>Rumus aritmetika:
+Uₙ = a + (n−1)b.</li>
+
+<li>Deret aritmetika adalah jumlah suku-suku
+barisan aritmetika.</li>
+
+<li>Barisan geometri memiliki rasio tetap.</li>
+
+<li>Rumus geometri:
+Uₙ = arⁿ⁻¹.</li>
+
+<li>Deret geometri adalah jumlah suku-suku
+barisan geometri.</li>
+
+<li>Deret geometri tak hingga mempunyai jumlah hingga
+jika |r| &lt; 1.</li>
+
+</ul>
+
+</section>
+
+
+<button class="btn" onclick="goBack()">
+← Kembali ke Semua Bab
+</button>
+
+</main>
+
+
+<div class="footer">
+📐 MathX — Matematika Kelas 10
+<br>
+BAB 2 • Barisan & Deret
+</div>
+
+</div>
+
+
+<script>
+
+function goBack(){
+    window.location.href="index.html";
+}
+
+function answer(button,correct){
+
+    const options=document.querySelectorAll(".option");
+
+    options.forEach(function(option){
+        option.disabled=true;
+    });
+
+    const result=document.getElementById("result");
+
+    if(correct){
+
+        button.classList.add("correct");
+
+        result.textContent="✅ Benar! Jawabannya adalah 14.";
+        result.style.color="#16a34a";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        result.textContent=
+        "❌ Belum tepat. Jawaban yang benar adalah 14.";
+
+        result.style.color="#dc2626";
+
+        options.forEach(function(option){
+
+            if(option.textContent.includes("14")){
+                option.classList.add("correct");
+            }
+
+        });
+
+    }
+}
+
+</script>
+
+</body>
+</html>

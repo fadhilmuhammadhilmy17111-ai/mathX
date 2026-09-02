@@ -1,0 +1,1294 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0,
+maximum-scale=1.0,user-scalable=no,viewport-fit=cover">
+
+<meta name="theme-color" content="#2563eb">
+
+<title>MathX — Bab 8 Matriks</title>
+
+<style>
+*{
+    box-sizing:border-box;
+    margin:0;
+    padding:0;
+}
+
+html{
+    scroll-behavior:smooth;
+}
+
+body{
+    font-family:Arial,sans-serif;
+    background:#eef4ff;
+    color:#172033;
+    line-height:1.6;
+    padding-bottom:30px;
+}
+
+.header{
+    position:sticky;
+    top:0;
+    z-index:1000;
+    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    color:white;
+    padding:
+    calc(12px + env(safe-area-inset-top))
+    16px 14px;
+    box-shadow:0 4px 15px rgba(0,0,0,.15);
+}
+
+.header-content{
+    max-width:700px;
+    margin:auto;
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+.back-btn{
+    width:42px;
+    height:42px;
+    border:none;
+    border-radius:12px;
+    background:rgba(255,255,255,.18);
+    color:white;
+    font-size:22px;
+    cursor:pointer;
+}
+
+.header-title{
+    flex:1;
+}
+
+.header-title h1{
+    font-size:19px;
+}
+
+.header-title p{
+    font-size:12px;
+    opacity:.85;
+}
+
+.container{
+    max-width:700px;
+    margin:auto;
+    padding:18px 14px 40px;
+}
+
+.hero{
+    background:linear-gradient(135deg,#2563eb,#7c3aed);
+    color:white;
+    border-radius:24px;
+    padding:26px 20px;
+    margin-bottom:18px;
+    box-shadow:0 8px 25px rgba(37,99,235,.22);
+}
+
+.hero .number{
+    font-size:13px;
+    font-weight:bold;
+    opacity:.85;
+}
+
+.hero h2{
+    font-size:30px;
+    margin:5px 0;
+}
+
+.hero p{
+    font-size:14px;
+    opacity:.9;
+}
+
+.card{
+    background:white;
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:16px;
+    box-shadow:0 4px 15px rgba(0,0,0,.07);
+}
+
+.card h3{
+    color:#2563eb;
+    font-size:20px;
+    margin-bottom:10px;
+}
+
+.card h4{
+    color:#334155;
+    margin-top:15px;
+    margin-bottom:7px;
+}
+
+.card p{
+    margin-bottom:10px;
+}
+
+.card ul{
+    padding-left:22px;
+    margin-bottom:10px;
+}
+
+.card li{
+    margin-bottom:5px;
+}
+
+.formula{
+    background:#eff6ff;
+    border-left:5px solid #2563eb;
+    padding:13px;
+    border-radius:10px;
+    margin:12px 0;
+    font-weight:bold;
+    overflow-x:auto;
+}
+
+.matrix{
+    display:inline-block;
+    background:#f8fafc;
+    border-left:3px solid #334155;
+    border-right:3px solid #334155;
+    padding:8px 16px;
+    margin:8px 0;
+    font-weight:bold;
+    line-height:1.8;
+}
+
+.example{
+    background:#f8fafc;
+    border:1px solid #dbeafe;
+    padding:14px;
+    border-radius:12px;
+    margin-top:12px;
+}
+
+.example strong{
+    color:#2563eb;
+}
+
+.note{
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    padding:13px;
+    border-radius:10px;
+    margin-top:12px;
+}
+
+.table-wrap{
+    overflow-x:auto;
+    margin:12px 0;
+}
+
+table{
+    width:100%;
+    border-collapse:collapse;
+    min-width:350px;
+}
+
+th,td{
+    border:1px solid #dbeafe;
+    padding:9px;
+    text-align:center;
+}
+
+th{
+    background:#eff6ff;
+    color:#1d4ed8;
+}
+
+.quiz{
+    background:linear-gradient(135deg,#eff6ff,#eef2ff);
+    border:2px solid #bfdbfe;
+}
+
+.quiz-question{
+    font-size:17px;
+    font-weight:bold;
+    margin:10px 0 15px;
+}
+
+.option{
+    width:100%;
+    padding:13px;
+    margin:7px 0;
+    border:2px solid #dbeafe;
+    border-radius:12px;
+    background:white;
+    text-align:left;
+    font-size:15px;
+    cursor:pointer;
+}
+
+.option.correct{
+    background:#dcfce7;
+    border-color:#22c55e;
+}
+
+.option.wrong{
+    background:#fee2e2;
+    border-color:#ef4444;
+}
+
+.result{
+    margin-top:12px;
+    font-weight:bold;
+    display:none;
+}
+
+.summary{
+    background:linear-gradient(135deg,#f0fdf4,#ecfeff);
+    border:1px solid #bbf7d0;
+}
+
+.footer{
+    text-align:center;
+    color:#64748b;
+    font-size:12px;
+    padding:10px;
+}
+
+@media (orientation:landscape) and (max-height:600px){
+    .container{
+        max-width:900px;
+    }
+
+    .hero{
+        padding:20px;
+    }
+
+    .card{
+        padding:17px;
+    }
+}
+
+@media (min-width:800px){
+    .container{
+        padding-top:25px;
+    }
+}
+
+@media (prefers-color-scheme:dark){
+
+    body{
+        background:#0f172a;
+        color:#e5e7eb;
+    }
+
+    .card{
+        background:#1e293b;
+        box-shadow:0 4px 15px rgba(0,0,0,.25);
+    }
+
+    .card h3{
+        color:#60a5fa;
+    }
+
+    .card h4{
+        color:#cbd5e1;
+    }
+
+    .formula{
+        background:#172554;
+        border-color:#60a5fa;
+    }
+
+    .matrix{
+        background:#172033;
+        border-color:#94a3b8;
+    }
+
+    .example{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .note{
+        background:#2a2115;
+    }
+
+    .quiz{
+        background:#172033;
+        border-color:#334155;
+    }
+
+    .option{
+        background:#1e293b;
+        color:#e5e7eb;
+        border-color:#334155;
+    }
+
+    th{
+        background:#172554;
+        color:#93c5fd;
+    }
+
+    th,td{
+        border-color:#334155;
+    }
+
+    .summary{
+        background:#13251d;
+        border-color:#166534;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<header class="header">
+
+    <div class="header-content">
+
+        <button class="back-btn" onclick="goBack()">
+            ←
+        </button>
+
+        <div class="header-title">
+            <h1>📐 MathX</h1>
+            <p>Matematika Kelas 10</p>
+        </div>
+
+    </div>
+
+</header>
+
+
+<main class="container">
+
+    <!-- HERO -->
+
+    <section class="hero">
+
+        <div class="number">
+            BAB 8
+        </div>
+
+        <h2>Matriks</h2>
+
+        <p>
+            Mempelajari konsep matriks, jenis-jenis matriks,
+            operasi matriks, determinan, invers, dan penerapannya.
+        </p>
+
+    </section>
+
+
+    <!-- 1 -->
+
+    <section class="card">
+
+        <h3>1. Pengertian Matriks</h3>
+
+        <p>
+            Matriks adalah susunan bilangan yang disusun dalam
+            baris dan kolom serta dituliskan dalam tanda kurung.
+        </p>
+
+        <div class="matrix">
+            2 &nbsp; 4 &nbsp; 6<br>
+            1 &nbsp; 3 &nbsp; 5
+        </div>
+
+        <p>
+            Matriks di atas memiliki 2 baris dan 3 kolom.
+        </p>
+
+        <div class="formula">
+            Ordo = jumlah baris × jumlah kolom
+        </div>
+
+    </section>
+
+
+    <!-- 2 -->
+
+    <section class="card">
+
+        <h3>2. Ordo Matriks</h3>
+
+        <p>
+            Ordo menunjukkan ukuran suatu matriks.
+        </p>
+
+        <div class="example">
+
+            <strong>Contoh:</strong>
+
+            <br><br>
+
+            <div class="matrix">
+                1 &nbsp; 2 &nbsp; 3<br>
+                4 &nbsp; 5 &nbsp; 6
+            </div>
+
+            <br>
+
+            Matriks tersebut mempunyai:
+            <br><br>
+
+            2 baris dan 3 kolom.
+
+            <br><br>
+
+            Jadi ordonya adalah:
+
+            <div class="formula">
+                2 × 3
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 3 -->
+
+    <section class="card">
+
+        <h3>3. Elemen Matriks</h3>
+
+        <p>
+            Setiap bilangan yang terdapat dalam matriks disebut
+            elemen matriks.
+        </p>
+
+        <p>
+            Elemen biasanya diberi simbol:
+        </p>
+
+        <div class="formula">
+            aᵢⱼ
+        </div>
+
+        <p>
+            i menunjukkan nomor baris dan j menunjukkan nomor kolom.
+        </p>
+
+        <div class="example">
+
+            Misalkan:
+
+            <br><br>
+
+            <div class="matrix">
+                3 &nbsp; 5<br>
+                7 &nbsp; 9
+            </div>
+
+            <br>
+
+            Maka:
+            <br><br>
+
+            a₁₁ = 3<br>
+            a₁₂ = 5<br>
+            a₂₁ = 7<br>
+            a₂₂ = 9
+
+        </div>
+
+    </section>
+
+
+    <!-- 4 -->
+
+    <section class="card">
+
+        <h3>4. Jenis-Jenis Matriks</h3>
+
+        <h4>Matriks Baris</h4>
+
+        <p>
+            Hanya mempunyai satu baris.
+        </p>
+
+        <div class="matrix">
+            2 &nbsp; 4 &nbsp; 6
+        </div>
+
+        <h4>Matriks Kolom</h4>
+
+        <p>
+            Hanya mempunyai satu kolom.
+        </p>
+
+        <div class="matrix">
+            2<br>
+            4<br>
+            6
+        </div>
+
+        <h4>Matriks Persegi</h4>
+
+        <p>
+            Jumlah baris sama dengan jumlah kolom.
+        </p>
+
+        <div class="matrix">
+            1 &nbsp; 2<br>
+            3 &nbsp; 4
+        </div>
+
+    </section>
+
+
+    <!-- 5 -->
+
+    <section class="card">
+
+        <h3>5. Matriks Nol</h3>
+
+        <p>
+            Matriks nol adalah matriks yang seluruh elemennya
+            bernilai nol.
+        </p>
+
+        <div class="matrix">
+            0 &nbsp; 0<br>
+            0 &nbsp; 0
+        </div>
+
+    </section>
+
+
+    <!-- 6 -->
+
+    <section class="card">
+
+        <h3>6. Matriks Identitas</h3>
+
+        <p>
+            Matriks identitas adalah matriks persegi yang memiliki
+            angka 1 pada diagonal utama dan 0 pada elemen lainnya.
+        </p>
+
+        <div class="matrix">
+            1 &nbsp; 0<br>
+            0 &nbsp; 1
+        </div>
+
+        <div class="formula">
+            I₂ = [[1,0],[0,1]]
+        </div>
+
+    </section>
+
+
+    <!-- 7 -->
+
+    <section class="card">
+
+        <h3>7. Kesamaan Dua Matriks</h3>
+
+        <p>
+            Dua matriks dikatakan sama jika memiliki ordo yang sama
+            dan setiap elemen yang bersesuaian memiliki nilai yang sama.
+        </p>
+
+        <div class="example">
+
+            <div class="matrix">
+                a &nbsp; 2<br>
+                3 &nbsp; b
+            </div>
+
+            =
+
+            <div class="matrix">
+                5 &nbsp; 2<br>
+                3 &nbsp; 7
+            </div>
+
+            <br><br>
+
+            Maka:
+
+            <br>
+
+            a = 5
+
+            <br>
+
+            b = 7
+
+        </div>
+
+    </section>
+
+
+    <!-- 8 -->
+
+    <section class="card">
+
+        <h3>8. Penjumlahan Matriks</h3>
+
+        <p>
+            Dua matriks dapat dijumlahkan jika memiliki ordo yang sama.
+        </p>
+
+        <div class="example">
+
+            <div class="matrix">
+                1 &nbsp; 2<br>
+                3 &nbsp; 4
+            </div>
+
+            +
+
+            <div class="matrix">
+                5 &nbsp; 6<br>
+                7 &nbsp; 8
+            </div>
+
+            <br>
+
+            =
+
+            <div class="matrix">
+                6 &nbsp; 8<br>
+                10 &nbsp; 12
+            </div>
+
+        </div>
+
+        <div class="formula">
+            (A + B)ᵢⱼ = aᵢⱼ + bᵢⱼ
+        </div>
+
+    </section>
+
+
+    <!-- 9 -->
+
+    <section class="card">
+
+        <h3>9. Pengurangan Matriks</h3>
+
+        <p>
+            Pengurangan dilakukan pada elemen yang bersesuaian.
+        </p>
+
+        <div class="example">
+
+            <div class="matrix">
+                8 &nbsp; 7<br>
+                6 &nbsp; 5
+            </div>
+
+            −
+
+            <div class="matrix">
+                2 &nbsp; 3<br>
+                1 &nbsp; 4
+            </div>
+
+            <br>
+
+            =
+
+            <div class="matrix">
+                6 &nbsp; 4<br>
+                5 &nbsp; 1
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 10 -->
+
+    <section class="card">
+
+        <h3>10. Perkalian Matriks dengan Skalar</h3>
+
+        <p>
+            Setiap elemen matriks dikalikan dengan bilangan skalar.
+        </p>
+
+        <div class="example">
+
+            3 ×
+
+            <div class="matrix">
+                1 &nbsp; 2<br>
+                3 &nbsp; 4
+            </div>
+
+            <br>
+
+            =
+
+            <div class="matrix">
+                3 &nbsp; 6<br>
+                9 &nbsp; 12
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 11 -->
+
+    <section class="card">
+
+        <h3>11. Perkalian Dua Matriks</h3>
+
+        <p>
+            Matriks A berordo m × n dapat dikalikan dengan matriks B
+            berordo n × p.
+        </p>
+
+        <div class="formula">
+            (m × n) × (n × p) = m × p
+        </div>
+
+        <div class="example">
+
+            Misalkan:
+
+            <br><br>
+
+            A =
+
+            <div class="matrix">
+                1 &nbsp; 2<br>
+                3 &nbsp; 4
+            </div>
+
+            <br>
+
+            B =
+
+            <div class="matrix">
+                5 &nbsp; 6<br>
+                7 &nbsp; 8
+            </div>
+
+            <br>
+
+            Maka:
+
+            <br><br>
+
+            AB =
+
+            <div class="matrix">
+                19 &nbsp; 22<br>
+                43 &nbsp; 50
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 12 -->
+
+    <section class="card">
+
+        <h3>12. Transpose Matriks</h3>
+
+        <p>
+            Transpose adalah mengubah baris menjadi kolom
+            dan kolom menjadi baris.
+        </p>
+
+        <div class="example">
+
+            Jika:
+
+            <br><br>
+
+            A =
+
+            <div class="matrix">
+                1 &nbsp; 2 &nbsp; 3<br>
+                4 &nbsp; 5 &nbsp; 6
+            </div>
+
+            <br>
+
+            Maka:
+
+            <br>
+
+            Aᵀ =
+
+            <div class="matrix">
+                1 &nbsp; 4<br>
+                2 &nbsp; 5<br>
+                3 &nbsp; 6
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- 13 -->
+
+    <section class="card">
+
+        <h3>13. Determinan Matriks 2 × 2</h3>
+
+        <p>
+            Untuk matriks:
+        </p>
+
+        <div class="matrix">
+            a &nbsp; b<br>
+            c &nbsp; d
+        </div>
+
+        <p>
+            determinannya adalah:
+        </p>
+
+        <div class="formula">
+            det(A) = ad − bc
+        </div>
+
+        <div class="example">
+
+            Misalkan:
+
+            <br><br>
+
+            A =
+
+            <div class="matrix">
+                3 &nbsp; 2<br>
+                1 &nbsp; 4
+            </div>
+
+            <br>
+
+            det(A)
+
+            <br>
+
+            = (3)(4) − (2)(1)
+
+            <br>
+
+            = 12 − 2
+
+            <br>
+
+            <b>= 10</b>
+
+        </div>
+
+    </section>
+
+
+    <!-- 14 -->
+
+    <section class="card">
+
+        <h3>14. Determinan Matriks 3 × 3</h3>
+
+        <p>
+            Untuk matriks 3 × 3, determinan dapat dihitung menggunakan
+            metode ekspansi kofaktor atau aturan Sarrus.
+        </p>
+
+        <div class="formula">
+            det(A) dapat dihitung melalui ekspansi kofaktor
+        </div>
+
+        <div class="example">
+
+            Bentuk umum:
+
+            <br><br>
+
+            | a b c |<br>
+            | d e f |<br>
+            | g h i |
+
+            <br><br>
+
+            Salah satu bentuk perhitungannya:
+
+            <br>
+
+            a(ei − fh)
+            − b(di − fg)
+            + c(dh − eg)
+
+        </div>
+
+    </section>
+
+
+    <!-- 15 -->
+
+    <section class="card">
+
+        <h3>15. Invers Matriks 2 × 2</h3>
+
+        <p>
+            Jika:
+        </p>
+
+        <div class="matrix">
+            a &nbsp; b<br>
+            c &nbsp; d
+        </div>
+
+        <p>
+            dan determinannya tidak sama dengan nol, maka:
+        </p>
+
+        <div class="formula">
+            A⁻¹ =
+            1/(ad − bc)
+            ×
+            [[d,-b],[-c,a]]
+        </div>
+
+        <div class="note">
+            Matriks mempunyai invers jika determinannya
+            <b>tidak sama dengan nol</b>.
+        </div>
+
+    </section>
+
+
+    <!-- 16 -->
+
+    <section class="card">
+
+        <h3>16. Sifat-Sifat Operasi Matriks</h3>
+
+        <ul>
+            <li>A + B = B + A</li>
+            <li>(A + B) + C = A + (B + C)</li>
+            <li>A(B + C) = AB + AC</li>
+            <li>(AB)C = A(BC)</li>
+            <li>AI = IA = A</li>
+        </ul>
+
+        <div class="note">
+            Perkalian matriks pada umumnya tidak komutatif.
+            Jadi AB belum tentu sama dengan BA.
+        </div>
+
+    </section>
+
+
+    <!-- 17 -->
+
+    <section class="card">
+
+        <h3>17. Matriks untuk Menyelesaikan SPL</h3>
+
+        <p>
+            Matriks dapat digunakan untuk menyelesaikan sistem
+            persamaan linear.
+        </p>
+
+        <div class="example">
+
+            Misalkan:
+
+            <br><br>
+
+            x + y = 7
+
+            <br>
+
+            x − y = 1
+
+            <br><br>
+
+            Dapat ditulis:
+
+            <br><br>
+
+            <div class="matrix">
+                1 &nbsp; 1<br>
+                1 &nbsp; -1
+            </div>
+
+            ×
+
+            <div class="matrix">
+                x<br>
+                y
+            </div>
+
+            =
+
+            <div class="matrix">
+                7<br>
+                1
+            </div>
+
+            <br><br>
+
+            Hasilnya:
+
+            <br>
+
+            <b>x = 4 dan y = 3</b>
+
+        </div>
+
+    </section>
+
+
+    <!-- CONTOH SOAL -->
+
+    <section class="card">
+
+        <h3>18. Contoh Soal</h3>
+
+        <div class="example">
+
+            <strong>Soal:</strong>
+
+            <br><br>
+
+            Tentukan determinan matriks:
+
+            <br><br>
+
+            <div class="matrix">
+                5 &nbsp; 2<br>
+                3 &nbsp; 4
+            </div>
+
+            <br><br>
+
+            Penyelesaian:
+
+            <br>
+
+            det(A) = (5)(4) − (2)(3)
+
+            <br>
+
+            = 20 − 6
+
+            <br>
+
+            <b>= 14</b>
+
+        </div>
+
+
+        <div class="example">
+
+            <strong>Soal:</strong>
+
+            <br><br>
+
+            Tentukan hasil:
+
+            <br><br>
+
+            <div class="matrix">
+                2 &nbsp; 3<br>
+                4 &nbsp; 1
+            </div>
+
+            +
+
+            <div class="matrix">
+                1 &nbsp; 5<br>
+                2 &nbsp; 3
+            </div>
+
+            <br><br>
+
+            Jawaban:
+
+            <br>
+
+            <div class="matrix">
+                3 &nbsp; 8<br>
+                6 &nbsp; 4
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- QUIZ -->
+
+    <section class="card quiz">
+
+        <h3>🧠 Latihan Cepat</h3>
+
+        <p class="quiz-question">
+
+            Tentukan determinan matriks berikut:
+
+            <br><br>
+
+            | 2 &nbsp; 3 |<br>
+            | 1 &nbsp; 4 |
+
+        </p>
+
+        <button class="option"
+        onclick="answer(this,false)">
+            A. 3
+        </button>
+
+        <button class="option"
+        onclick="answer(this,true)">
+            B. 5
+        </button>
+
+        <button class="option"
+        onclick="answer(this,false)">
+            C. 8
+        </button>
+
+        <button class="option"
+        onclick="answer(this,false)">
+            D. 11
+        </button>
+
+        <div id="result" class="result"></div>
+
+    </section>
+
+
+    <!-- RINGKASAN -->
+
+    <section class="card summary">
+
+        <h3>📚 Ringkasan Bab 8</h3>
+
+        <ul>
+
+            <li>
+                Matriks adalah susunan bilangan dalam baris dan kolom.
+            </li>
+
+            <li>
+                Ordo matriks = jumlah baris × jumlah kolom.
+            </li>
+
+            <li>
+                Matriks dapat berupa matriks baris, kolom, persegi,
+                nol, dan identitas.
+            </li>
+
+            <li>
+                Penjumlahan dan pengurangan dilakukan pada elemen
+                yang bersesuaian.
+            </li>
+
+            <li>
+                Perkalian matriks mempunyai aturan khusus mengenai ordo.
+            </li>
+
+            <li>
+                Transpose menukar baris menjadi kolom.
+            </li>
+
+            <li>
+                Determinan matriks 2 × 2:
+                ad − bc.
+            </li>
+
+            <li>
+                Matriks memiliki invers jika determinannya tidak nol.
+            </li>
+
+            <li>
+                Matriks dapat digunakan untuk menyelesaikan
+                sistem persamaan linear.
+            </li>
+
+        </ul>
+
+    </section>
+
+
+    <div class="footer">
+
+        MathX — Matematika Kelas 10
+        <br>
+        Bab 8 • Matriks
+
+    </div>
+
+</main>
+
+
+<script>
+
+function goBack(){
+
+    window.location.href="index.html";
+
+}
+
+
+function answer(button,correct){
+
+    const buttons=
+    document.querySelectorAll(".option");
+
+    const result=
+    document.getElementById("result");
+
+    buttons.forEach(function(btn){
+
+        btn.disabled=true;
+
+    });
+
+
+    if(correct){
+
+        button.classList.add("correct");
+
+        result.style.display="block";
+        result.style.color="#16a34a";
+
+        result.textContent=
+        "✅ Benar! Determinan = (2×4) − (3×1) = 8 − 3 = 5.";
+
+    }else{
+
+        button.classList.add("wrong");
+
+        result.style.display="block";
+        result.style.color="#dc2626";
+
+        result.textContent=
+        "❌ Belum tepat. Jawaban yang benar adalah B. 5.";
+
+        buttons.forEach(function(btn){
+
+            if(btn.textContent.includes("5")){
+
+                btn.classList.add("correct");
+
+            }
+
+        });
+
+    }
+
+}
+
+</script>
+
+</body>
+</html>
