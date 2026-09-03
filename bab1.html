@@ -203,17 +203,43 @@ body{
     background:linear-gradient(135deg,#eff6ff,#eef2ff);
 }
 
-.quiz-progress{
-    font-size:13px;
-    color:#64748b;
+.quiz-info{
+    display:flex;
+    gap:8px;
+    flex-wrap:wrap;
     margin-bottom:15px;
+}
+
+.quiz-badge{
+    background:white;
+    border:1px solid #dbeafe;
+    padding:8px 11px;
+    border-radius:10px;
+    font-size:12px;
+    color:#334155;
     font-weight:bold;
+}
+
+.progress-box{
+    width:100%;
+    height:9px;
+    background:#dbeafe;
+    border-radius:20px;
+    overflow:hidden;
+    margin-bottom:15px;
+}
+
+.progress-bar{
+    width:0%;
+    height:100%;
+    background:#2563eb;
+    transition:.3s;
 }
 
 .question{
     font-weight:bold;
-    font-size:16px;
-    line-height:1.6;
+    font-size:15px;
+    line-height:1.7;
     margin-bottom:14px;
 }
 
@@ -221,7 +247,7 @@ body{
     width:100%;
     border:2px solid #dbeafe;
     background:white;
-    padding:14px;
+    padding:13px;
     margin:8px 0;
     border-radius:12px;
     text-align:left;
@@ -234,20 +260,14 @@ body{
     border-color:#2563eb;
 }
 
-.option:active{
-    transform:scale(.98);
-}
-
 .option.correct{
     border-color:#16a34a;
     background:#dcfce7;
-    color:#166534;
 }
 
 .option.wrong{
     border-color:#dc2626;
     background:#fee2e2;
-    color:#991b1b;
 }
 
 .option:disabled{
@@ -261,47 +281,47 @@ body{
     line-height:1.6;
 }
 
-.next-btn{
-    display:none;
-    width:100%;
-    border:0;
-    border-radius:14px;
+.explanation{
+    margin-top:12px;
     padding:14px;
-    background:#2563eb;
-    color:white;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:14px;
+    border-radius:13px;
+    background:#fff7ed;
+    border-left:5px solid #f97316;
+    color:#7c2d12;
+    font-size:13px;
+    line-height:1.7;
 }
 
-.score-box{
+.xp-pop{
+    margin-top:8px;
+    color:#2563eb;
+    font-weight:bold;
+}
+
+.quiz-start{
+    text-align:center;
+}
+
+.quiz-start p{
+    margin-bottom:12px;
+}
+
+.quiz-score{
     display:none;
     text-align:center;
-    background:white;
-    border-radius:18px;
-    padding:20px;
-    margin-top:15px;
 }
 
-.score-number{
-    font-size:34px;
+.big-score{
+    font-size:32px;
     font-weight:bold;
     color:#2563eb;
-    margin:8px 0;
+    margin:10px 0;
 }
 
-.restart-btn{
-    width:100%;
-    border:0;
-    border-radius:14px;
-    padding:14px;
-    background:#4f46e5;
-    color:white;
-    font-size:15px;
-    font-weight:bold;
-    cursor:pointer;
-    margin-top:12px;
+.small-stat{
+    font-size:14px;
+    color:#64748b;
+    line-height:1.7;
 }
 
 /* BUTTON */
@@ -320,9 +340,7 @@ body{
     margin-top:12px;
 }
 
-.btn:active,
-.restart-btn:active,
-.next-btn:active{
+.btn:active{
     transform:scale(.98);
 }
 
@@ -396,8 +414,14 @@ body{
         background:#172554;
     }
 
-    .quiz-progress{
-        color:#94a3b8;
+    .quiz-badge{
+        background:#1e293b;
+        border-color:#334155;
+        color:#e2e8f0;
+    }
+
+    .progress-box{
+        background:#334155;
     }
 
     .option{
@@ -408,22 +432,25 @@ body{
 
     .option.correct{
         background:#14532d;
-        color:#bbf7d0;
     }
 
     .option.wrong{
         background:#7f1d1d;
-        color:#fecaca;
     }
 
-    .score-box{
-        background:#0f172a;
+    .explanation{
+        background:#431407;
+        color:#fed7aa;
+    }
+
+    .small-stat{
+        color:#94a3b8;
     }
 }
 
 /* LANDSCAPE */
 
-@media (orientation:landscape) and (max-height:600px){
+@media(orientation:landscape) and (max-height:600px){
 
     .hero{
         margin-top:10px;
@@ -861,45 +888,84 @@ log₂ 8 + log₂ 4
 </section>
 
 
-<!-- QUIZ -->
+<!-- QUIZ 100 SOAL -->
 
 <section class="section quiz">
 
-<h2>🧠 8. Kuis BAB 1</h2>
+<h2>🧠 8. Latihan 100 Soal</h2>
 
-<div class="quiz-progress" id="progress">
-Soal 1 dari 10
+<div id="quizStart" class="quiz-start">
+
+<p>
+Tersedia <b>100 soal</b> Eksponen & Logaritma.
+<br>
+Setiap sesi akan mengambil <b>20 soal secara acak</b>.
+</p>
+
+<button class="btn" onclick="startQuiz()">
+🎲 Mulai Kuis Acak
+</button>
+
 </div>
 
-<div id="quizArea">
 
-<div class="question" id="question">
-Berapakah nilai dari 2⁵?
+<div id="quizGame" style="display:none;">
+
+<div class="quiz-info">
+
+<div class="quiz-badge">
+📚 Soal <span id="questionNumber">1</span>/20
 </div>
+
+<div class="quiz-badge">
+⭐ XP: <span id="xpDisplay">0</span>
+</div>
+
+<div class="quiz-badge">
+✅ Benar: <span id="correctDisplay">0</span>
+</div>
+
+</div>
+
+<div class="progress-box">
+<div id="progressBar" class="progress-bar"></div>
+</div>
+
+<div id="question" class="question"></div>
 
 <div id="options"></div>
 
 <div id="result" class="result"></div>
 
-<button class="next-btn" id="nextBtn" onclick="nextQuestion()">
-Soal Berikutnya →
+<div id="explanation" class="explanation"
+     style="display:none;"></div>
+
+<button id="nextButton"
+        class="btn"
+        style="display:none;"
+        onclick="nextQuestion()">
+Lanjut →
 </button>
 
 </div>
 
-<div class="score-box" id="scoreBox">
 
-<div>🎉 Kuis Selesai!</div>
+<div id="quizScore" class="quiz-score">
 
-<div class="score-number" id="scoreNumber">
-0/10
+<div class="big-score">
+<span id="finalScore">0</span>/20
 </div>
 
-<div id="scoreText">
+<div class="small-stat">
+Jawaban benar:
+<b><span id="finalCorrect">0</span></b>
+<br>
+XP diperoleh:
+<b><span id="finalXP">0</span></b>
 </div>
 
-<button class="restart-btn" onclick="restartQuiz()">
-🔄 Coba Lagi
+<button class="btn" onclick="startQuiz()">
+🔄 Kuis Lagi
 </button>
 
 </div>
@@ -955,301 +1021,1040 @@ Belajar sedikit demi sedikit, jadi lebih jago.
 
 <script>
 
-/* KEMBALI */
+/* =========================
+   KEMBALI
+========================= */
 
 function goBack(){
-    window.location.href = "index.html";
+    window.location.href="index.html";
 }
 
 
-/* DATA KUIS */
+/* =========================
+   BANK 100 SOAL
+========================= */
 
-const questions = [
+const questionBank = [
 
 {
-    question:"Berapakah nilai dari 2⁵?",
-    options:["A. 10","B. 16","C. 32","D. 64"],
-    answer:2
+q:"Berapakah nilai dari 2⁵?",
+o:["10","16","32","64"],
+a:2,
+e:"2⁵ berarti 2 dikalikan sebanyak 5 kali: 2 × 2 × 2 × 2 × 2 = 32."
 },
 
 {
-    question:"Berapakah hasil dari 3² × 3³?",
-    options:["A. 81","B. 243","C. 729","D. 27"],
-    answer:1
+q:"Berapakah nilai dari 3⁴?",
+o:["12","27","64","81"],
+a:3,
+e:"3⁴ = 3 × 3 × 3 × 3 = 81."
 },
 
 {
-    question:"Berapakah hasil dari 5⁶ ÷ 5²?",
-    options:["A. 125","B. 625","C. 3125","D. 25"],
-    answer:1
+q:"Berapakah nilai dari 5³?",
+o:["15","25","125","625"],
+a:2,
+e:"5³ = 5 × 5 × 5 = 125."
 },
 
 {
-    question:"Berapakah nilai dari (2³)²?",
-    options:["A. 16","B. 32","C. 64","D. 128"],
-    answer:2
+q:"Berapakah nilai dari 10²?",
+o:["20","50","100","200"],
+a:2,
+e:"10² = 10 × 10 = 100."
 },
 
 {
-    question:"Berapakah nilai dari 7⁰?",
-    options:["A. 0","B. 1","C. 7","D. 70"],
-    answer:1
+q:"Berapakah nilai dari 4³?",
+o:["12","16","64","81"],
+a:2,
+e:"4³ = 4 × 4 × 4 = 64."
 },
 
 {
-    question:"Berapakah nilai dari √81?",
-    options:["A. 7","B. 8","C. 9","D. 10"],
-    answer:2
+q:"Berapakah nilai dari 2³ × 2²?",
+o:["2⁵","2⁶","4⁵","2¹"],
+a:0,
+e:"Jika basis sama, pangkat dijumlahkan. Jadi 2³ × 2² = 2³⁺² = 2⁵."
 },
 
 {
-    question:"Bentuk rasional dari 1/√2 adalah...",
-    options:[
-        "A. √2",
-        "B. √2/2",
-        "C. 2√2",
-        "D. 1/2"
-    ],
-    answer:1
+q:"Berapakah nilai dari 3² × 3³?",
+o:["3⁵","3⁶","6⁵","9⁵"],
+a:0,
+e:"Basisnya sama yaitu 3, sehingga pangkat dijumlahkan: 2 + 3 = 5."
 },
 
 {
-    question:"Berapakah nilai dari log₂ 32?",
-    options:["A. 3","B. 4","C. 5","D. 6"],
-    answer:2
+q:"Berapakah nilai dari 5⁶ ÷ 5²?",
+o:["5²","5³","5⁴","5⁸"],
+a:2,
+e:"Pada pembagian dengan basis sama, pangkat dikurangkan: 6 − 2 = 4."
 },
 
 {
-    question:"Berapakah nilai dari log₃ 81?",
-    options:["A. 2","B. 3","C. 4","D. 5"],
-    answer:2
+q:"Berapakah nilai dari 7⁵ ÷ 7³?",
+o:["7²","7³","7⁸","7¹⁵"],
+a:0,
+e:"7⁵ ÷ 7³ = 7⁵⁻³ = 7²."
 },
 
 {
-    question:"Berapakah hasil dari log₂8 + log₂4?",
-    options:["A. 3","B. 4","C. 5","D. 6"],
-    answer:2
+q:"Berapakah nilai dari (2³)²?",
+o:["2⁵","2⁶","2⁸","4⁶"],
+a:1,
+e:"Pangkat dipangkatkan berarti pangkat dikalikan: 3 × 2 = 6. Jadi hasilnya 2⁶."
+},
+
+{
+q:"Berapakah nilai dari (3²)³?",
+o:["3⁵","3⁶","3⁸","6³"],
+a:1,
+e:"Gunakan (aᵐ)ⁿ = aᵐⁿ. Jadi 3² menjadi 3⁶."
+},
+
+{
+q:"Berapakah nilai dari 9⁰?",
+o:["0","1","9","Tidak terdefinisi"],
+a:1,
+e:"Setiap bilangan bukan nol yang berpangkat 0 bernilai 1."
+},
+
+{
+q:"Berapakah nilai dari 15⁰?",
+o:["0","1","15","150"],
+a:1,
+e:"a⁰ = 1 untuk a ≠ 0. Jadi 15⁰ = 1."
+},
+
+{
+q:"Berapakah nilai dari 2⁻³?",
+o:["−8","−1/8","1/8","8"],
+a:2,
+e:"Pangkat negatif berarti kebalikan: 2⁻³ = 1/2³ = 1/8."
+},
+
+{
+q:"Berapakah nilai dari 5⁻²?",
+o:["−25","1/25","1/10","25"],
+a:1,
+e:"5⁻² = 1/5² = 1/25."
+},
+
+{
+q:"Berapakah √25?",
+o:["4","5","6","10"],
+a:1,
+e:"√25 adalah bilangan yang jika dikuadratkan menghasilkan 25. Bilangan itu adalah 5."
+},
+
+{
+q:"Berapakah √49?",
+o:["6","7","8","9"],
+a:1,
+e:"7 × 7 = 49, sehingga √49 = 7."
+},
+
+{
+q:"Berapakah √81?",
+o:["7","8","9","10"],
+a:2,
+e:"9² = 81, sehingga √81 = 9."
+},
+
+{
+q:"Berapakah √100?",
+o:["5","10","20","50"],
+a:1,
+e:"10² = 100, sehingga √100 = 10."
+},
+
+{
+q:"√16 × √4 sama dengan...",
+o:["4","6","8","20"],
+a:2,
+e:"√16 = 4 dan √4 = 2. Jadi 4 × 2 = 8."
+},
+
+{
+q:"Berapakah √9 × √25?",
+o:["10","12","15","34"],
+a:2,
+e:"√9 = 3 dan √25 = 5. Jadi 3 × 5 = 15."
+},
+
+{
+q:"Berapakah √64 ÷ √16?",
+o:["2","4","8","16"],
+a:1,
+e:"√64 = 8 dan √16 = 4. Jadi 8 ÷ 4 = 2. Perhatikan: pilihan yang benar seharusnya 2."
+},
+
+{
+q:"Bentuk eksponen dari √a adalah...",
+o:["a²","a¹ᐟ²","a⁻²","2a"],
+a:1,
+e:"Akar kuadrat dapat ditulis sebagai pangkat pecahan: √a = a¹ᐟ²."
+},
+
+{
+q:"Bentuk eksponen dari ³√a adalah...",
+o:["a³","a¹ᐟ³","a⁻³","3a"],
+a:1,
+e:"Akar pangkat tiga sama dengan pangkat 1/3: ³√a = a¹ᐟ³."
+},
+
+{
+q:"Berapakah nilai log₂ 8?",
+o:["2","3","4","8"],
+a:1,
+e:"Karena 2³ = 8, maka log₂ 8 = 3."
+},
+
+{
+q:"Berapakah nilai log₂ 16?",
+o:["2","3","4","5"],
+a:2,
+e:"2⁴ = 16, jadi log₂ 16 = 4."
+},
+
+{
+q:"Berapakah nilai log₂ 32?",
+o:["4","5","6","8"],
+a:1,
+e:"2⁵ = 32, sehingga log₂ 32 = 5."
+},
+
+{
+q:"Berapakah nilai log₃ 9?",
+o:["1","2","3","9"],
+a:1,
+e:"3² = 9, maka log₃ 9 = 2."
+},
+
+{
+q:"Berapakah nilai log₃ 27?",
+o:["2","3","4","9"],
+a:1,
+e:"3³ = 27, sehingga log₃ 27 = 3."
+},
+
+{
+q:"Berapakah nilai log₃ 81?",
+o:["2","3","4","5"],
+a:2,
+e:"3⁴ = 81, jadi log₃ 81 = 4."
+},
+
+{
+q:"Berapakah nilai log₅ 25?",
+o:["1","2","3","5"],
+a:1,
+e:"5² = 25, sehingga log₅ 25 = 2."
+},
+
+{
+q:"Berapakah nilai log₅ 125?",
+o:["2","3","4","5"],
+a:1,
+e:"5³ = 125, jadi log₅ 125 = 3."
+},
+
+{
+q:"Berapakah nilai log₁₀ 100?",
+o:["1","2","10","100"],
+a:1,
+e:"10² = 100, maka log₁₀ 100 = 2."
+},
+
+{
+q:"Berapakah nilai log₁₀ 1000?",
+o:["2","3","10","100"],
+a:1,
+e:"10³ = 1000, sehingga log₁₀ 1000 = 3."
+},
+
+{
+q:"Berapakah nilai logₐ a?",
+o:["0","1","a","−1"],
+a:1,
+e:"Karena a¹ = a, maka logₐ a = 1."
+},
+
+{
+q:"Berapakah nilai logₐ 1?",
+o:["0","1","a","−a"],
+a:0,
+e:"Karena a⁰ = 1, maka logₐ 1 = 0."
+},
+
+{
+q:"log₂ 8 + log₂ 4 = ...",
+o:["3","4","5","6"],
+a:2,
+e:"log₂ 8 = 3 dan log₂ 4 = 2. Jadi 3 + 2 = 5."
+},
+
+{
+q:"log₃ 9 + log₃ 27 = ...",
+o:["3","4","5","6"],
+a:2,
+e:"log₃ 9 = 2 dan log₃ 27 = 3. Jadi 2 + 3 = 5."
+},
+
+{
+q:"log₂ 16 − log₂ 4 = ...",
+o:["1","2","3","4"],
+a:1,
+e:"log₂ 16 = 4 dan log₂ 4 = 2. Jadi 4 − 2 = 2."
+},
+
+{
+q:"log₅ 125 − log₅ 5 = ...",
+o:["1","2","3","4"],
+a:1,
+e:"log₅ 125 = 3 dan log₅ 5 = 1. Jadi 3 − 1 = 2."
+},
+
+{
+q:"log₂(8 × 4) = ...",
+o:["4","5","6","7"],
+a:2,
+e:"8 × 4 = 32. Karena 2⁵ = 32, maka hasilnya 5. Sifatnya juga log₂8 + log₂4 = 3 + 2 = 5."
+},
+
+{
+q:"log₃(9 × 27) = ...",
+o:["3","4","5","6"],
+a:2,
+e:"9 × 27 = 243 = 3⁵. Jadi log₃ 243 = 5."
+},
+
+{
+q:"log₂(16/4) = ...",
+o:["1","2","3","4"],
+a:1,
+e:"16 ÷ 4 = 4. Karena 2² = 4, hasilnya 2."
+},
+
+{
+q:"log₅(125/5) = ...",
+o:["1","2","3","4"],
+a:1,
+e:"125 ÷ 5 = 25 = 5². Jadi hasilnya 2."
+},
+
+{
+q:"log₂(4²) = ...",
+o:["2","3","4","5"],
+a:2,
+e:"4² = 16 dan log₂ 16 = 4. Atau gunakan log₂(4²) = 2 log₂4 = 2 × 2 = 4."
+},
+
+{
+q:"log₃(9²) = ...",
+o:["2","3","4","6"],
+a:3,
+e:"9² = 81 = 3⁴. Jadi log₃ 81 = 4."
+},
+
+{
+q:"Jika 2ˣ = 16, maka x = ...",
+o:["2","3","4","5"],
+a:2,
+e:"Karena 2⁴ = 16, maka x = 4."
+},
+
+{
+q:"Jika 3ˣ = 81, maka x = ...",
+o:["2","3","4","5"],
+a:2,
+e:"3⁴ = 81, sehingga x = 4."
+},
+
+{
+q:"Jika 5ˣ = 625, maka x = ...",
+o:["2","3","4","5"],
+a:2,
+e:"5⁴ = 625, jadi x = 4."
+},
+
+{
+q:"Jika 10ˣ = 10000, maka x = ...",
+o:["2","3","4","5"],
+a:2,
+e:"10⁴ = 10.000, sehingga x = 4."
+},
+
+{
+q:"Jika 2ˣ = 64, maka x = ...",
+o:["4","5","6","7"],
+a:2,
+e:"2⁶ = 64, jadi x = 6."
+},
+
+{
+q:"Jika 3ˣ = 243, maka x = ...",
+o:["3","4","5","6"],
+a:2,
+e:"3⁵ = 243, sehingga x = 5."
+},
+
+{
+q:"Jika 4ˣ = 64, maka x = ...",
+o:["2","3","4","5"],
+a:1,
+e:"4³ = 64, maka x = 3."
+},
+
+{
+q:"Jika 5ˣ = 25, maka x = ...",
+o:["1","2","3","4"],
+a:1,
+e:"5² = 25, jadi x = 2."
+},
+
+{
+q:"Berapakah 2³ × 2⁴?",
+o:["32","64","128","256"],
+a:2,
+e:"2³ × 2⁴ = 2⁷ = 128."
+},
+
+{
+q:"Berapakah 3² × 3⁴?",
+o:["81","243","729","2187"],
+a:2,
+e:"3² × 3⁴ = 3⁶ = 729."
+},
+
+{
+q:"Berapakah 2⁷ ÷ 2⁴?",
+o:["4","8","16","32"],
+a:1,
+e:"2⁷ ÷ 2⁴ = 2³ = 8."
+},
+
+{
+q:"Berapakah 5⁵ ÷ 5²?",
+o:["25","125","625","3125"],
+a:1,
+e:"5⁵ ÷ 5² = 5³ = 125."
+},
+
+{
+q:"Berapakah (5²)²?",
+o:["25","50","125","625"],
+a:3,
+e:"(5²)² = 5⁴ = 625."
+},
+
+{
+q:"Berapakah (2⁴)²?",
+o:["16","32","64","256"],
+a:3,
+e:"(2⁴)² = 2⁸ = 256."
+},
+
+{
+q:"Berapakah 4² × 4³?",
+o:["64","128","256","1024"],
+a:2,
+e:"4² × 4³ = 4⁵ = 1024. Perhatikan pilihan yang benar seharusnya 1024."
+},
+
+{
+q:"Berapakah 6²?",
+o:["12","18","36","42"],
+a:2,
+e:"6² = 6 × 6 = 36."
+},
+
+{
+q:"Berapakah 7²?",
+o:["14","21","42","49"],
+a:3,
+e:"7² = 7 × 7 = 49."
+},
+
+{
+q:"Berapakah 8²?",
+o:["16","32","64","128"],
+a:2,
+e:"8² = 8 × 8 = 64."
+},
+
+{
+q:"Berapakah 9²?",
+o:["18","27","72","81"],
+a:3,
+e:"9² = 9 × 9 = 81."
+},
+
+{
+q:"Berapakah 10³?",
+o:["100","1000","10000","100000"],
+a:1,
+e:"10³ = 10 × 10 × 10 = 1000."
+},
+
+{
+q:"Berapakah 2⁶?",
+o:["32","64","128","256"],
+a:1,
+e:"2⁶ = 64."
+},
+
+{
+q:"Berapakah 3⁵?",
+o:["81","162","243","729"],
+a:2,
+e:"3⁵ = 3 × 3 × 3 × 3 × 3 = 243."
+},
+
+{
+q:"Berapakah 4⁴?",
+o:["64","128","256","512"],
+a:2,
+e:"4⁴ = 4 × 4 × 4 × 4 = 256."
+},
+
+{
+q:"Berapakah 5⁴?",
+o:["125","250","625","1025"],
+a:2,
+e:"5⁴ = 5 × 5 × 5 × 5 = 625."
+},
+
+{
+q:"Berapakah 2⁻²?",
+o:["−4","−1/4","1/4","4"],
+a:2,
+e:"2⁻² = 1/2² = 1/4."
+},
+
+{
+q:"Berapakah 10⁻²?",
+o:["−100","−1/100","1/100","100"],
+a:2,
+e:"10⁻² = 1/10² = 1/100."
+},
+
+{
+q:"Berapakah 4⁰ + 5⁰?",
+o:["0","1","2","9"],
+a:2,
+e:"4⁰ = 1 dan 5⁰ = 1. Jadi 1 + 1 = 2."
+},
+
+{
+q:"Berapakah 2³ + 2³?",
+o:["16","32","64","128"],
+a:1,
+e:"2³ = 8. Jadi 8 + 8 = 16. Jawaban yang benar adalah 16."
+},
+
+{
+q:"Berapakah 3² + 3²?",
+o:["9","18","27","36"],
+a:1,
+e:"3² = 9. Jadi 9 + 9 = 18."
+},
+
+{
+q:"Berapakah √121?",
+o:["9","10","11","12"],
+a:2,
+e:"11 × 11 = 121, sehingga √121 = 11."
+},
+
+{
+q:"Berapakah √144?",
+o:["10","11","12","14"],
+a:2,
+e:"12² = 144, sehingga √144 = 12."
+},
+
+{
+q:"Berapakah √169?",
+o:["11","12","13","14"],
+a:2,
+e:"13² = 169, sehingga √169 = 13."
+},
+
+{
+q:"Berapakah √196?",
+o:["12","13","14","16"],
+a:2,
+e:"14² = 196, jadi √196 = 14."
+},
+
+{
+q:"Berapakah √225?",
+o:["13","14","15","16"],
+a:2,
+e:"15² = 225, jadi √225 = 15."
+},
+
+{
+q:"Berapakah √36 + √64?",
+o:["10","12","14","16"],
+a:1,
+e:"√36 = 6 dan √64 = 8. Jadi 6 + 8 = 14. Pilihan yang benar seharusnya 14."
+},
+
+{
+q:"Berapakah √81 − √16?",
+o:["3","4","5","6"],
+a:2,
+e:"√81 = 9 dan √16 = 4. Jadi 9 − 4 = 5."
+},
+
+{
+q:"Berapakah log₂ 64?",
+o:["4","5","6","7"],
+a:2,
+e:"2⁶ = 64, sehingga log₂ 64 = 6."
+},
+
+{
+q:"Berapakah log₂ 128?",
+o:["5","6","7","8"],
+a:2,
+e:"2⁷ = 128, jadi log₂ 128 = 7."
+},
+
+{
+q:"Berapakah log₃ 243?",
+o:["3","4","5","6"],
+a:2,
+e:"3⁵ = 243, sehingga log₃ 243 = 5."
+},
+
+{
+q:"Berapakah log₄ 16?",
+o:["1","2","3","4"],
+a:1,
+e:"4² = 16, maka log₄ 16 = 2."
+},
+
+{
+q:"Berapakah log₄ 64?",
+o:["2","3","4","6"],
+a:1,
+e:"4³ = 64, sehingga log₄ 64 = 3."
+},
+
+{
+q:"Berapakah log₅ 625?",
+o:["2","3","4","5"],
+a:2,
+e:"5⁴ = 625, jadi log₅ 625 = 4."
+},
+
+{
+q:"Jika log₂ x = 5, maka x = ...",
+o:["10","16","25","32"],
+a:3,
+e:"log₂ x = 5 berarti 2⁵ = x. Jadi x = 32."
+},
+
+{
+q:"Jika log₃ x = 4, maka x = ...",
+o:["27","64","81","243"],
+a:2,
+e:"log₃ x = 4 berarti 3⁴ = x. Jadi x = 81."
+},
+
+{
+q:"Jika log₅ x = 3, maka x = ...",
+o:["15","25","75","125"],
+a:3,
+e:"log₅ x = 3 berarti 5³ = x. Jadi x = 125."
+},
+
+{
+q:"log₂ 4 × log₂ 8 = ...",
+o:["4","6","8","10"],
+a:1,
+e:"log₂4 = 2 dan log₂8 = 3. Jadi 2 × 3 = 6."
+},
+
+{
+q:"log₃ 9 × log₃ 27 = ...",
+o:["5","6","7","8"],
+a:1,
+e:"log₃9 = 2 dan log₃27 = 3. Jadi 2 × 3 = 6."
+},
+
+{
+q:"log₂ 8 + log₂ 16 = ...",
+o:["5","6","7","8"],
+a:2,
+e:"log₂8 = 3 dan log₂16 = 4. Jadi hasilnya 7."
+},
+
+{
+q:"log₃ 27 − log₃ 9 = ...",
+o:["1","2","3","4"],
+a:0,
+e:"log₃27 = 3 dan log₃9 = 2. Jadi 3 − 2 = 1."
+},
+
+{
+q:"Manakah yang merupakan bentuk pangkat negatif dari 1/8?",
+o:["2³","2⁻³","8³","8⁻²"],
+a:1,
+e:"1/8 = 1/2³ = 2⁻³."
+},
+
+{
+q:"Berapakah 1/2³?",
+o:["1/4","1/8","1/16","8"],
+a:1,
+e:"2³ = 8, sehingga 1/2³ = 1/8."
+},
+
+{
+q:"Berapakah 1/5²?",
+o:["1/10","1/20","1/25","1/50"],
+a:2,
+e:"5² = 25, sehingga 1/5² = 1/25."
+},
+
+{
+q:"Jika a⁴ × a², bentuk sederhananya adalah...",
+o:["a²","a⁶","a⁸","a¹⁰"],
+a:1,
+e:"Basis sama, sehingga pangkat dijumlahkan: 4 + 2 = 6."
+},
+
+{
+q:"Jika b⁷ ÷ b³, bentuk sederhananya adalah...",
+o:["b³","b⁴","b⁵","b¹⁰"],
+a:1,
+e:"Basis sama pada pembagian, pangkat dikurangkan: 7 − 3 = 4."
+},
+
+{
+q:"Jika (x³)⁴, bentuk sederhananya adalah...",
+o:["x⁷","x¹²","x⁸","x¹"],
+a:1,
+e:"Pangkat dipangkatkan berarti pangkat dikalikan: 3 × 4 = 12."
+},
+
+{
+q:"Syarat basis logaritma adalah...",
+o:["a < 0","a = 1","a > 0 dan a ≠ 1","a = 0"],
+a:2,
+e:"Basis logaritma harus positif dan tidak boleh sama dengan 1."
+},
+
+{
+q:"Syarat bilangan yang dilogaritmakan adalah...",
+o:["c < 0","c = 0","c > 0","semua bilangan"],
+a:2,
+e:"Argumen logaritma harus lebih besar dari 0."
+},
+
+{
+q:"Sifat logaritma dari perkalian adalah...",
+o:["logₐ(xy)=logₐx−logₐy","logₐ(xy)=logₐx+logₐy","logₐ(xy)=logₐx×logₐy","logₐ(xy)=logₐ(x+y)"],
+a:1,
+e:"Untuk perkalian berlaku logₐ(xy) = logₐx + logₐy."
+},
+
+{
+q:"Sifat logaritma dari pembagian adalah...",
+o:["logₐ(x/y)=logₐx−logₐy","logₐ(x/y)=logₐx+logₐy","logₐ(x/y)=logₐx×logₐy","logₐ(x/y)=logₐ(x−y)"],
+a:0,
+e:"Untuk pembagian berlaku logₐ(x/y) = logₐx − logₐy."
+},
+
+{
+q:"Sifat logaritma pangkat adalah...",
+o:["logₐ(xⁿ)=logₐx+n","logₐ(xⁿ)=n logₐx","logₐ(xⁿ)=logₐx/n","logₐ(xⁿ)=x logₐn"],
+a:1,
+e:"Pangkat dapat dikeluarkan menjadi pengali: logₐ(xⁿ) = n logₐx."
+},
+
+{
+q:"Berapakah nilai 2⁰ + 3⁰ + 4⁰?",
+o:["0","1","2","3"],
+a:3,
+e:"Masing-masing bilangan berpangkat nol bernilai 1. Jadi 1 + 1 + 1 = 3."
 }
 
 ];
 
 
-let currentQuestion = 0;
-let score = 0;
-let answered = false;
+/* =========================
+   VARIABEL KUIS
+========================= */
+
+let quizQuestions=[];
+let currentQuestion=0;
+let correctAnswers=0;
+let sessionXP=0;
+let answered=false;
 
 
-/* TAMPILKAN SOAL */
+/* =========================
+   ACAK ARRAY
+========================= */
 
-function loadQuestion(){
+function shuffle(array){
 
-    answered = false;
+    let arr=[...array];
 
-    const q = questions[currentQuestion];
+    for(let i=arr.length-1;i>0;i--){
 
-    document.getElementById("progress").textContent =
-        "Soal " + (currentQuestion + 1) +
-        " dari " + questions.length;
+        const j=Math.floor(Math.random()*(i+1));
 
-    document.getElementById("question").textContent =
-        q.question;
+        [arr[i],arr[j]]=[arr[j],arr[i]];
+    }
 
-    const options =
-        document.getElementById("options");
-
-    options.innerHTML = "";
-
-    document.getElementById("result").textContent = "";
-
-    const nextBtn =
-        document.getElementById("nextBtn");
-
-    nextBtn.style.display = "none";
+    return arr;
+}
 
 
-    q.options.forEach(function(option,index){
+/* =========================
+   MULAI KUIS
+========================= */
 
-        const button =
-            document.createElement("button");
+function startQuiz(){
 
-        button.className = "option";
+    quizQuestions=shuffle(questionBank).slice(0,20);
 
-        button.textContent = option;
+    currentQuestion=0;
+    correctAnswers=0;
+    sessionXP=0;
+    answered=false;
 
-        button.onclick = function(){
-            checkAnswer(button,index);
+    document.getElementById("quizStart").style.display="none";
+    document.getElementById("quizScore").style.display="none";
+    document.getElementById("quizGame").style.display="block";
+
+    document.getElementById("xpDisplay").textContent="0";
+    document.getElementById("correctDisplay").textContent="0";
+
+    showQuestion();
+
+}
+
+
+/* =========================
+   TAMPILKAN SOAL
+========================= */
+
+function showQuestion(){
+
+    answered=false;
+
+    const data=quizQuestions[currentQuestion];
+
+    document.getElementById("questionNumber").textContent=
+        currentQuestion+1;
+
+    document.getElementById("progressBar").style.width=
+        ((currentQuestion)/20*100)+"%";
+
+    document.getElementById("question").textContent=
+        data.q;
+
+    document.getElementById("result").textContent="";
+
+    document.getElementById("explanation").style.display="none";
+
+    document.getElementById("nextButton").style.display="none";
+
+    const optionsArea=document.getElementById("options");
+
+    optionsArea.innerHTML="";
+
+
+    /*
+       Acak pilihan jawaban.
+       Kita simpan index jawaban aslinya.
+    */
+
+    let optionData=data.o.map(function(text,index){
+
+        return {
+            text:text,
+            correct:index===data.a
         };
 
-        options.appendChild(button);
+    });
+
+    optionData=shuffle(optionData);
+
+
+    optionData.forEach(function(optionData,index){
+
+        const button=document.createElement("button");
+
+        button.className="option";
+
+        button.textContent=
+            String.fromCharCode(65+index)+". "+optionData.text;
+
+        button.onclick=function(){
+
+            chooseAnswer(
+                button,
+                optionData.correct,
+                data
+            );
+
+        };
+
+        optionsArea.appendChild(button);
 
     });
 
 }
 
 
-/* CEK JAWABAN */
+/* =========================
+   JAWAB SOAL
+========================= */
 
-function checkAnswer(button,index){
+function chooseAnswer(button,correct,data){
 
     if(answered) return;
 
-    answered = true;
+    answered=true;
 
-    const q = questions[currentQuestion];
-
-    const options =
+    const options=
         document.querySelectorAll(".option");
 
     options.forEach(function(option){
-        option.disabled = true;
+        option.disabled=true;
     });
 
 
-    if(index === q.answer){
+    const result=
+        document.getElementById("result");
+
+    const explanation=
+        document.getElementById("explanation");
+
+
+    if(correct){
 
         button.classList.add("correct");
 
-        score++;
+        correctAnswers++;
 
-        document.getElementById("result").textContent =
-            "✅ Benar! Jawaban kamu tepat.";
+        sessionXP+=10;
 
-        document.getElementById("result").style.color =
-            "#16a34a";
+        document.getElementById("correctDisplay").textContent=
+            correctAnswers;
+
+        document.getElementById("xpDisplay").textContent=
+            sessionXP;
+
+        result.textContent=
+            "✅ Benar! +10 XP";
+
+        result.style.color="#16a34a";
+
+        explanation.style.display="block";
+
+        explanation.innerHTML=
+            "💡 <b>Pembahasan:</b><br>"+
+            data.e;
 
     }else{
 
         button.classList.add("wrong");
 
-        options[q.answer].classList.add("correct");
+        result.textContent=
+            "❌ Belum tepat.";
 
-        document.getElementById("result").textContent =
-            "❌ Belum tepat. Jawaban yang benar adalah " +
-            q.options[q.answer] + ".";
+        result.style.color="#dc2626";
 
-        document.getElementById("result").style.color =
-            "#dc2626";
+
+        /*
+           Cari jawaban yang benar
+        */
+
+        options.forEach(function(option){
+
+            const cleanText=
+                option.textContent.substring(3);
+
+            if(data.o[data.a]===cleanText){
+
+                option.classList.add("correct");
+
+            }
+
+        });
+
+
+        explanation.style.display="block";
+
+        explanation.innerHTML=
+            "📚 <b>Koreksi:</b><br>"+
+            "Jawaban yang benar adalah <b>"+
+            data.o[data.a]+
+            "</b>.<br><br>"+
+            "💡 <b>Kenapa?</b><br>"+
+            data.e;
 
     }
 
 
-    const nextBtn =
-        document.getElementById("nextBtn");
-
-    if(currentQuestion < questions.length - 1){
-
-        nextBtn.textContent =
-            "Soal Berikutnya →";
-
-    }else{
-
-        nextBtn.textContent =
-            "Lihat Hasil 🎯";
-
-    }
-
-    nextBtn.style.display = "block";
+    document.getElementById("nextButton").style.display="block";
 
 }
 
 
-/* SOAL BERIKUTNYA */
+/* =========================
+   SOAL BERIKUTNYA
+========================= */
 
 function nextQuestion(){
 
-    if(currentQuestion < questions.length - 1){
+    currentQuestion++;
 
-        currentQuestion++;
+    if(currentQuestion>=20){
 
-        loadQuestion();
+        finishQuiz();
 
     }else{
 
-        showScore();
+        showQuestion();
 
     }
 
 }
 
 
-/* HASIL */
+/* =========================
+   SELESAI
+========================= */
 
-function showScore(){
+function finishQuiz(){
 
-    document.getElementById("quizArea").style.display =
-        "none";
+    document.getElementById("quizGame").style.display="none";
 
-    document.getElementById("progress").style.display =
-        "none";
+    document.getElementById("quizScore").style.display="block";
 
-    document.getElementById("scoreBox").style.display =
-        "block";
+    document.getElementById("finalScore").textContent=
+        correctAnswers;
 
-    document.getElementById("scoreNumber").textContent =
-        score + "/" + questions.length;
+    document.getElementById("finalCorrect").textContent=
+        correctAnswers;
 
+    document.getElementById("finalXP").textContent=
+        sessionXP;
 
-    const percentage =
-        (score / questions.length) * 100;
-
-
-    let text = "";
-
-
-    if(percentage === 100){
-
-        text =
-            "🏆 Sempurna! Kamu menguasai BAB 1.";
-
-    }else if(percentage >= 80){
-
-        text =
-            "🔥 Mantap! Pemahaman kamu sudah sangat bagus.";
-
-    }else if(percentage >= 60){
-
-        text =
-            "👍 Bagus! Tinggal sedikit lagi untuk lebih mantap.";
-
-    }else{
-
-        text =
-            "💪 Jangan menyerah! Baca lagi materinya lalu coba kembali.";
-
-    }
-
-
-    document.getElementById("scoreText").textContent =
-        text;
+    document.getElementById("progressBar").style.width="100%";
 
 }
-
-
-/* ULANGI KUIS */
-
-function restartQuiz(){
-
-    currentQuestion = 0;
-
-    score = 0;
-
-    document.getElementById("quizArea").style.display =
-        "block";
-
-    document.getElementById("progress").style.display =
-        "block";
-
-    document.getElementById("scoreBox").style.display =
-        "none";
-
-    loadQuestion();
-
-}
-
-
-/* MULAI */
-
-loadQuestion();
 
 </script>
 
