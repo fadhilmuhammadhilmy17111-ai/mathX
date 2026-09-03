@@ -1,413 +1,439 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
 
-<meta name="viewport"
-content="width=device-width, initial-scale=1.0">
-
-<meta name="theme-color" content="#2563eb">
+<meta
+name="viewport"
+content="width=device-width, initial-scale=1.0, viewport-fit=cover"
+>
 
 <title>MathX — Matematika Kelas 10</title>
 
 <style>
 
-/* ================= DASAR ================= */
+/* =========================
+   RESET
+========================= */
 
 *{
     box-sizing:border-box;
     margin:0;
     padding:0;
-    -webkit-tap-highlight-color:transparent;
-}
-
-html,body{
-    min-height:100%;
 }
 
 body{
     font-family:Arial,sans-serif;
     background:#eef4ff;
     color:#172033;
-    overflow-x:hidden;
-    transition:background .3s,color .3s;
+    min-height:100vh;
 }
 
-button,a{
+button,
+input{
     font-family:inherit;
 }
 
+button{
+    cursor:pointer;
+}
 
-/* ================= SPLASH ================= */
+
+/* =========================
+   SPLASH
+========================= */
 
 #splash{
     position:fixed;
     inset:0;
-    z-index:9999;
-
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
     display:flex;
     align-items:center;
     justify-content:center;
-
-    background:linear-gradient(135deg,#2563eb,#4f46e5);
+    z-index:9999;
     color:white;
-
-    animation:splashHide .8s ease forwards;
-    animation-delay:.4s;
 }
 
-.splash-content{
+.splash-box{
     text-align:center;
 }
 
 .splash-logo{
-    width:85px;
-    height:85px;
-
-    margin:auto;
-    margin-bottom:18px;
-
-    border-radius:24px;
-
+    width:90px;
+    height:90px;
+    border-radius:25px;
+    background:white;
+    color:#2563eb;
     display:flex;
     align-items:center;
     justify-content:center;
-
-    background:rgba(255,255,255,.18);
-
-    font-size:45px;
+    font-size:42px;
+    font-weight:900;
+    margin:auto;
+    box-shadow:0 15px 40px rgba(0,0,0,.2);
 }
 
-.splash-content h1{
-    font-size:38px;
-    margin-bottom:7px;
+.splash-title{
+    font-size:30px;
+    font-weight:900;
+    margin-top:18px;
 }
 
-.splash-content p{
-    font-size:14px;
-    opacity:.9;
-}
-
-@keyframes splashHide{
-
-    0%{
-        opacity:1;
-        visibility:visible;
-    }
-
-    99%{
-        opacity:0;
-        visibility:visible;
-    }
-
-    100%{
-        opacity:0;
-        visibility:hidden;
-        pointer-events:none;
-    }
-
+.splash-text{
+    margin-top:8px;
+    opacity:.85;
 }
 
 
-/* ================= APP ================= */
+/* =========================
+   AUTH
+========================= */
+
+#authScreen{
+    display:none;
+    min-height:100vh;
+    align-items:center;
+    justify-content:center;
+    padding:20px;
+}
+
+.auth-box{
+    width:100%;
+    max-width:420px;
+    background:white;
+    border-radius:24px;
+    padding:25px;
+    box-shadow:0 15px 40px rgba(30,60,120,.12);
+}
+
+.auth-logo{
+    width:65px;
+    height:65px;
+    background:#2563eb;
+    color:white;
+    border-radius:18px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    font-size:30px;
+    font-weight:900;
+    margin:0 auto 15px;
+}
+
+.auth-title{
+    text-align:center;
+    font-size:26px;
+    font-weight:900;
+}
+
+.auth-subtitle{
+    text-align:center;
+    color:#64748b;
+    margin-top:7px;
+    margin-bottom:22px;
+}
+
+.auth-tabs{
+    display:flex;
+    gap:8px;
+    background:#eef2ff;
+    padding:5px;
+    border-radius:13px;
+    margin-bottom:20px;
+}
+
+.auth-tabs button{
+    flex:1;
+    border:0;
+    padding:11px;
+    border-radius:9px;
+    background:transparent;
+    font-weight:700;
+    color:#64748b;
+}
+
+.auth-tabs button.active{
+    background:white;
+    color:#2563eb;
+    box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+
+.auth-form{
+    display:flex;
+    flex-direction:column;
+    gap:12px;
+}
+
+.auth-form input{
+    width:100%;
+    border:1px solid #dbe3f0;
+    border-radius:12px;
+    padding:14px;
+    outline:none;
+    font-size:15px;
+}
+
+.auth-form input:focus{
+    border-color:#2563eb;
+}
+
+.auth-submit{
+    border:0;
+    background:#2563eb;
+    color:white;
+    padding:14px;
+    border-radius:12px;
+    font-weight:800;
+    font-size:15px;
+    margin-top:4px;
+}
+
+.auth-message{
+    min-height:22px;
+    text-align:center;
+    margin-top:13px;
+    font-size:13px;
+    color:#64748b;
+}
+
+
+/* =========================
+   APP
+========================= */
 
 #app{
-    width:100%;
-    max-width:520px;
+    display:none;
     min-height:100vh;
-    margin:auto;
     padding-bottom:90px;
 }
 
+.container{
+    width:100%;
+    max-width:520px;
+    margin:auto;
+    padding:15px;
+}
 
-/* ================= HEADER ================= */
+
+/* =========================
+   HEADER
+========================= */
 
 .header{
-    position:sticky;
-    top:0;
-    z-index:100;
-
-    width:100%;
-
-    padding:12px 15px;
-
-    background:white;
-    border-bottom:1px solid #dbe4f5;
-
     display:flex;
     align-items:center;
     justify-content:space-between;
-
-    transition:.3s;
+    gap:10px;
+    padding:5px 0 15px;
 }
 
 .brand{
     display:flex;
     align-items:center;
-    gap:9px;
+    gap:10px;
 }
 
 .brand-icon{
-    width:42px;
-    height:42px;
-
+    width:43px;
+    height:43px;
     border-radius:13px;
-
     background:#2563eb;
     color:white;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
-    font-size:22px;
-}
-
-.brand h1{
+    font-weight:900;
     font-size:20px;
 }
 
-.brand small{
-    display:block;
-    margin-top:2px;
-
-    color:#718096;
-    font-size:10px;
+.brand-text{
+    font-weight:900;
+    font-size:20px;
 }
 
-.header-right{
+.brand-sub{
+    font-size:11px;
+    color:#64748b;
+    margin-top:2px;
+}
+
+.header-actions{
     display:flex;
     align-items:center;
     gap:7px;
 }
 
-
-/* ================= DARK BUTTON ================= */
-
-.theme-button{
-    width:38px;
-    height:38px;
-
+.icon-button{
+    width:40px;
+    height:40px;
     border:0;
     border-radius:12px;
-
-    background:#eef4ff;
-    color:#2563eb;
-
+    background:white;
+    box-shadow:0 4px 15px rgba(30,60,120,.08);
     font-size:18px;
-
-    cursor:pointer;
 }
 
-
-/* ================= XP HEADER ================= */
-
-.score{
-    padding:9px 12px;
-
-    border-radius:12px;
-
-    background:#eff6ff;
+.xp-header{
+    background:#e0eaff;
     color:#2563eb;
-
-    font-size:12px;
-    font-weight:bold;
-
-    white-space:nowrap;
+    padding:9px 12px;
+    border-radius:12px;
+    font-size:13px;
+    font-weight:900;
 }
 
 
-/* ================= CONTENT ================= */
-
-.content{
-    padding:20px 16px;
-}
-
-
-/* ================= HERO ================= */
+/* =========================
+   HERO
+========================= */
 
 .hero{
-    padding:22px;
-
-    margin-bottom:22px;
-
-    border-radius:22px;
-
+    background:linear-gradient(
+        135deg,
+        #2563eb,
+        #4f46e5
+    );
     color:white;
-
-    background:
-    linear-gradient(135deg,#2563eb,#6366f1);
-
-    box-shadow:
-    0 12px 30px rgba(37,99,235,.2);
+    border-radius:24px;
+    padding:23px;
+    box-shadow:0 15px 35px rgba(37,99,235,.2);
 }
 
-.hero h2{
+.hero-title{
     font-size:24px;
-    margin-bottom:8px;
+    font-weight:900;
 }
 
-.hero p{
+.hero-text{
+    margin-top:8px;
+    line-height:1.5;
+    opacity:.9;
     font-size:14px;
-    line-height:1.6;
-    opacity:.93;
+}
+
+.account-card{
+    margin-top:18px;
+    background:rgba(255,255,255,.14);
+    border:1px solid rgba(255,255,255,.2);
+    border-radius:16px;
+    padding:13px;
+}
+
+.account-name{
+    font-weight:800;
+}
+
+.account-role{
+    font-size:12px;
+    margin-top:4px;
+    opacity:.85;
+}
+
+.owner-button{
+    width:100%;
+    border:0;
+    background:white;
+    color:#2563eb;
+    padding:12px;
+    border-radius:12px;
+    margin-top:14px;
+    font-weight:900;
 }
 
 
-/* ================= TITLE ================= */
+/* =========================
+   SECTION
+========================= */
 
 .section-title{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    margin:20px 2px 12px;
-}
-
-.section-title h2{
     font-size:19px;
-}
-
-.section-title span{
-    color:#64748b;
-    font-size:12px;
+    font-weight:900;
+    margin:24px 0 12px;
 }
 
 
-/* ================= XP & PROGRESS ================= */
+/* =========================
+   STATS
+========================= */
 
-.features{
-    display:flex;
-    flex-direction:column;
+.stats{
+    display:grid;
+    grid-template-columns:1fr 1fr;
     gap:12px;
 }
 
-.feature{
-    width:100%;
-    min-height:88px;
-
-    padding:15px 17px;
-
-    border-radius:18px;
-
+.stat-card{
     background:white;
-    border:1px solid #e1e8f5;
-
-    box-shadow:
-    0 5px 15px rgba(30,60,100,.05);
-
-    display:flex;
-    align-items:center;
-
-    gap:14px;
-
-    transition:.3s;
+    border-radius:18px;
+    padding:17px;
+    box-shadow:0 7px 20px rgba(30,60,120,.07);
 }
 
-.feature-icon{
-    flex:none;
-
-    width:48px;
-    height:48px;
-
-    border-radius:14px;
-
-    background:#eff6ff;
-
-    display:flex;
-    align-items:center;
-    justify-content:center;
-
-    font-size:24px;
+.stat-label{
+    color:#64748b;
+    font-size:12px;
+    font-weight:700;
 }
 
-.feature-content{
-    flex:1;
-    min-width:0;
+.stat-value{
+    font-size:23px;
+    font-weight:900;
+    margin-top:7px;
 }
 
-.feature-top{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-
-    gap:10px;
-}
-
-.feature h3{
-    font-size:15px;
-    margin-bottom:4px;
-}
-
-.feature p{
-    color:#718096;
-    font-size:11px;
-}
-
-.percent{
-    color:#2563eb;
-    font-size:18px;
-    font-weight:bold;
+.progress-track{
+    width:100%;
+    height:8px;
+    background:#e5eaf2;
+    border-radius:20px;
+    overflow:hidden;
+    margin-top:10px;
 }
 
 .progress-bar{
-    width:100%;
-    height:7px;
-
-    margin-top:8px;
-
-    background:#e5e7eb;
-
-    border-radius:20px;
-
-    overflow:hidden;
-}
-
-.progress-fill{
-    width:0%;
     height:100%;
-
-    background:
-    linear-gradient(90deg,#2563eb,#6366f1);
-
+    width:0%;
+    background:#2563eb;
     border-radius:20px;
+    transition:.4s;
+}
 
-    transition:width .5s ease;
+.progress-info{
+    display:flex;
+    justify-content:space-between;
+    font-size:11px;
+    color:#64748b;
+    margin-top:6px;
 }
 
 
-/* ================= BAB ================= */
+/* =========================
+   BAB
+========================= */
 
 .bab-list{
     display:flex;
     flex-direction:column;
-    gap:12px;
+    gap:11px;
 }
 
 .bab-card{
-    width:100%;
-
-    padding:16px;
-
     display:flex;
     align-items:center;
-
-    gap:14px;
-
-    text-decoration:none;
-    color:inherit;
-
+    gap:13px;
     background:white;
-
-    border:1px solid #e1e8f5;
-
-    border-radius:18px;
-
-    box-shadow:
-    0 5px 15px rgba(30,60,100,.05);
-
-    transition:transform .15s;
+    text-decoration:none;
+    color:#172033;
+    border-radius:17px;
+    padding:15px;
+    box-shadow:0 6px 18px rgba(30,60,120,.06);
+    transition:.2s;
 }
 
 .bab-card:active{
@@ -415,153 +441,260 @@ button,a{
 }
 
 .bab-number{
-    flex:none;
-
-    width:48px;
-    height:48px;
-
-    border-radius:15px;
-
-    background:#eff6ff;
+    min-width:43px;
+    height:43px;
+    border-radius:13px;
+    background:#e0eaff;
     color:#2563eb;
-
     display:flex;
     align-items:center;
     justify-content:center;
-
-    font-size:17px;
-    font-weight:bold;
+    font-weight:900;
 }
 
 .bab-info{
     flex:1;
-    min-width:0;
 }
 
-.bab-info h3{
+.bab-title{
+    font-weight:800;
     font-size:15px;
-    margin-bottom:5px;
 }
 
-.bab-info p{
-    color:#718096;
+.bab-subtitle{
+    color:#64748b;
     font-size:11px;
-    line-height:1.4;
+    margin-top:4px;
 }
 
-.arrow{
+.bab-arrow{
     color:#94a3b8;
-    font-size:22px;
+    font-size:20px;
 }
 
 
-/* ================= BOTTOM NAV ================= */
+/* =========================
+   BOTTOM NAV
+========================= */
 
 .bottom-nav{
     position:fixed;
-
-    left:50%;
     bottom:0;
-
+    left:50%;
     transform:translateX(-50%);
-
     width:100%;
     max-width:520px;
-
-    padding:8px 12px;
-
-    background:white;
-
-    border-top:1px solid #dbe4f5;
-
-    display:grid;
-    grid-template-columns:repeat(3,1fr);
-
-    z-index:500;
-
-    transition:.3s;
+    background:rgba(255,255,255,.96);
+    border-top:1px solid #e5eaf2;
+    display:flex;
+    justify-content:space-around;
+    padding:10px 8px calc(10px + env(safe-area-inset-bottom));
+    z-index:100;
 }
 
-.nav-button{
+.nav-item{
     border:0;
     background:transparent;
-
     color:#64748b;
-
-    padding:6px 4px;
-
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:4px;
     font-size:11px;
-
-    cursor:pointer;
+    font-weight:700;
 }
 
 .nav-icon{
-    display:block;
-
-    font-size:21px;
-
-    margin-bottom:3px;
+    font-size:20px;
 }
 
-.nav-button.active{
+
+/* =========================
+   MODAL
+========================= */
+
+.modal{
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(15,23,42,.55);
+    z-index:5000;
+    align-items:flex-end;
+    justify-content:center;
+    padding:15px;
+}
+
+.modal-box{
+    width:100%;
+    max-width:520px;
+    background:white;
+    border-radius:24px;
+    padding:22px;
+    max-height:85vh;
+    overflow-y:auto;
+}
+
+.modal-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    margin-bottom:18px;
+}
+
+.modal-title{
+    font-size:20px;
+    font-weight:900;
+}
+
+.close-button{
+    border:0;
+    background:#eef2f7;
+    width:36px;
+    height:36px;
+    border-radius:10px;
+    font-size:18px;
+}
+
+.profile-row{
+    padding:13px 0;
+    border-bottom:1px solid #edf0f5;
+}
+
+.profile-label{
+    color:#64748b;
+    font-size:11px;
+}
+
+.profile-value{
+    font-weight:800;
+    margin-top:4px;
+    word-break:break-word;
+}
+
+.logout-button{
+    width:100%;
+    border:0;
+    background:#ef4444;
+    color:white;
+    padding:13px;
+    border-radius:12px;
+    margin-top:20px;
+    font-weight:900;
+}
+
+
+/* =========================
+   OWNER
+========================= */
+
+.owner-loading{
+    text-align:center;
+    color:#64748b;
+    padding:20px 5px;
+    font-size:13px;
+}
+
+.user-list{
+    display:flex;
+    flex-direction:column;
+    gap:10px;
+}
+
+.user-item{
+    border:1px solid #e5eaf2;
+    border-radius:15px;
+    padding:14px;
+}
+
+.user-item-top{
+    display:flex;
+    justify-content:space-between;
+    gap:10px;
+}
+
+.user-name{
+    font-weight:900;
+}
+
+.user-role{
+    font-size:10px;
+    font-weight:900;
     color:#2563eb;
-    font-weight:bold;
+}
+
+.user-email{
+    color:#64748b;
+    font-size:12px;
+    margin-top:5px;
+    word-break:break-word;
+}
+
+.user-xp{
+    font-size:12px;
+    font-weight:800;
+    margin-top:9px;
 }
 
 
-/* ================= DARK MODE ================= */
+/* =========================
+   DARK MODE
+========================= */
 
 body.dark{
     background:#0f172a;
-    color:#f1f5f9;
+    color:#e5e7eb;
 }
 
-body.dark .header{
-    background:#1e293b;
-    border-color:#334155;
+body.dark .auth-box,
+body.dark .stat-card,
+body.dark .bab-card,
+body.dark .icon-button,
+body.dark .bottom-nav,
+body.dark .modal-box{
+    background:#172033;
+    color:#e5e7eb;
 }
 
-body.dark .brand small{
+body.dark .auth-subtitle,
+body.dark .stat-label,
+body.dark .bab-subtitle,
+body.dark .brand-sub,
+body.dark .account-role,
+body.dark .progress-info,
+body.dark .owner-loading,
+body.dark .user-email{
     color:#94a3b8;
 }
 
-body.dark .theme-button{
-    background:#334155;
-    color:#f8fafc;
+body.dark .auth-tabs{
+    background:#0f172a;
 }
 
-body.dark .score{
+body.dark .auth-tabs button{
+    color:#94a3b8;
+}
+
+body.dark .auth-tabs button.active{
+    background:#172033;
+    color:#60a5fa;
+}
+
+body.dark .auth-form input{
+    background:#0f172a;
+    color:white;
+    border-color:#334155;
+}
+
+body.dark .icon-button{
+    box-shadow:none;
+}
+
+body.dark .xp-header{
     background:#172554;
     color:#60a5fa;
 }
 
-body.dark .feature{
-    background:#1e293b;
-    border-color:#334155;
-}
-
-body.dark .feature-icon{
-    background:#172554;
-}
-
-body.dark .feature p{
-    color:#94a3b8;
-}
-
-body.dark .percent{
-    color:#60a5fa;
-}
-
-body.dark .progress-bar{
-    background:#334155;
-}
-
-body.dark .section-title span{
-    color:#94a3b8;
-}
-
-body.dark .bab-card{
-    background:#1e293b;
+body.dark .bottom-nav{
     border-color:#334155;
 }
 
@@ -570,79 +703,85 @@ body.dark .bab-number{
     color:#60a5fa;
 }
 
-body.dark .bab-info p{
-    color:#94a3b8;
+body.dark .progress-track{
+    background:#334155;
 }
 
-body.dark .arrow{
-    color:#64748b;
-}
-
-body.dark .bottom-nav{
-    background:#1e293b;
+body.dark .profile-row{
     border-color:#334155;
 }
 
-body.dark .nav-button{
-    color:#94a3b8;
+body.dark .close-button{
+    background:#273449;
+    color:white;
 }
 
-body.dark .nav-button.active{
-    color:#60a5fa;
+body.dark .user-item{
+    border-color:#334155;
 }
 
 
-/* ================= LANDSCAPE ================= */
+/* =========================
+   LANDSCAPE
+========================= */
 
-@media (orientation:landscape){
+@media(
+    orientation:landscape
+) and (max-height:600px){
 
-    #app{
+    .container{
         max-width:900px;
-    }
-
-    .content{
-        padding:18px 25px;
-    }
-
-    .bab-list{
-        display:grid;
-        grid-template-columns:repeat(2,1fr);
     }
 
     .bottom-nav{
         max-width:900px;
     }
 
+    .hero{
+        padding:18px;
+    }
+
+    .bab-list{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+    }
+
 }
 
 
-/* ================= HP KECIL ================= */
+/* =========================
+   SMALL PHONE
+========================= */
 
-@media (max-width:360px){
+@media(max-width:360px){
 
-    .brand h1{
+    .container{
+        padding:11px;
+    }
+
+    .hero-title{
+        font-size:21px;
+    }
+
+    .brand-text{
         font-size:18px;
     }
 
-    .brand small{
-        font-size:9px;
-    }
-
-    .brand-icon{
-        width:38px;
-        height:38px;
-    }
-
-    .theme-button{
-        width:34px;
-        height:34px;
-    }
-
-    .score{
-        font-size:10px;
+    .xp-header{
         padding:8px;
     }
 
+}
+
+
+/* =========================
+   SPLASH HIDE
+========================= */
+
+.splash-hide{
+    opacity:0;
+    pointer-events:none;
+    transition:.4s;
 }
 
 </style>
@@ -653,616 +792,1976 @@ body.dark .nav-button.active{
 <body>
 
 
-<!-- ================= SPLASH ================= -->
+<!-- =========================
+     SPLASH
+========================= -->
 
 <div id="splash">
 
-    <div class="splash-content">
+    <div class="splash-box">
 
         <div class="splash-logo">
-            📐
+            M
         </div>
 
-        <h1>MathX</h1>
+        <div class="splash-title">
+            MathX
+        </div>
 
-        <p>
+        <div class="splash-text">
             Matematika Kelas 10
-        </p>
+        </div>
 
     </div>
 
 </div>
 
 
-<!-- ================= APP ================= -->
+<!-- =========================
+     AUTH SCREEN
+========================= -->
+
+<div id="authScreen">
+
+    <div class="auth-box">
+
+        <div class="auth-logo">
+            M
+        </div>
+
+        <div class="auth-title">
+            MathX
+        </div>
+
+        <div class="auth-subtitle">
+            Masuk untuk menyimpan progres belajar
+        </div>
+
+
+        <div class="auth-tabs">
+
+            <button
+                id="loginTab"
+                class="active"
+                type="button"
+            >
+                Masuk
+            </button>
+
+            <button
+                id="registerTab"
+                type="button"
+            >
+                Daftar
+            </button>
+
+        </div>
+
+
+        <!-- LOGIN -->
+
+        <form
+            id="loginForm"
+            class="auth-form"
+        >
+
+            <input
+                id="loginEmail"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                required
+            >
+
+            <input
+                id="loginPassword"
+                type="password"
+                placeholder="Password"
+                autocomplete="current-password"
+                required
+            >
+
+            <button
+                class="auth-submit"
+                type="submit"
+            >
+                Masuk
+            </button>
+
+        </form>
+
+
+        <!-- REGISTER -->
+
+        <form
+            id="registerForm"
+            class="auth-form"
+            style="display:none"
+        >
+
+            <input
+                id="registerName"
+                type="text"
+                placeholder="Nama"
+                autocomplete="name"
+                required
+            >
+
+            <input
+                id="registerEmail"
+                type="email"
+                placeholder="Email"
+                autocomplete="email"
+                required
+            >
+
+            <input
+                id="registerPassword"
+                type="password"
+                placeholder="Password minimal 6 karakter"
+                autocomplete="new-password"
+                required
+            >
+
+            <button
+                class="auth-submit"
+                type="submit"
+            >
+                Buat Akun
+            </button>
+
+        </form>
+
+
+        <div
+            id="authMessage"
+            class="auth-message"
+        ></div>
+
+    </div>
+
+</div>
+
+
+<!-- =========================
+     MAIN APP
+========================= -->
 
 <div id="app">
 
+    <div class="container">
 
-<!-- HEADER -->
 
-<header class="header">
+        <!-- HEADER -->
 
-    <div class="brand">
+        <header class="header">
 
-        <div class="brand-icon">
-            📐
+            <div class="brand">
+
+                <div class="brand-icon">
+                    M
+                </div>
+
+                <div>
+
+                    <div class="brand-text">
+                        MathX
+                    </div>
+
+                    <div class="brand-sub">
+                        Matematika Kelas 10
+                    </div>
+
+                </div>
+
+            </div>
+
+
+            <div class="header-actions">
+
+                <div class="xp-header">
+                    ⭐ <span id="xp">0</span> XP
+                </div>
+
+                <button
+                    id="accountButton"
+                    class="icon-button"
+                    type="button"
+                >
+                    👤
+                </button>
+
+                <button
+                    id="themeButton"
+                    class="icon-button"
+                    type="button"
+                >
+                    🌙
+                </button>
+
+            </div>
+
+        </header>
+
+
+        <!-- HERO -->
+
+        <section class="hero">
+
+            <div
+                id="heroTitle"
+                class="hero-title"
+            >
+                Halo! 👋
+            </div>
+
+            <div class="hero-text">
+                Belajar matematika, selesaikan kuis,
+                kumpulkan XP, dan tingkatkan levelmu.
+            </div>
+
+
+            <div class="account-card">
+
+                <div
+                    id="accountName"
+                    class="account-name"
+                >
+                    Pengguna
+                </div>
+
+                <div
+                    id="accountRole"
+                    class="account-role"
+                >
+                    👤 Pengguna MathX
+                </div>
+
+            </div>
+
+
+            <button
+                id="ownerButton"
+                class="owner-button"
+                type="button"
+                style="display:none"
+            >
+                👑 Panel Owner
+            </button>
+
+        </section>
+
+
+        <!-- XP -->
+
+        <div class="section-title">
+            Perkembangan XP
         </div>
 
-        <div>
 
-            <h1>MathX</h1>
+        <div class="stats">
 
-            <small>
-                Matematika Kelas 10
-            </small>
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    XP Kamu
+                </div>
+
+                <div
+                    id="xpCard"
+                    class="stat-value"
+                >
+                    <span id="xpValue">0</span>
+                    XP
+                </div>
+
+                <div class="progress-track">
+
+                    <div
+                        id="xpBar"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <div class="progress-info">
+
+                    <span>
+                        Level
+                    </span>
+
+                    <span id="xpPercent">
+                        0%
+                    </span>
+
+                </div>
+
+            </div>
+
+
+            <div class="stat-card">
+
+                <div class="stat-label">
+                    Progress Bab
+                </div>
+
+                <div
+                    id="progressPercent"
+                    class="stat-value"
+                >
+                    0%
+                </div>
+
+                <div class="progress-track">
+
+                    <div
+                        id="progressBar"
+                        class="progress-bar"
+                    ></div>
+
+                </div>
+
+                <div
+                    id="progressText"
+                    class="progress-info"
+                >
+                    0 dari 10 bab selesai.
+                </div>
+
+            </div>
 
         </div>
+
+
+        <!-- BAB -->
+
+        <div class="section-title">
+            📚 Semua Bab
+        </div>
+
+
+        <div class="bab-list">
+
+
+            <a
+                class="bab-card"
+                href="bab1.html"
+            >
+
+                <div class="bab-number">
+                    1
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Eksponen & Logaritma
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Pangkat, akar, dan logaritma
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab2.html"
+            >
+
+                <div class="bab-number">
+                    2
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Barisan & Deret
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Aritmetika dan geometri
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab3.html"
+            >
+
+                <div class="bab-number">
+                    3
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Vektor
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Operasi dan penerapan vektor
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab4.html"
+            >
+
+                <div class="bab-number">
+                    4
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Trigonometri
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Sudut dan perbandingan trigonometri
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab5.html"
+            >
+
+                <div class="bab-number">
+                    5
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Sistem Persamaan Linear
+                    </div>
+
+                    <div class="bab-subtitle">
+                        SPL dan penyelesaiannya
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab6.html"
+            >
+
+                <div class="bab-number">
+                    6
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Fungsi
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Konsep dan operasi fungsi
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab7.html"
+            >
+
+                <div class="bab-number">
+                    7
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Persamaan & Pertidaksamaan
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Persamaan dan pertidaksamaan
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab8.html"
+            >
+
+                <div class="bab-number">
+                    8
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Matriks
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Operasi dan determinan matriks
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab9.html"
+            >
+
+                <div class="bab-number">
+                    9
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Statistika
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Data dan ukuran pemusatan
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+            <a
+                class="bab-card"
+                href="bab10.html"
+            >
+
+                <div class="bab-number">
+                    10
+                </div>
+
+                <div class="bab-info">
+
+                    <div class="bab-title">
+                        Peluang
+                    </div>
+
+                    <div class="bab-subtitle">
+                        Konsep dasar peluang
+                    </div>
+
+                </div>
+
+                <div class="bab-arrow">
+                    ›
+                </div>
+
+            </a>
+
+
+        </div>
+
 
     </div>
 
 
-    <div class="header-right">
+    <!-- =========================
+         BOTTOM NAV
+    ========================= -->
+
+    <nav class="bottom-nav">
 
         <button
-        class="theme-button"
-        id="themeButton"
-        type="button">
+            class="nav-item"
+            type="button"
+            onclick="window.scrollTo({top:0,behavior:'smooth'})"
+        >
 
-            🌙
+            <span class="nav-icon">
+                🏠
+            </span>
+
+            Home
 
         </button>
 
 
-        <div class="score">
+        <button
+            class="nav-item"
+            type="button"
+            onclick="document.querySelector('.section-title').scrollIntoView({behavior:'smooth'})"
+        >
 
-            ⭐ <span id="xp">0</span> XP
+            <span class="nav-icon">
+                📚
+            </span>
 
-        </div>
+            Semua Bab
 
-    </div>
-
-</header>
-
-
-<!-- CONTENT -->
-
-<main class="content">
-
-
-<!-- HERO -->
-
-<section class="hero">
-
-    <h2>
-        Halo, MathX! 👋
-    </h2>
-
-    <p>
-        Belajar matematika kelas 10
-        dengan lebih mudah dan teratur.
-    </p>
-
-</section>
+        </button>
 
 
-<!-- PROGRESS -->
+        <button
+            class="nav-item"
+            type="button"
+            onclick="alert('Kuis tersedia di dalam masing-masing BAB.')"
+        >
 
-<div class="section-title">
+            <span class="nav-icon">
+                📝
+            </span>
 
-    <h2>
-        Progress Belajar
-    </h2>
+            Kuis
 
-    <span>
-        10 Bab
-    </span>
+        </button>
+
+    </nav>
 
 </div>
 
 
-<section class="features">
+<!-- =========================
+     PROFILE MODAL
+========================= -->
 
+<div
+    id="profileModal"
+    class="modal"
+>
 
-<!-- XP -->
+    <div class="modal-box">
 
-<div class="feature">
+        <div class="modal-header">
 
-    <div class="feature-icon">
-        🏆
-    </div>
+            <div class="modal-title">
+                👤 Profil
+            </div>
 
-    <div class="feature-content">
-
-        <div class="feature-top">
-
-            <h3>
-                XP Kamu
-            </h3>
-
-            <span
-            class="percent"
-            id="xpPercent">
-                0%
-            </span>
+            <button
+                id="closeProfile"
+                class="close-button"
+                type="button"
+            >
+                ×
+            </button>
 
         </div>
 
-        <p>
-            Kumpulkan XP dari aktivitas belajar.
-        </p>
 
-        <div class="progress-bar">
+        <div class="profile-row">
+
+            <div class="profile-label">
+                Nama
+            </div>
 
             <div
-            class="progress-fill"
-            id="xpBar">
+                id="profileName"
+                class="profile-value"
+            >
+                -
             </div>
 
         </div>
 
-    </div>
 
-</div>
+        <div class="profile-row">
 
-
-<!-- PROGRESS -->
-
-<div class="feature">
-
-    <div class="feature-icon">
-        📈
-    </div>
-
-    <div class="feature-content">
-
-        <div class="feature-top">
-
-            <h3>
-                Progress Bab
-            </h3>
-
-            <span
-            class="percent"
-            id="progressPercent">
-                0%
-            </span>
-
-        </div>
-
-        <p>
-            0 dari 10 bab selesai.
-        </p>
-
-        <div class="progress-bar">
+            <div class="profile-label">
+                Email
+            </div>
 
             <div
-            class="progress-fill"
-            id="progressBar">
+                id="profileEmail"
+                class="profile-value"
+            >
+                -
             </div>
 
         </div>
 
+
+        <div class="profile-row">
+
+            <div class="profile-label">
+                Role
+            </div>
+
+            <div
+                id="profileRole"
+                class="profile-value"
+            >
+                -
+            </div>
+
+        </div>
+
+
+        <div class="profile-row">
+
+            <div class="profile-label">
+                XP
+            </div>
+
+            <div
+                id="profileXP"
+                class="profile-value"
+            >
+                0 XP
+            </div>
+
+        </div>
+
+
+        <button
+            id="logoutButton"
+            class="logout-button"
+            type="button"
+        >
+            Keluar dari Akun
+        </button>
+
     </div>
 
 </div>
 
 
-</section>
+<!-- =========================
+     OWNER MODAL
+========================= -->
+
+<div
+    id="ownerModal"
+    class="modal"
+>
+
+    <div class="modal-box">
+
+        <div class="modal-header">
+
+            <div class="modal-title">
+                👑 Data Pengguna
+            </div>
+
+            <button
+                id="closeOwner"
+                class="close-button"
+                type="button"
+            >
+                ×
+            </button>
+
+        </div>
 
 
-<!-- BAB -->
+        <div
+            id="ownerLoading"
+            class="owner-loading"
+        >
+            Memuat data pengguna...
+        </div>
 
-<div class="section-title">
 
-    <h2>
-        Materi Kelas 10
-    </h2>
+        <div
+            id="userList"
+            class="user-list"
+        ></div>
 
-    <span>
-        10 Bab
-    </span>
+    </div>
 
 </div>
 
 
-<section class="bab-list">
+<!-- =========================
+     FIREBASE
+========================= -->
 
+<script type="module">
 
-<a href="bab1.html" class="bab-card">
+import { initializeApp }
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-    <div class="bab-number">
-        01
-    </div>
+import {
+    getAuth,
+    onAuthStateChanged,
+    signInWithEmailAndPassword,
+    createUserWithEmailAndPassword,
+    signOut
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 
-    <div class="bab-info">
+import {
+    getFirestore,
+    doc,
+    getDoc,
+    setDoc,
+    getDocs,
+    collection
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-        <h3>
-            Eksponen &amp; Logaritma
-        </h3>
 
-        <p>
-            Bilangan berpangkat dan logaritma
-        </p>
+/* =========================================
+   🔥 FIREBASE CONFIG
+   =========================================
+   GANTI 2 BAGIAN INI DENGAN CONFIG ASLI
+   DARI FIREBASE CONSOLE.
+========================================= */
 
-    </div>
+const firebaseConfig = {
 
-    <div class="arrow">
-        ›
-    </div>
+    apiKey:
+        "AIzaSyC-esTPncreuGqGrV-qYiFmijqz5LD6tdA",
 
-</a>
+    authDomain:
+        "mathx-3d2e9.firebaseapp.com",
 
+    projectId:
+        "mathx-3d2e9",
 
-<a href="bab2.html" class="bab-card">
+    storageBucket:
+        "mathx-3d2e9.firebasestorage.app",
 
-    <div class="bab-number">
-        02
-    </div>
+    messagingSenderId:
+        "370300342771",
 
-    <div class="bab-info">
+    appId:
+        "1:370300342771:web:bb671dce11f4a5a92d0286"
 
-        <h3>
-            Barisan &amp; Deret
-        </h3>
+};
 
-        <p>
-            Aritmetika dan geometri
-        </p>
 
-    </div>
+/* =========================================
+   INIT FIREBASE
+========================================= */
 
-    <div class="arrow">
-        ›
-    </div>
+const app =
+    initializeApp(firebaseConfig);
 
-</a>
+const auth =
+    getAuth(app);
 
+const db =
+    getFirestore(app);
 
-<a href="bab3.html" class="bab-card">
 
-    <div class="bab-number">
-        03
-    </div>
+/* =========================================
+   ELEMENT
+========================================= */
 
-    <div class="bab-info">
+const splash =
+    document.getElementById("splash");
 
-        <h3>
-            Vektor
-        </h3>
+const authScreen =
+    document.getElementById("authScreen");
 
-        <p>
-            Konsep dan operasi vektor
-        </p>
+const appScreen =
+    document.getElementById("app");
 
-    </div>
+const authMessage =
+    document.getElementById("authMessage");
 
-    <div class="arrow">
-        ›
-    </div>
+const loginTab =
+    document.getElementById("loginTab");
 
-</a>
+const registerTab =
+    document.getElementById("registerTab");
 
+const loginForm =
+    document.getElementById("loginForm");
 
-<a href="bab4.html" class="bab-card">
+const registerForm =
+    document.getElementById("registerForm");
 
-    <div class="bab-number">
-        04
-    </div>
+const accountName =
+    document.getElementById("accountName");
 
-    <div class="bab-info">
+const accountRole =
+    document.getElementById("accountRole");
 
-        <h3>
-            Trigonometri
-        </h3>
+const heroTitle =
+    document.getElementById("heroTitle");
 
-        <p>
-            Perbandingan dan identitas trigonometri
-        </p>
+const xpElement =
+    document.getElementById("xp");
 
-    </div>
+const xpValue =
+    document.getElementById("xpValue");
 
-    <div class="arrow">
-        ›
-    </div>
+const ownerButton =
+    document.getElementById("ownerButton");
 
-</a>
+const profileModal =
+    document.getElementById("profileModal");
 
+const ownerModal =
+    document.getElementById("ownerModal");
 
-<a href="bab5.html" class="bab-card">
+let currentUser = null;
 
-    <div class="bab-number">
-        05
-    </div>
+let currentUserData = null;
 
-    <div class="bab-info">
 
-        <h3>
-            Sistem Persamaan Linear
-        </h3>
+/* =========================================
+   SPLASH
+========================================= */
 
-        <p>
-            Sistem persamaan dan penyelesaiannya
-        </p>
+setTimeout(() => {
 
-    </div>
+    splash.classList.add("splash-hide");
 
-    <div class="arrow">
-        ›
-    </div>
+    setTimeout(() => {
 
-</a>
+        splash.style.display = "none";
 
+    },400);
 
-<a href="bab6.html" class="bab-card">
+},1000);
 
-    <div class="bab-number">
-        06
-    </div>
 
-    <div class="bab-info">
+/* =========================================
+   AUTH TABS
+========================================= */
 
-        <h3>
-            Fungsi
-        </h3>
+loginTab.onclick = () => {
 
-        <p>
-            Konsep, grafik, dan operasi fungsi
-        </p>
+    loginTab.classList.add("active");
 
-    </div>
+    registerTab.classList.remove("active");
 
-    <div class="arrow">
-        ›
-    </div>
+    loginForm.style.display = "flex";
 
-</a>
+    registerForm.style.display = "none";
 
+    authMessage.textContent = "";
 
-<a href="bab7.html" class="bab-card">
+};
 
-    <div class="bab-number">
-        07
-    </div>
 
-    <div class="bab-info">
+registerTab.onclick = () => {
 
-        <h3>
-            Persamaan &amp; Pertidaksamaan
-        </h3>
+    registerTab.classList.add("active");
 
-        <p>
-            Persamaan dan pertidaksamaan
-        </p>
+    loginTab.classList.remove("active");
 
-    </div>
+    registerForm.style.display = "flex";
 
-    <div class="arrow">
-        ›
-    </div>
+    loginForm.style.display = "none";
 
-</a>
+    authMessage.textContent = "";
 
+};
 
-<a href="bab8.html" class="bab-card">
 
-    <div class="bab-number">
-        08
-    </div>
+/* =========================================
+   LOGIN
+========================================= */
 
-    <div class="bab-info">
+loginForm.addEventListener(
+    "submit",
+    async(event) => {
 
-        <h3>
-            Matriks
-        </h3>
+        event.preventDefault();
 
-        <p>
-            Operasi dan penerapan matriks
-        </p>
+        const email =
+            document.getElementById(
+                "loginEmail"
+            ).value.trim();
 
-    </div>
+        const password =
+            document.getElementById(
+                "loginPassword"
+            ).value;
 
-    <div class="arrow">
-        ›
-    </div>
 
-</a>
+        if(!email || !password){
 
+            showMessage(
+                "Email dan password wajib diisi.",
+                false
+            );
 
-<a href="bab9.html" class="bab-card">
+            return;
 
-    <div class="bab-number">
-        09
-    </div>
+        }
 
-    <div class="bab-info">
 
-        <h3>
-            Statistika
-        </h3>
+        showMessage(
+            "Sedang masuk...",
+            true
+        );
 
-        <p>
-            Data, ukuran pemusatan, dan penyebaran
-        </p>
 
-    </div>
+        try{
 
-    <div class="arrow">
-        ›
-    </div>
+            await signInWithEmailAndPassword(
+                auth,
+                email,
+                password
+            );
 
-</a>
+        }catch(error){
 
+            console.error(
+                "LOGIN ERROR:",
+                error
+            );
 
-<a href="bab10.html" class="bab-card">
+            showMessage(
+                firebaseError(error),
+                false
+            );
 
-    <div class="bab-number">
-        10
-    </div>
+        }
 
-    <div class="bab-info">
-
-        <h3>
-            Peluang
-        </h3>
-
-        <p>
-            Konsep peluang dan kejadian
-        </p>
-
-    </div>
-
-    <div class="arrow">
-        ›
-    </div>
-
-</a>
-
-
-</section>
-
-</main>
-
-
-<!-- ================= BOTTOM NAV ================= -->
-
-<nav class="bottom-nav">
-
-    <button
-    class="nav-button active"
-    type="button"
-    onclick="window.scrollTo(0,0)">
-
-        <span class="nav-icon">
-            🏠
-        </span>
-
-        Home
-
-    </button>
-
-
-    <button
-    class="nav-button"
-    type="button"
-    onclick="document.querySelector('.bab-list').scrollIntoView({behavior:'smooth'})">
-
-        <span class="nav-icon">
-            📚
-        </span>
-
-        Semua Bab
-
-    </button>
-
-
-    <button
-    class="nav-button"
-    type="button"
-    onclick="alert('Menu Kuis akan segera tersedia!')">
-
-        <span class="nav-icon">
-            📝
-        </span>
-
-        Kuis
-
-    </button>
-
-</nav>
-
-
-</div>
-
-
-<!-- ================= JAVASCRIPT ================= -->
-
-<script>
-
-/* XP */
-
-var xp = Number(localStorage.getItem("mathxXP") || 0);
-
-document.getElementById("xp").textContent = xp;
-
-
-/*
-500 XP = 100%
-*/
-
-var xpPercent = Math.min(
-    100,
-    Math.round((xp / 500) * 100)
+    }
 );
 
-document.getElementById("xpPercent").textContent =
-    xpPercent + "%";
 
-document.getElementById("xpBar").style.width =
-    xpPercent + "%";
+/* =========================================
+   REGISTER
+========================================= */
+
+registerForm.addEventListener(
+    "submit",
+    async(event) => {
+
+        event.preventDefault();
+
+        const name =
+            document.getElementById(
+                "registerName"
+            ).value.trim();
+
+        const email =
+            document.getElementById(
+                "registerEmail"
+            ).value.trim();
+
+        const password =
+            document.getElementById(
+                "registerPassword"
+            ).value;
 
 
-/* PROGRESS BAB */
+        if(name.length < 2){
 
-var completed = 0;
+            showMessage(
+                "Nama minimal 2 karakter.",
+                false
+            );
 
-for(var i = 1; i <= 10; i++){
+            return;
 
-    if(localStorage.getItem("mathxBab" + i) === "done"){
+        }
 
-        completed++;
+
+        if(password.length < 6){
+
+            showMessage(
+                "Password minimal 6 karakter.",
+                false
+            );
+
+            return;
+
+        }
+
+
+        showMessage(
+            "Membuat akun...",
+            true
+        );
+
+
+        try{
+
+            const credential =
+                await createUserWithEmailAndPassword(
+                    auth,
+                    email,
+                    password
+                );
+
+
+            const user =
+                credential.user;
+
+
+            await setDoc(
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                ),
+                {
+
+                    email:email,
+
+                    name:name,
+
+                    role:"user",
+
+                    xp:0
+
+                }
+            );
+
+
+            showMessage(
+                "Akun berhasil dibuat.",
+                true
+            );
+
+
+        }catch(error){
+
+            console.error(
+                "REGISTER ERROR:",
+                error
+            );
+
+            showMessage(
+                firebaseError(error),
+                false
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   AUTH STATE
+========================================= */
+
+onAuthStateChanged(
+    auth,
+    async(user) => {
+
+        if(!user){
+
+            currentUser = null;
+
+            currentUserData = null;
+
+            appScreen.style.display = "none";
+
+            authScreen.style.display = "flex";
+
+            return;
+
+        }
+
+
+        currentUser = user;
+
+
+        showMessage(
+            "Memuat akun...",
+            true
+        );
+
+
+        try{
+
+            const userRef =
+                doc(
+                    db,
+                    "users",
+                    user.uid
+                );
+
+
+            const snapshot =
+                await getDoc(userRef);
+
+
+            if(snapshot.exists()){
+
+                currentUserData =
+                    snapshot.data();
+
+            }else{
+
+                currentUserData = {
+
+                    email:
+                        user.email || "",
+
+                    name:
+                        user.email
+                        ? user.email.split("@")[0]
+                        : "Pengguna",
+
+                    role:"user",
+
+                    xp:0
+
+                };
+
+
+                await setDoc(
+                    userRef,
+                    currentUserData
+                );
+
+            }
+
+
+            showApp();
+
+
+        }catch(error){
+
+            console.error(
+                "FIRESTORE ERROR:",
+                error
+            );
+
+
+            showMessage(
+                "Login berhasil, tetapi data akun gagal dimuat. Periksa Firestore Rules.",
+                false
+            );
+
+        }
+
+    }
+);
+
+
+/* =========================================
+   SHOW APP
+========================================= */
+
+function showApp(){
+
+    authScreen.style.display = "none";
+
+    appScreen.style.display = "block";
+
+
+    const name =
+        currentUserData.name ||
+        "Pengguna";
+
+
+    const role =
+        currentUserData.role ||
+        "user";
+
+
+    const xp =
+        Number(
+            currentUserData.xp || 0
+        );
+
+
+    accountName.textContent =
+        name;
+
+
+    heroTitle.textContent =
+        "Halo, " + name + "! 👋";
+
+
+    if(role === "owner"){
+
+        accountRole.textContent =
+            "👑 Owner MathX";
+
+        ownerButton.style.display =
+            "block";
+
+    }else{
+
+        accountRole.textContent =
+            "👤 Pengguna MathX";
+
+        ownerButton.style.display =
+            "none";
 
     }
 
+
+    updateXP(xp);
+
+    updateProgress();
+
 }
 
-var progress = Math.round(
-    (completed / 10) * 100
-);
 
-document.getElementById("progressPercent").textContent =
-    progress + "%";
+/* =========================================
+   XP
+========================================= */
 
-document.getElementById("progressBar").style.width =
-    progress + "%";
+function updateXP(xp){
+
+    xp =
+        Number(xp || 0);
 
 
-/* DARK MODE */
+    xpElement.textContent =
+        xp;
 
-var dark = localStorage.getItem("mathxDarkMode");
 
-if(dark === "true"){
+    xpValue.textContent =
+        xp;
 
-    document.body.classList.add("dark");
 
-    document.getElementById("themeButton").textContent =
+    const percent =
+        Math.min(
+            100,
+            Math.round(
+                (xp / 500) * 100
+            )
+        );
+
+
+    document.getElementById(
+        "xpPercent"
+    ).textContent =
+        percent + "%";
+
+
+    document.getElementById(
+        "xpBar"
+    ).style.width =
+        percent + "%";
+
+
+    localStorage.setItem(
+        "mathxXP",
+        xp
+    );
+
+}
+
+
+/* =========================================
+   PROGRESS
+========================================= */
+
+function updateProgress(){
+
+    let completed = 0;
+
+
+    for(
+        let i = 1;
+        i <= 10;
+        i++
+    ){
+
+        if(
+            localStorage.getItem(
+                "mathxBab" + i
+            ) === "done"
+        ){
+
+            completed++;
+
+        }
+
+    }
+
+
+    const percent =
+        Math.round(
+            (completed / 10) * 100
+        );
+
+
+    document.getElementById(
+        "progressPercent"
+    ).textContent =
+        percent + "%";
+
+
+    document.getElementById(
+        "progressBar"
+    ).style.width =
+        percent + "%";
+
+
+    document.getElementById(
+        "progressText"
+    ).textContent =
+        completed +
+        " dari 10 bab selesai.";
+
+}
+
+
+/* =========================================
+   PROFILE
+========================================= */
+
+document.getElementById(
+    "accountButton"
+).onclick = () => {
+
+    if(!currentUserData){
+
+        return;
+
+    }
+
+
+    document.getElementById(
+        "profileName"
+    ).textContent =
+        currentUserData.name ||
+        "Pengguna";
+
+
+    document.getElementById(
+        "profileEmail"
+    ).textContent =
+        currentUserData.email ||
+        currentUser?.email ||
+        "";
+
+
+    document.getElementById(
+        "profileRole"
+    ).textContent =
+        currentUserData.role === "owner"
+        ? "Owner"
+        : "Pengguna";
+
+
+    document.getElementById(
+        "profileXP"
+    ).textContent =
+        Number(
+            currentUserData.xp || 0
+        ) + " XP";
+
+
+    profileModal.style.display =
+        "flex";
+
+};
+
+
+/* =========================================
+   CLOSE PROFILE
+========================================= */
+
+document.getElementById(
+    "closeProfile"
+).onclick = () => {
+
+    profileModal.style.display =
+        "none";
+
+};
+
+
+/* =========================================
+   LOGOUT
+========================================= */
+
+document.getElementById(
+    "logoutButton"
+).onclick = async() => {
+
+    try{
+
+        await signOut(auth);
+
+        profileModal.style.display =
+            "none";
+
+    }catch(error){
+
+        console.error(
+            error
+        );
+
+        alert(
+            "Gagal keluar dari akun."
+        );
+
+    }
+
+};
+
+
+/* =========================================
+   OWNER PANEL
+========================================= */
+
+ownerButton.onclick = async() => {
+
+    if(
+        !currentUserData ||
+        currentUserData.role !== "owner"
+    ){
+
+        return;
+
+    }
+
+
+    ownerModal.style.display =
+        "flex";
+
+
+    const loading =
+        document.getElementById(
+            "ownerLoading"
+        );
+
+
+    const userList =
+        document.getElementById(
+            "userList"
+        );
+
+
+    loading.style.display =
+        "block";
+
+    loading.textContent =
+        "Memuat data pengguna...";
+
+    userList.innerHTML =
+        "";
+
+
+    try{
+
+        const snapshot =
+            await getDocs(
+                collection(
+                    db,
+                    "users"
+                )
+            );
+
+
+        loading.style.display =
+            "none";
+
+
+        if(snapshot.empty){
+
+            userList.innerHTML =
+                "<div class='owner-loading'>Belum ada pengguna.</div>";
+
+            return;
+
+        }
+
+
+        snapshot.forEach(
+            (userDoc) => {
+
+                const data =
+                    userDoc.data();
+
+
+                const item =
+                    document.createElement(
+                        "div"
+                    );
+
+                item.className =
+                    "user-item";
+
+
+                const top =
+                    document.createElement(
+                        "div"
+                    );
+
+                top.className =
+                    "user-item-top";
+
+
+                const name =
+                    document.createElement(
+                        "div"
+                    );
+
+                name.className =
+                    "user-name";
+
+                name.textContent =
+                    data.name ||
+                    "Tanpa nama";
+
+
+                const role =
+                    document.createElement(
+                        "div"
+                    );
+
+                role.className =
+                    "user-role";
+
+                role.textContent =
+                    data.role === "owner"
+                    ? "OWNER"
+                    : "USER";
+
+
+                top.appendChild(name);
+
+                top.appendChild(role);
+
+
+                const email =
+                    document.createElement(
+                        "div"
+                    );
+
+                email.className =
+                    "user-email";
+
+                email.textContent =
+                    data.email ||
+                    "Tidak ada email";
+
+
+                const xp =
+                    document.createElement(
+                        "div"
+                    );
+
+                xp.className =
+                    "user-xp";
+
+                xp.textContent =
+                    "⭐ " +
+                    Number(
+                        data.xp || 0
+                    ) +
+                    " XP";
+
+
+                item.appendChild(top);
+
+                item.appendChild(email);
+
+                item.appendChild(xp);
+
+
+                userList.appendChild(item);
+
+            }
+        );
+
+
+    }catch(error){
+
+        console.error(
+            "OWNER ERROR:",
+            error
+        );
+
+
+        loading.style.display =
+            "none";
+
+
+        userList.innerHTML =
+            "<div class='owner-loading'>Gagal mengambil data pengguna. Periksa Firestore Rules.</div>";
+
+    }
+
+};
+
+
+/* =========================================
+   CLOSE OWNER
+========================================= */
+
+document.getElementById(
+    "closeOwner"
+).onclick = () => {
+
+    ownerModal.style.display =
+        "none";
+
+};
+
+
+/* =========================================
+   CLOSE MODAL
+========================================= */
+
+profileModal.onclick =
+(event) => {
+
+    if(
+        event.target ===
+        profileModal
+    ){
+
+        profileModal.style.display =
+            "none";
+
+    }
+
+};
+
+
+ownerModal.onclick =
+(event) => {
+
+    if(
+        event.target ===
+        ownerModal
+    ){
+
+        ownerModal.style.display =
+            "none";
+
+    }
+
+};
+
+
+/* =========================================
+   DARK MODE
+========================================= */
+
+const savedDark =
+    localStorage.getItem(
+        "mathxDarkMode"
+    );
+
+
+if(savedDark === "true"){
+
+    document.body.classList.add(
+        "dark"
+    );
+
+
+    document.getElementById(
+        "themeButton"
+    ).textContent =
         "☀️";
 
 }
 
 
-/* TOMBOL DARK MODE */
+/* =========================================
+   DARK BUTTON
+========================================= */
 
-document.getElementById("themeButton").onclick =
-function(){
+document.getElementById(
+    "themeButton"
+).onclick = () => {
 
-    document.body.classList.toggle("dark");
+    document.body.classList.toggle(
+        "dark"
+    );
 
-    var aktif =
-        document.body.classList.contains("dark");
+
+    const active =
+        document.body.classList.contains(
+            "dark"
+        );
+
 
     localStorage.setItem(
         "mathxDarkMode",
-        aktif ? "true" : "false"
+        active
+        ? "true"
+        : "false"
     );
 
-    document.getElementById("themeButton").textContent =
-        aktif ? "☀️" : "🌙";
+
+    document.getElementById(
+        "themeButton"
+    ).textContent =
+        active
+        ? "☀️"
+        : "🌙";
 
 };
 
+
+/* =========================================
+   MESSAGE
+========================================= */
+
+function showMessage(
+    message,
+    loading
+){
+
+    authMessage.textContent =
+        message;
+
+
+    authMessage.style.color =
+        loading
+        ? "#64748b"
+        : "#dc2626";
+
+}
+
+
+/* =========================================
+   FIREBASE ERROR
+========================================= */
+
+function firebaseError(error){
+
+    const code =
+        error.code || "";
+
+
+    if(
+        code ===
+        "auth/invalid-credential"
+    ){
+
+        return "Email atau password salah.";
+
+    }
+
+
+    if(
+        code ===
+        "auth/invalid-email"
+    ){
+
+        return "Format email tidak valid.";
+
+    }
+
+
+    if(
+        code ===
+        "auth/email-already-in-use"
+    ){
+
+        return "Email tersebut sudah terdaftar.";
+
+    }
+
+
+    if(
+        code ===
+        "auth/weak-password"
+    ){
+
+        return "Password minimal 6 karakter.";
+
+    }
+
+
+    if(
+        code ===
+        "auth/network-request-failed"
+    ){
+
+        return "Koneksi internet bermasalah.";
+
+    }
+
+
+    if(
+        code ===
+        "auth/too-many-requests"
+    ){
+
+        return "Terlalu banyak percobaan. Coba lagi nanti.";
+
+    }
+
+
+    if(
+        code ===
+        "permission-denied"
+    ){
+
+        return "Firestore menolak akses. Periksa Rules.";
+
+    }
+
+
+    return (
+        "Terjadi kesalahan Firebase: " +
+        code
+    );
+
+}
+
 </script>
 
-
 </body>
+
 </html>
